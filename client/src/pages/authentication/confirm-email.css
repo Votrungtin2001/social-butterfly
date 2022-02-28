@@ -6,8 +6,11 @@
   .weight-400 {
     font-weight: 400;
   }
-  .container {
+  .container-confirm {
     border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 8px 10px 30px rgba(0, 0, 0, 0.329);
+    width: 400px;
     
   }
   .header-confirm-email {
@@ -51,24 +54,32 @@
   .m-top-24 {
     margin-top: 24px;
   }
-  
+  .confirm-image{
+    height: 180px;
+    background-image: url(../../assets/img/email-verify.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 70%;
+    margin-top: 20px;
+  }
   .resend-email-btn {
     margin-top: 20px;
-    width: 200px;
-    height: 50px;
+    width: 156px;
+    height: 43px;
     border-radius: 40px;
     outline: none;
     font-weight: 500;
     font-size: 1rem;
     border: none;
-    background: #445a94;
+    background: #61C0BF;
     color: #fff;
-    box-shadow: 8px 10px 30px rgba(0, 0, 0, 0.329);
+   
     transition: 0.4s;
+    margin-bottom: 25px;
   }
 
   .resend-email-btn:hover{
-    background: #4b2888;
+    background: #5ec0be;
     color: #fff;
 }
 

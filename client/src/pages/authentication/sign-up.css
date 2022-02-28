@@ -1,0 +1,360 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  
+}
+
+.register {
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+  }
+  
+  .registerWrapper {
+    width: 70%;
+    height: 70%;
+    display: flex;
+  }
+  
+  .registerLeft,
+  .registerRight {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+  }
+  
+  .registerLogo { 
+    font-size: 50px;
+    font-weight: 800;
+    color: #1775ee;
+    margin-bottom: 10px;
+  }
+  
+  .registerDesc {
+    font-size: 24px;
+    
+   
+  }
+  .font-12{
+      font-size: 12px;
+  }
+
+  .registerBox{
+      height: 1000px;
+      width: 400px;
+      padding: 20px;
+      background-color: #BBDED6;
+      border-radius: 10px;
+      display: flex;
+      margin-left: auto;
+      justify-content: center;
+      background-image: url(../../assets/img/sign-up-image.png);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100%;
+     
+}
+.registerBoxRight{
+  height: 900px;
+  width: 300px;
+  padding: 20px;
+  background-color: transparent;
+  border-radius: 10px;
+  display: block;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 100px;
+}
+
+  .heading h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333333;
+   
+  }
+  .heading{
+      margin-bottom: 20px;
+  }
+
+  .sign-in-anchor{
+	text-decoration: none;
+	color: #FFA0A0;
+	font-weight: 500;
+	border: 0;
+	background-color: transparent;
+    justify-content: right;
+    align-items: flex-end;
+
+  }
+
+  
+
+  .registerInput{
+      height: 37px;
+      width: 115px;
+      border-radius: 10px;
+      border: 1px solid gray;
+      font-size: 14px;
+      padding-left: 20px;
+      margin-top: 20px;
+      font-size: 14px;
+     
+  }
+
+  .registerInput2{
+    height: 37px;
+    width: 140px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    font-size: 14px;
+    padding-left: 20px;
+    margin-top: 20px;
+    font-size: 14px;
+    margin-left: 20px;
+  }
+  .registerInput3{
+    width: 100%;
+    height: 37px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    font-size: 14px;
+    padding-left: 20px;
+    margin-top: 20px;
+    font-size: 14px;
+    
+  }
+  
+  .registerInput:focus{
+      outline: none;
+  }
+  
+  .registerButton{
+      height: 43px;
+      width: 38%;
+      border: none;
+      background-color: #FFB6B9;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      align-self: center;
+      border-radius: 10px;
+      align-content: center;
+      display: block;
+      justify-self: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 15px;
+}
+  
+  .registerButton:focus{
+    outline: none;
+  }
+  .registerButton:hover{
+    background: #4b2888;
+    color: #fff;
+}
+  .registerButton:disabled{
+    cursor: not-allowed;
+  }
+  
+  .registerForgot{
+      
+      color: #333333;
+      align-self:flex-end;
+ 
+      opacity: 0.5;
+      font-size: 14px;
+  }
+
+  .block{
+    display: flex;
+    justify-content: space-between;
+
+      
+  }
+.m-left-8{
+    margin-left: 8px;
+}
+  .flex{
+    display: flex;
+  }
+
+
+  input{
+    border: none;
+    outline: none;
+  }
+  .wrap2{
+    width: 80%;
+   
+    position: relative;
+    border-bottom: 2px solid #b2b2b2;
+    margin-bottom: 13px;
+}
+.wrap{
+    display: flex;
+    width: 100%;
+   
+}
+
+
+.flex1{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.custom-radio-btn {
+  --size: 12px;
+  min-width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  
+  position: relative;
+  padding-left: 0;
+  opacity: 0.5;
+  padding-right: var(--size);
+}
+
+.custom-radio-btn input {
+  display: none;
+}
+
+.custom-radio-btn .label {
+  margin: 0 12px 0 0;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.custom-radio-btn .checkmark {
+  --gap: 3px;
+  --border: 1px;
+  --check-color: rgba(0, 0, 0, 1);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: inline-block;
+  transition: opacity 0.3s ease;
+  /* changes from the video  */
+
+  border: var(--border) solid rgba(0, 0, 0, 1);
+  
+  position: absolute;
+  top: 0;
+  left: auto;
+  right: 0;
+}
+
+.custom-radio-btn input:checked ~ .checkmark {
+  /* changes from the video  */
+
+  /*  content box origin will make sure the bg-image only stays inside content area in between padding  */
+  background-origin: content-box;
+  background-repeat: no-repeat;
+  background-image: radial-gradient(
+    circle at center,
+    var(--check-color)
+      calc((var(--size) - (var(--border) * 2) - (var(--gap) * 2)) / 2),
+    rgba(255, 255, 255, 0) 0
+  );
+}
+
+.gender-select {
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 8px;
+}
+.type-select {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.m-top-14{
+  margin-top: 14px;
+}
+.m-top-10{
+  margin-top: 10px;}
+
+  .signup-bottom{
+    vertical-align: bottom;
+    margin-left: 5px;
+   width: 400px;
+  }
+
+  .signup-middle{
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+
+  .invalid-input {
+    border: 1px solid red;
+    height: 40px;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .placeholder {
+    position: absolute;
+    float: left;
+    margin-right: auto;
+    margin-left: 15px;
+    color: black;
+    font-weight: 400;
+    opacity: 0.5;
+    pointer-events: none;
+    font-size: 14px;
+  }
+  .input-field {
+    border: 1px solid #111;
+    height: 40px;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .input-sign-up {
+    background-color: transparent;
+    vertical-align: middle;
+    margin-left: 16px;
+    margin-right: 5px;
+    width: 90%;
+    color: #111;
+    font-size: 14px;
+  }
+  .sign-up-text-danger {
+    font-size: 12px;
+    color: red;
+  }
+
+  .m-left-265{
+    margin-left: 265px;
+  }
+  .m-top-5{
+    margin-top: 5px;
+  }

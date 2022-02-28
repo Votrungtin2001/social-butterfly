@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 
 import { Fragment } from "react/cjs/react.production.min";
 import exit from "../../assets/login/exit.png";
-import image_email from "../../assets/login/email-verify.png";
+
 import axios from 'axios';
 import { Link, useHistory } from "react-router-dom";
 import "./confirm-email.css";
@@ -25,24 +25,24 @@ const ConfirmEmail = ({ email, setIsLogin, handleShowUpdateInformation }) => {
 
         isFirst ? (
             <Fragment>
-                <div className="container w-440 h-auto">
+                <div className="container-confirm w-440 h-auto">
                     <div className="header-confirm-email">
                         <span></span>
                         <span className="weight-500 m-top-28 font-24">Email Verification</span>
-                        <button className="m-top-28" onClick={() => {
+                        <button className="m-top-28 close-image" onClick={() => {
                             setIsLogin(true);
                         }}>
                             <img src={exit} />
                         </button>
                     </div>
-                    <div>
-                        <img className="image" scr={image_email} ></img>
+                    <div className="confirm-image">
+                        <img  ></img>
                     </div>
                     {/* {error && showErrMsg(error)} */}
                     <div className="content m-top-42">
                         <span className="weight-400">Authentication email will be sent to mail </span>
                         <span className="email-link weight-400">{email}</span>
-                        <div className="m-top-12 weight-400">If correct, choose email verification, if wrong email, select "Change verification email" at the bottom.</div>
+                        <div className="m-top-12 weight-400">Please visit email to verify (Note to check Spam/Junk).</div>
 
                         <button className="resend-email-btn w-full">Submit</button>
 
@@ -61,8 +61,8 @@ const ConfirmEmail = ({ email, setIsLogin, handleShowUpdateInformation }) => {
                             <img src={exit} />
                         </button>
                     </div>
-                    <div>
-                        <img className="image" scr={image_email} ></img>
+                    <div className="confirm-image">
+                        <img ></img>
                     </div>
                     {/* {error && showErrMsg(error)} */}
                     <div className="content m-top-42">

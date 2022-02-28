@@ -1,0 +1,347 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.login {
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../../assets/img/wave.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-color: #BBDED6;
+  }
+  
+  .loginWrapper {
+    width: 70%;
+    height: 70%;
+    display: flex;
+  }
+  
+  .loginLeft,
+  .loginRight {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+  }
+  
+  .loginLogo {
+    font-size: 50px;
+    font-weight: 800;
+    color: #1775ee;
+    margin-bottom: 10px;
+  }
+  
+  .loginDesc {
+    font-size: 24px;
+    background-image: url(../../assets/img/welcome.png);
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position:initial;
+    height: 300px;
+  }
+  .font-12{
+      font-size: 12px;
+      
+  }
+
+  .loginBox{
+      height: 570px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      display: block;
+      flex-direction: column;
+      justify-content: center;
+     width: 370px;
+     margin-left: auto;
+     margin-right: auto;
+  }
+
+  .m-top-35{
+    margin-top: 35px;
+  }
+  .heading h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333333;
+    
+  }
+  .heading{
+      margin-bottom: 20px;
+      
+  }
+
+  .sign-in-anchor{
+	text-decoration: none;
+	color: #FFA0A0;
+	font-weight: 500;
+	border: 0;
+	background-color: transparent;
+    justify-content: right;
+    align-items: flex-end;
+
+  }
+
+  div.other-option {
+	display: flex;
+	width: 80%;
+	opacity: 0.5;
+	flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  }
+  div.other-option:before,
+  div.other-option:after {
+	width: 164px;
+	content: "";
+	flex: 1 1;
+	border-bottom: 1.5px solid;
+	margin: auto;
+  }
+  div .other-text {
+	font-size: 12px;
+	margin-left: 10px;
+	margin-right: 10px;
+  }
+
+  .loginInput{
+      width: 100%;
+      height: 37px;
+      border-radius: 10px;
+      border: 1px solid gray;
+      font-size: 14px;
+   
+      margin-top: 20px;
+      margin-bottom: 5px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  
+  .loginInput:focus{
+      outline: none;
+  }
+  
+  .loginButton{
+      height: 43px;
+      width: 33%;
+      border: none;
+      background-color: #FFB6B9;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      align-self: center;
+      border-radius: 10px;
+      align-content: center;
+      display: block;
+      justify-self: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 30px;
+}
+  
+  .loginButton:focus{
+    outline: none;
+  }
+  .loginButton:hover{
+    background: #4b2888;
+    color: #fff;
+}
+  .loginButton:disabled{
+    cursor: not-allowed;
+  }
+  
+  .loginForgot{
+      
+      color: #333333;
+      align-self:flex-end;
+      background-color: transparent;
+      opacity: 0.5;
+      font-size: 12px;
+      text-decoration: none;
+      border: none;
+  }
+
+  .loginForgot:hover{
+    color: #000000;
+    opacity: 1;
+  }
+  .signin-bottom {
+    vertical-align: bottom;
+    margin-left: 5px;
+   
+   
+  }
+  .input-box {
+    width: 376px;
+    height: 56px;
+    border-radius: 10px;
+    border: 1px solid #111111;
+    position: relative;
+    text-overflow: ellipsis;
+    margin-top: 16px;
+    display: flex;
+   
+  }
+
+  .wrong-input-format {
+    width: 376px;
+    height: 56px;
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid red;
+    text-overflow: ellipsis;
+    margin-top: 16px;
+  }
+  .username-input {
+    background-image: url(../../assets/login/icons8-user-64.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-position-x: 12px;
+    background-size: 8%;
+    width: 320px;
+    height: 45px;
+    margin-top: 5px;
+    padding-left: 52.8px;
+    margin-left: 5px;
+    color: #000000;
+    background-color: transparent;
+  }
+  
+  .password-input {
+    background-image: url(../../assets/login/padlock.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-position-x: 12px;
+    background-size: 8%;
+    width: 320px;
+    height: 45px;
+    margin-top: 5px;
+    padding-left: 52.8px;
+    margin-left: 5px;
+    color: #000000;
+    background-color: transparent;
+  }
+
+  .border-5 {
+    border-radius: 5px;
+  }
+  .signin-middle {
+    vertical-align: middle;
+   }
+  .border-brown {
+    border: #111111 solid 1px;
+  }
+
+.m-left-8{
+    margin-left: 8px;
+}
+.m-top-10{
+margin-top: 10px;
+}
+
+.block{
+  
+  display: flex;
+
+}
+
+.remember-container{
+  display: flex;
+ 
+    align-items: center;
+    width: max-content;
+    
+}
+
+  
+  .social-sign-in {
+    align-items: center;
+    height: 43px;
+    border-radius: 10px;
+    border: 1.5px solid #000;
+    background-color: #fff;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    margin-top: 25px;
+  }
+  .social-sign-in.active {
+    background-color: #f0efed;
+  }
+
+  .social-logo { 
+    width: 24px;
+    height: 24px;
+    float: left;
+  }
+  
+  .google-logo {
+    margin-left: 20px;
+  }
+
+  .social-name {
+    display: block;
+    margin-left: 30px;
+    font-weight: 500;
+    font-size: 14px;
+    width: 200px;
+   
+  }
+
+  .show-button {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+  }
+
+  .m-top-16{
+    margin-top: 16px;
+  }
+  
+  .m-left-340{
+    margin-left: 340px;
+  }
+
+  .text-danger {
+   
+    font-size: 12px;
+    color: red;
+  }
+
+  .btn::after{
+content: '';
+height: 2px;
+width: 0%;
+background-color: #FFA0A0;
+display: block;
+transition: .5s ease-in-out;
+  }
+
+  .btn{
+    cursor: pointer;
+  }
+  .btn:hover::after{
+    content: '';
+    height: 2px;
+    background-color: #FFA0A0;
+    display: block;
+    width: 100%;
+
+  }
+  
+ 
