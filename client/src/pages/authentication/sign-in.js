@@ -72,7 +72,7 @@ const loginHandler = () => {
         </div>
         <div className="loginRight">
 
-          <form className="loginBox" >
+          <div className="loginBox" >
 
           <div class="heading m-top-35">
                 <h3>Welcome Back...</h3>
@@ -97,9 +97,9 @@ const loginHandler = () => {
               type={inputType}
               className="password-input"
             />
-            <button className="m-left-340 m-top-16 show-button" onClick={changeVisibilityHandler}>
+            {/* <button className="m-left-340 m-top-16 show-button" onClick={changeVisibilityHandler}>
               <img src={visibility} />
-            </button>
+            </button> */}
             </div>
             {!checkEmptyPassword && <small className="text-danger">Password can not be blank</small>}
             
@@ -129,7 +129,7 @@ const loginHandler = () => {
 
             <GoogleLogin/>
             
-          </form>
+          </div>
         </div>
       </div>
     </div>

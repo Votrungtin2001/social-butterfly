@@ -172,7 +172,7 @@ export default function SignUp() {
           </form>
         </div>
         <div className="registerRight">
-        <form className="registerBoxRight" >
+        <div className="registerBoxRight" >
           <div class="heading">
                 <h3>Get Started</h3>
                 <span className="font-12 weight-400">Already have an account? </span>
@@ -357,7 +357,7 @@ export default function SignUp() {
 
             <button onClick={handleSignUp} className="registerButton"  >Register</button>
 
-            </form>
+            </div>
         </div>
       </div>
     </div>
