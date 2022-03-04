@@ -16,7 +16,54 @@ function ForgotPassword() {
 
     const handleClick = () => {
         getEmailError();
+
+         //Some conditions before call api from server
+        if(1==1) {
+        // Add loading when run api
+  
+        //
+        sendEmailForResetPassword(email); // name, name ?? => First Name and Last Name 
+        //gender not get vale, fix and add as parameters in moveToConfirmEmail before in "Male"
+      }
     }
+
+    const sendEmailForResetPassword = (
+        email
+      ) => {
+        axios
+          .post(`${process.env.REACT_APP_API_URL}/api/auth/forgot`, {
+            email: email,
+          })
+          .then((res) => {
+            // When this account is exist and sending email for reset password successfully
+            
+            // Set remove error
+    
+            // Set loading false (stop)
+    
+            // // Announce "A reset password email has been sent to your email. Please check" by toast
+          })
+          .catch((err) => {
+            // Set loading false (stop)
+    
+            //Get status code of error
+            const code = err.message.substring(32, err.message.length);
+    
+            // This account is not exist
+            if (code == "400") {
+    
+              // Set text in email txt is empty
+    
+              //Print error "This account is not exist" (should use toast)
+    
+    
+            } else {
+              //Print error "Unknown network error happened" (should use toast)
+    
+            }
+          });
+      };
+
     const getEmailError = () => {
         setIsValidEmail(false);
         if (!email) {

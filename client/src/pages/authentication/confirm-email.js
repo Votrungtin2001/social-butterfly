@@ -15,11 +15,38 @@ window.onresize = () => {
 
 
 
-const ConfirmEmail = ({ email, setIsLogin, handleShowUpdateInformation }) => {
+const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday, sex, mobile, setIsLogin, handleShowUpdateInformation }) => {
     const history = useHistory();
     const [isFirst, setIsFirst] = useState(true);
     const [error, setError] = useState("");
 
+    const sendVerificationEmail = (token) => {
+        axios
+            .post(`${process.env.REACT_APP_API_URL}/api/auth/sendverificationemail`, {
+                firstName: firstName, 
+                lastName: lastName, 
+                fullName: fullName, 
+                email: email, 
+                password: password, 
+                birthday: birthday, 
+                sex: sex,
+                mobile: mobile
+            })
+            .then(res => {
+                // Pop up re send email appears and should send this token to that pop up by props (use isFirst in this component -> webbds)
+
+
+                // Announce "A verification email has been sent to your email. Please check" by toast
+
+
+            })
+            .catch(err => {
+               //Print error "Unknown network error happened" (should use toast)
+
+            });
+
+
+    }
 
     return (
 

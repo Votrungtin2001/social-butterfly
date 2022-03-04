@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./sign-in.css"
 import GoogleLogin from "./google-login"
 import { Link } from "react-router-dom";
@@ -11,6 +12,8 @@ import { checkValidEmail } from "./valid-email"
 import { checkValidPassword } from "./valid-password"
 import axios from 'axios'
 import Cookies from 'js-cookie';
+
+import GoogleLoginUI from "./google-login";
 
 const Login = () => {
 
@@ -26,6 +29,10 @@ const Login = () => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  const googleAppID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+  const history = useHistory()
 
 const handleForgot = () => {
   setIsShowForgot(true);
@@ -58,8 +65,93 @@ const loginHandler = () => {
   if (!checkValidEmail(email)) {
     setEmailError(email ? "Email is wrong format" : "Email can not be blank")
   }
+
+  //Some conditions before call api from server
+  if(1==1) {
+    // Add loading when run api
+
+    login(email, password); 
+  }
   
 }
+
+const login = (email, password) => {
+  axios
+    .post(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
+      email: email,
+      password:  password,
+    })
+    .then((res) => {
+      // Sign in successfully
+      const {accessToken, refreshToken} = res.data
+      
+      // Set remove error
+
+      // Set loading false (stop)
+
+      // Save accessToken and refreshToken in cookies
+
+      // Print "Login successfully" by toast
+
+      // Move to home page
+      history.push("/home")
+
+      
+    })
+    .catch((err) => {
+      // Set loading false (stop)
+
+      //Get status code of error
+      const code = err.message.substring(32, err.message.length);
+
+      // Email already taken
+      if (code == "401") {
+        //Print error "This email does not exist" (should use toast and also make error in email textbox - red)
+
+      }
+      else if (code == "402") {
+         //Print error "Incorrect password" (should use toast and also make error in password textbox - red)
+
+
+      } else {
+        //Print error "Unknown network error happened" (should use toast)
+
+      }
+    });
+}; 
+
+const responseGoogle = (response) => {
+  setError("")
+  console.log(response);
+  sendGoogleToken(response.tokenId)
+}
+
+const sendGoogleToken = tokenId => {
+  //Set loading is true
+
+  axios
+    .post(`${process.env.REACT_APP_API_URL}/api/auth/google`, {
+      idToken: tokenId
+    })
+    .then(res => {
+      const { accessToken, refreshToken } = res.data.user
+      const bearerToken = res.headers['authorization']
+      Cookies.set('bearerToken', bearerToken);
+      Cookies.set('accessToken', accessToken);
+      Cookies.set('refreshToken', refreshToken);
+      setError("")
+
+      //Set loading is false (stop)
+
+       // Move to home page
+       history.push("/home")
+
+    })
+    .catch(error => {
+      // Announce "Log in by Google unsuccessfully" by toast
+
+    });
+};
 
   return (
     <div className="login">
@@ -127,7 +219,16 @@ const loginHandler = () => {
             <div className="other-option"><span className="other-text">Or</span></div>
 
 
-            <GoogleLogin/>
+            <GoogleLogin
+              clientId={googleAppID}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
+              render={renderProps => (
+                <GoogleLoginUI onPress={renderProps.onClick} />
+              )}
+
+            />
             
           </div>
         </div>

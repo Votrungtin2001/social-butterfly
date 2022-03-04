@@ -5,12 +5,11 @@ import GoogleLogin from "./google-login"
 import { Link } from "react-router-dom";
 import { checkValidEmail } from "./valid-email";
 import { checkValidPassword } from "./valid-password";
-import { isValidPhoneNumber } from "react-phone-number-input";
+import { isValidphoneNumber } from "react-phone-number-input";
 import { checkValidName } from "./valid-name";
 import eyeOn from "../../assets/login/icons8-eye-24.png";
 import eyeOff from "../../assets/login/icons8-invisible-24.png";
-
-
+import axios from "axios";
 
 
 export default function SignUp() {
@@ -36,9 +35,9 @@ export default function SignUp() {
   const [isAgree, setIsAgree] = useState(false);
   const [isAgreeError, setIsAgreeError] = useState();
   const [isAgreeChecked, setIsAgreeChecked] = useState(true);
-  const [phone, setPhone] = useState();
-  const [isEnterPhone, setIsEnterPhone] = useState(true);
-  const [phoneError, setPhoneError] = useState();
+  const [phone, setphone] = useState();
+  const [isEnterphone, setIsEnterphone] = useState(true);
+  const [phoneError, setphoneError] = useState();
   const [name, setName] = useState("");
   const [isValidName, setIsValidName] = useState(true);
   const [nameError, setNameError] = useState();
@@ -50,12 +49,79 @@ export default function SignUp() {
     getRePasswordError(password, rePassword);
     getSetGenderError(gender);
     getIsAgreeError(isAgree);
-    getEnterPhone(phone);
+    getEnterphone(phone);
     getNameError(name);
+
+    //Some conditions before call api from server
+    if(1==1) {
+      // Add loading when run api
+
+      //
+      const fullName = "Vo Trung Tin" //set full name by Last Name + " " + First Name
+      moveToConfirmEmail(name, name, fullName, email, password, birthday, "Male", phone); // name, name ?? => First Name and Last Name 
+      //gender not get vale, fix and add as parameters in moveToConfirmEmail before in "Male"
+    }
     
   };
 
-    function getEmailError(email) {
+  const moveToConfirmEmail = (
+    firstName,
+    lastName,
+    fullName,
+    email,
+    password,
+    birthday,
+    sex,
+    phone
+  ) => {
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
+        firstName: firstName,
+        lastName: lastName,
+        fullName: fullName,
+        email: email,
+        password: password,
+        birthday: birthday,
+        sex: sex,
+        mobile: phone
+      })
+      .then((res) => {
+        // Check email is not exist before successfully
+        const {firstName, lastName, fullName, email, password, birthday, sex, phone} = res.data
+        
+        // Set remove error
+
+        // Set loading false (stop)
+
+        // Pop up asking for confirm email appears but send firstName, lastName, fullName, email, password, birthday, sex, phone from here to that pop up by props
+
+        
+      })
+      .catch((err) => {
+        // Set loading false (stop)
+
+        //Get status code of error
+        const code = err.message.substring(32, err.message.length);
+
+        // Email already taken
+        if (code == "401") {
+
+          // Set text in email txt is empty
+
+          //Print error "This email was already taken" (should use toast)
+
+
+        } else {
+          //Print error "Unknown network error happened" (should use toast)
+
+        }
+      });
+  };
+
+
+
+
+  function getEmailError(email) {
     let errorMessage = "";
     if (!checkValidEmail(email)) {
       errorMessage = email ? "Email is wrong format" : "Email cannot be blank";
@@ -118,14 +184,14 @@ export default function SignUp() {
     }
   }
 
-  function getEnterPhone(phone) {
+  function getEnterphone(phone) {
     let errorMessage = "";
     if (phone) {
-      setIsEnterPhone(true);
+      setIsEnterphone(true);
     } else {
       errorMessage = "Please enter your phone number";
-      setIsEnterPhone(false);
-      setPhoneError(errorMessage);
+      setIsEnterphone(false);
+      setphoneError(errorMessage);
     }
   }
   function getNameError(name) {
@@ -224,18 +290,18 @@ export default function SignUp() {
             <small className="sign-up-text-danger">{emailError}</small>
           )}
 
-<div className={isEnterPhone ? "input-field" : "invalid-input"} >
+<div className={isEnterphone ? "input-field" : "invalid-input"} >
             <input
               value={phone}
               
               className="input-sign-up"
               type="number"
             
-              placeholder="Phone Number"
+              placeholder="phone Number"
             ></input>
             
           </div>
-          {!isEnterPhone && (
+          {!isEnterphone && (
             <small className="sign-up-text-danger">{phoneError}</small>
           )}
 <div className={isValidPassword ? "input-field" : "invalid-input"}>

@@ -10,6 +10,9 @@ app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 
+// Routes
+app.use('/api', require('./apis/routes/index'))
+
 
 const URI = process.env.DB_CONNECTION
 mongoose.connect(URI, {
