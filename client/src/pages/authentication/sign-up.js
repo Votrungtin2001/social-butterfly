@@ -47,10 +47,13 @@ export default function SignUp() {
 
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
-  const [isValidName, setIsValidName] = useState(true);
-  const [nameError, setNameError] = useState();
+  const [isValidFirstName, setIsFirstValidName] = useState(true);
+  const [isValidLastName, setIsLastValidName] = useState(true);
+  const [firstNameError, setFirstNameError] = useState();
+  const [lastNameError, setLastNameError] = useState();
 
   const [isShowConfirm, setIsShowConfirm] = useState(false);
+
   const handleConfirm = () => {
     setIsShowConfirm(true);
 
@@ -62,8 +65,8 @@ export default function SignUp() {
     getSetGenderError(gender);
     getIsAgreeError(isAgree);
     getEnterphone(phone);
-    getNameError(firstName);
-    getNameError(lastName);
+    getFirstNameError(firstName);
+    getLastNameError(lastName);
     handleConfirm();
     //Some conditions before call api from server
     if(1==1) {
@@ -205,17 +208,29 @@ export default function SignUp() {
     }
   }
 
-  
-  function getNameError(name) {
+  function getFirstNameError(firstName) {
     let errorMessage = "";
-    if (!checkValidName(name)) {
-      errorMessage = name
+    if (!checkValidName(firstName)) {
+      errorMessage = firstName
         ? "The name is formatted incorrectly, contains only letters or spaces, between 3 and 50 characters in length"
-        : "Name can not be blank";
-      setIsValidName(false);
-      setNameError(errorMessage);
+        : "First name can not be blank";
+      setIsFirstValidName(false);
+      setFirstNameError(errorMessage);
     } else {
-      setIsValidName(true);
+      setIsFirstValidName(true);
+    }
+  }
+  
+  function getLastNameError(lastName) {
+    let errorMessage = "";
+    if (!checkValidName(lastName)) {
+      errorMessage = lastName
+        ? "The name is formatted incorrectly, contains only letters or spaces, between 3 and 50 characters in length"
+        : "Last name can not be blank";
+      setIsLastValidName(false);
+      setLastNameError(errorMessage);
+    } else {
+      setIsLastValidName(true);
     }
   }
   
@@ -259,7 +274,7 @@ export default function SignUp() {
               </div>
 
               <div className="wrap">
-              <div className={isValidName ? "input-field" : "invalid-input"} >
+              <div className={isValidFirstName ? "input-field" : "invalid-input"} >
             <input
               value={firstName}
               onChange={(e) => setfirstName(e.target.value)}
@@ -271,7 +286,7 @@ export default function SignUp() {
             
           </div>
           
-          <div className={isValidName ? "input-field m-left-8 " : "invalid-input m-left-8"} >
+          <div className={isValidLastName ? "input-field m-left-8 " : "invalid-input m-left-8"} >
             
             <input
               value={lastName}
@@ -285,12 +300,20 @@ export default function SignUp() {
           </div>
        
                 </div>
-                {!isValidName && <span className="error-mess">
+
+                {!isValidFirstName  && <span className="error-mess">
 									<CancelIcon
 										className="mr-1"
 										fontSize="small"
 									/>
-									<small className="sign-up-text-danger" >{nameError}</small>
+									<small className="sign-up-text-danger" >{firstNameError}</small>
+								</span>}
+                {!isValidLastName  && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="sign-up-text-danger" >{lastNameError}</small>
 								</span>}
         
 
