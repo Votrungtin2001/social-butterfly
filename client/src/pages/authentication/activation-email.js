@@ -10,12 +10,15 @@ const ActivationEmail = () => {
     useEffect(() => {
         if (activation_token) {
             axios
-                .post(`${process.env.REACT_APP_API_URL}/api/v1/auth/activate`, {
+                .post(`${process.env.REACT_APP_API_URL}/api/auth/activate`, {
                     token: activation_token,
                 })
                 .then(res => {
-                    setAnnounce("Xác thực tài khoản thành công")
-                    alert("Xác thực tài khoản thành công")
+                    //Dùng toast (Dùng thêm toast thông báo)
+
+                    setAnnounce("Xác thực tài khoản thành công") // cái này giữ nguyên khỏi xóa
+                    
+                    //Cho delay khoảng 3s rồi hãy chạy history ở dưới
                     history.replace('/')
                 })
                 .catch(error => {

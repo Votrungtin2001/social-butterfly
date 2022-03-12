@@ -67,15 +67,18 @@ export default function SignUp() {
     getEnterphone(phone);
     getFirstNameError(firstName);
     getLastNameError(lastName);
-    handleConfirm();
+    
     //Some conditions before call api from server
     if(1==1) {
       // Add loading when run api
 
-      //
-      const fullName = "Vo Trung Tin" //set full name by Last Name + " " + First Name
-      moveToConfirmEmail(firstName, lastName, fullName, email, password, birthday, "Male", phone); // name, name ?? => First Name and Last Name 
-      //gender not get vale, fix and add as parameters in moveToConfirmEmail before in "Male"
+
+      const fullName = firstName + " " + lastName;
+      if(birthday != "")  moveToConfirmEmail(firstName, lastName, fullName, email, password, birthday, gender, phone);
+      else {
+        const defaultBirthday = "2001-01-01";
+        moveToConfirmEmail(firstName, lastName, fullName, email, password, defaultBirthday, gender, phone);
+      }
     }
     
   };
@@ -102,16 +105,11 @@ export default function SignUp() {
         mobile: phone
       })
       .then((res) => {
-        // Check email is not exist before successfully
-        const {firstName, lastName, fullName, email, password, birthday, sex, phone} = res.data
-        
-        // Set remove error
-
+        const {firstName, lastName, fullName, email, password, birthday, sex, mobile} = res.data
         // Set loading false (stop)
 
         // Pop up asking for confirm email appears but send firstName, lastName, fullName, email, password, birthday, sex, phone from here to that pop up by props
-
-        
+        handleConfirm();
       })
       .catch((err) => {
         // Set loading false (stop)
@@ -121,7 +119,6 @@ export default function SignUp() {
 
         // Email already taken
         if (code == "401") {
-
           // Set text in email txt is empty
 
           //Print error "This email was already taken" (should use toast)

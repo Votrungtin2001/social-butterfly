@@ -7,6 +7,8 @@ import Login from './pages/authentication/sign-in'
 import Register from "./pages/authentication/sign-up";
 import Home from "./pages/home/home";
 import ChangePassword from "./pages/authentication/change_password";
+import ActivationEmail from "./pages/authentication/activation-email"
+
 
 
 function App() {
@@ -19,7 +21,12 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route exact path="/sign-up" component={Register} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/change-password" component={ChangePassword} />
+          <Route
+              path="/activate/:activation_token"
+              component={ActivationEmail}
+              exact
+            />
+          <Route exact path="/reset/:reset_token" component={ChangePassword} />
 
         </div>
       </div>

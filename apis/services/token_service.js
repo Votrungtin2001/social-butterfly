@@ -19,10 +19,10 @@ const generateTokenForSendVerificationEmail = (userBody) => {
         password: userBody.password,
         birthday: userBody.birthday,
         sex: userBody.sex,
-        phone: userBody.phone
+        mobile: userBody.mobile
     }
     return jwt.sign(payload, process.env.PASSPORT_JWT_ACCOUNT_ACTIVATION, {
-        expiresIn: '100m',
+        expiresIn: '5m',
     })
 }
 
