@@ -64,23 +64,23 @@
   }
   .resend-email-btn {
     margin-top: 20px;
-    width: 156px;
+    width: 110px;
     height: 43px;
     border-radius: 40px;
     outline: none;
     font-weight: 500;
     font-size: 1rem;
     border: none;
-    background: #61C0BF;
+    background: #8c8c8c;
     color: #fff;
-   
+    
     transition: 0.4s;
     margin-bottom: 25px;
   }
 
   .resend-email-btn:hover{
-    background: #5ec0be;
-    color: #fff;
+    background: #61C0BF;
+    color: #000;
 }
 
   .padding-bot-24 {

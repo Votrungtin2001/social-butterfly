@@ -1,29 +1,31 @@
 import React, { Component, useState } from 'react';
 import { Fragment } from 'react/cjs/react.production.min';
 import './forgot-password.css'
-import exit from '../../assets/login/exit.png'
 import { checkValidEmail } from './valid-email'
 import axios from 'axios'
-// import { showErrMsg } from './notification/notification'
+import exit from "../../assets/login/exit.png";
 import Cookies from 'js-cookie';
 
 
-function ForgotPassword() {
+const ForgotPassword = (setIsShowForgot) => {
     const [email, setEmail] = useState("");
     const [validEmail, setValidEmail] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [emailError, setEmailError] = useState();
+    const handleShowLoginForm = () => {
+      setIsShowForgot();
+    }
 
     const handleClick = () => {
         getEmailError();
-
+      
          //Some conditions before call api from server
         if(1==1) {
         // Add loading when run api
   
         //
         sendEmailForResetPassword(email); // name, name ?? => First Name and Last Name 
-        //gender not get vale, fix and add as parameters in moveToConfirmEmail before in "Male"
+        //gender not get value, fix and add as parameters in moveToConfirmEmail before in "Male"
       }
     }
 
@@ -42,6 +44,7 @@ function ForgotPassword() {
             // Set loading false (stop)
     
             // // Announce "A reset password email has been sent to your email. Please check" by toast
+            alert("A reset password email has been sent to your email. Please check!")
           })
           .catch((err) => {
             // Set loading false (stop)
@@ -51,15 +54,10 @@ function ForgotPassword() {
     
             // This account is not exist
             if (code == "400") {
-    
-              // Set text in email txt is empty
-    
-              //Print error "This account is not exist" (should use toast)
-    
-    
+              setEmail("")
+              alert("This account is not exist!")
             } else {
-              //Print error "Unknown network error happened" (should use toast)
-    
+              alert("Unknown network error happened")
             }
           });
       };
@@ -84,9 +82,8 @@ function ForgotPassword() {
                 <div className="header-forgot-password">
                     <span></span>
                     <span className="weight-500 m-top-28 font-24">Forgot Password</span>
-                  
                 </div>
-                {/* {error && showErrMsg(error)} */}
+         
                 <div className="forgot-title">
                     <div className="opacity-50 font-14">Don’t worry! It happens. Please enter the email address associated with your account.</div>
                 </div>
@@ -103,12 +100,17 @@ function ForgotPassword() {
             {!isValidEmail && <small className="forgot-text-danger">{emailError}</small>}
             
                    <div>
-                   <button  class="cancel-btn">Cancel</button>
+                   <button onClick={handleShowLoginForm}
+ className="cancel-btn">
+                   Cancel
+                     </button>
+
                    <button
                         onClick={handleClick}
                         className="send-email-btn">
                         Send
                     </button>
+
                    </div>
                     
 

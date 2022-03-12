@@ -5,12 +5,13 @@ import GoogleLogin from "./google-login"
 import { Link } from "react-router-dom";
 import { checkValidEmail } from "./valid-email";
 import { checkValidPassword } from "./valid-password";
-import { isValidphoneNumber } from "react-phone-number-input";
 import { checkValidName } from "./valid-name";
 import eyeOn from "../../assets/login/icons8-eye-24.png";
 import eyeOff from "../../assets/login/icons8-invisible-24.png";
 import axios from "axios";
-
+import CancelIcon from "@mui/icons-material/Cancel";
+import ConfirmEmail from './confirm-email';
+import Popup from 'reactjs-popup';
 
 export default function SignUp() {
   const [passVisibility, setPassVisibility] = useState(eyeOff);
@@ -18,8 +19,8 @@ export default function SignUp() {
   const ref = useRef();
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [email, setEmail] = useState("");
-  const [gender, setGender] = useState();
   const [emailError, setEmailError] = useState();
+
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [isValidPassword, setIsValidPassword] = useState(true);
@@ -28,21 +29,32 @@ export default function SignUp() {
   const [reInputType, setReInputType] = useState("password");
   const [passwordError, setPasswordError] = useState();
   const [rePasswordError, setRePasswordError] = useState();
+
   const [isTypeDate, setIsTypeDate] = useState(false);
   const [birthday, setBirthday] = useState("");
+
+  const [gender, setGender] = useState();
   const [isSetGender, setIsSetGender] = useState(true);
   const [genderError, setGenderError] = useState();
+
   const [isAgree, setIsAgree] = useState(false);
   const [isAgreeError, setIsAgreeError] = useState();
   const [isAgreeChecked, setIsAgreeChecked] = useState(true);
+
   const [phone, setphone] = useState();
   const [isEnterphone, setIsEnterphone] = useState(true);
   const [phoneError, setphoneError] = useState();
-  const [name, setName] = useState("");
+
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
   const [isValidName, setIsValidName] = useState(true);
   const [nameError, setNameError] = useState();
- 
 
+  const [isShowConfirm, setIsShowConfirm] = useState(false);
+  const handleConfirm = () => {
+    setIsShowConfirm(true);
+
+  }
   const handleSignUp = () => {
     getEmailError(email);
     getPasswordError(password);
@@ -50,15 +62,16 @@ export default function SignUp() {
     getSetGenderError(gender);
     getIsAgreeError(isAgree);
     getEnterphone(phone);
-    getNameError(name);
-
+    getNameError(firstName);
+    getNameError(lastName);
+    handleConfirm();
     //Some conditions before call api from server
     if(1==1) {
       // Add loading when run api
 
       //
       const fullName = "Vo Trung Tin" //set full name by Last Name + " " + First Name
-      moveToConfirmEmail(name, name, fullName, email, password, birthday, "Male", phone); // name, name ?? => First Name and Last Name 
+      moveToConfirmEmail(firstName, lastName, fullName, email, password, birthday, "Male", phone); // name, name ?? => First Name and Last Name 
       //gender not get vale, fix and add as parameters in moveToConfirmEmail before in "Male"
     }
     
@@ -118,9 +131,6 @@ export default function SignUp() {
       });
   };
 
-
-
-
   function getEmailError(email) {
     let errorMessage = "";
     if (!checkValidEmail(email)) {
@@ -129,6 +139,17 @@ export default function SignUp() {
       setEmailError(errorMessage);
     } else {
       setIsValidEmail(true);
+    }
+  }
+
+  function getEnterphone(phone) {
+    let errorMessage = "";
+    if (phone) {
+      setIsEnterphone(true);
+    } else {
+      errorMessage = "Please enter your phone number";
+      setIsEnterphone(false);
+      setphoneError(errorMessage);
     }
   }
 
@@ -184,16 +205,7 @@ export default function SignUp() {
     }
   }
 
-  function getEnterphone(phone) {
-    let errorMessage = "";
-    if (phone) {
-      setIsEnterphone(true);
-    } else {
-      errorMessage = "Please enter your phone number";
-      setIsEnterphone(false);
-      setphoneError(errorMessage);
-    }
-  }
+  
   function getNameError(name) {
     let errorMessage = "";
     if (!checkValidName(name)) {
@@ -206,6 +218,7 @@ export default function SignUp() {
       setIsValidName(true);
     }
   }
+  
   const changePassVisibility = () => {
     if (passVisibility === eyeOn) {
       setPassVisibility(eyeOff);
@@ -230,12 +243,12 @@ export default function SignUp() {
     <div className="register">
       <div className="registerWrapper">
         <div className="registerLeft">
-        <form className="registerBox" >
+        <div className="registerBox" >
          
           <span className="registerDesc">
             <img></img>
           </span>
-          </form>
+          </div>
         </div>
         <div className="registerRight">
         <div className="registerBoxRight" >
@@ -248,8 +261,8 @@ export default function SignUp() {
               <div className="wrap">
               <div className={isValidName ? "input-field" : "invalid-input"} >
             <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={firstName}
+              onChange={(e) => setfirstName(e.target.value)}
               className="input-sign-up"
               type="text"
             
@@ -259,9 +272,10 @@ export default function SignUp() {
           </div>
           
           <div className={isValidName ? "input-field m-left-8 " : "invalid-input m-left-8"} >
+            
             <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={lastName}
+              onChange={(e) => setlastName(e.target.value)}
               className="input-sign-up "
               type="text"
             
@@ -271,9 +285,14 @@ export default function SignUp() {
           </div>
        
                 </div>
-                {!isValidName && (
-            <small className="sign-up-text-danger">{nameError}</small>
-          )}
+                {!isValidName && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="sign-up-text-danger" >{nameError}</small>
+								</span>}
+        
 
                 <div className={isValidEmail ? "input-field" : "invalid-input"}>
             <input
@@ -286,24 +305,35 @@ export default function SignUp() {
             ></input>
             
           </div>
-          {!isValidEmail && (
-            <small className="sign-up-text-danger">{emailError}</small>
-          )}
+          {!isValidEmail && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="sign-up-text-danger" >{emailError}</small>
+								</span>}
+        
+        
 
 <div className={isEnterphone ? "input-field" : "invalid-input"} >
             <input
               value={phone}
-              
+              onChange={(e) => setphone(e.target.value)}
               className="input-sign-up"
               type="number"
             
-              placeholder="phone Number"
+              placeholder="Phone Number"
             ></input>
             
           </div>
-          {!isEnterphone && (
-            <small className="sign-up-text-danger">{phoneError}</small>
-          )}
+          {!isEnterphone && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="sign-up-text-danger" >{phoneError}</small>
+								</span>}
+         
 <div className={isValidPassword ? "input-field" : "invalid-input"}>
             <input
               value={password}
@@ -318,10 +348,14 @@ export default function SignUp() {
               <img src={passVisibility} />
             </button>
           </div>
-
-          {!isValidPassword && (
-            <small className="sign-up-text-danger">{passwordError}</small>
-          )}
+          {!isValidPassword && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="sign-up-text-danger" >{passwordError}</small>
+								</span>}
+      
           <div className={isValidRePassword ? "input-field" : "invalid-input"}>
             <input
               value={rePassword}
@@ -336,17 +370,22 @@ export default function SignUp() {
               <img src={rePassVisibility} />
             </button>
           </div>
-          {!isValidRePassword && (
-            <small className="sign-up-text-danger">{rePasswordError}</small>
-          )}
+          {!isValidRePassword && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="sign-up-text-danger" >{rePasswordError}</small>
+								</span>}
+         
 
-<div className="input-field  ">
+                <div className="input-field  ">
             <input
               value={birthday}
               onChange={(e) => setBirthday(e.target.value)}
-              className="input-sign-up required"
+              className="input-sign-up"
               type="text"
-              
+              required
               ref={ref}
               onFocus={() => {
                 setIsTypeDate(true);
@@ -366,11 +405,12 @@ export default function SignUp() {
            <label className="custom-radio-btn">
              <span className="label">Male</span>
              <input
-               value={"Nam"}
-              
+               value={"Male"}
+               onChange={(e) => setGender(e.target.value)}
+               checked={gender == "Male"}
                type="radio"
                name="gender"
-               value="Nam"
+              
              />
              <span className="checkmark"></span>
            </label>
@@ -378,11 +418,12 @@ export default function SignUp() {
            <label className="custom-radio-btn">
              <span className="label">Female</span>
              <input
-               value={"Nữ"}
-               
+               value={"Female"}
+               onChange={(e) => setGender(e.target.value)}
+               checked={gender == "Female"}
                type="radio"
                name="gender"
-               value="Nữ"
+              
              />
              <span className="checkmark"></span>
            </label>
@@ -390,38 +431,57 @@ export default function SignUp() {
            <label className="custom-radio-btn">
              <span className="label">Other</span>
              <input
-               value={"Khác"}
-               
+               value={"Other"}
+               onChange={(e) => setGender(e.target.value)}
+               checked={gender == "Other"}
                type="radio"
                name="gender"
-               value="Khác"
+               
              />
              <span className="checkmark"></span>
            </label>
          </div>
-         {!isSetGender && (
-            <small className="sign-up-text-danger">{genderError}</small>
-          )}
+         {!isSetGender && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="sign-up-text-danger" >{genderError}</small>
+								</span>}
+         
        </div>
 
            <div className="weight-400 block m-top-10">
                  <div className="flex1">
                   <input
                   type="checkbox"
+                  onClick={() => {
+                    setIsAgree(!isAgree);
+                  }}
                   className=" border-5 border-brown square-20  signup-middle" />
                   <span className=" m-left-8 font-12  signup-bottom">I agree to Flatform’s Term of Services and Privacy Policy.</span>
 
                 </div>
            
             </div>
-            {!isAgreeChecked && (
-            <small className="sign-up-text-danger">{isAgreeError}</small>
-          )}
-
-
-       
-
-            <button onClick={handleSignUp} className="registerButton"  >Register</button>
+            {!isAgreeChecked && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="sign-up-text-danger" >{isAgreeError}</small>
+								</span>}
+         
+<div className="loginButton">
+              <button onClick={handleSignUp}  > 
+               <span>Register</span>
+               </button>
+           </div>
+           
+           <Popup open={isShowConfirm} closeOnDocumentClick={false} >
+                {<ConfirmEmail
+                   />}
+              </Popup>
 
             </div>
         </div>

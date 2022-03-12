@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Link, useHistory } from "react-router-dom";
 import "./confirm-email.css";
 import Cookies from 'js-cookie';
-// import { showErrMsg } from './notification/notification'
+
 var posX = window.innerWidth;
 window.onresize = () => {
     posX = window.innerWidth;
@@ -15,7 +15,7 @@ window.onresize = () => {
 
 
 
-const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday, sex, mobile, setIsLogin, handleShowUpdateInformation }) => {
+const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday, sex, mobile, setIsLogin }) => {
     const history = useHistory();
     const [isFirst, setIsFirst] = useState(true);
     const [error, setError] = useState("");
@@ -34,14 +34,14 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
             })
             .then(res => {
                 // Pop up re send email appears and should send this token to that pop up by props (use isFirst in this component -> webbds)
-
-
+                setIsFirst(false);
                 // Announce "A verification email has been sent to your email. Please check" by toast
-
+                alert("A verification email has been sent to your email. Please check !!!")
 
             })
             .catch(err => {
                //Print error "Unknown network error happened" (should use toast)
+               setError("Unknown network error happened.")
 
             });
 
@@ -49,7 +49,6 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
     }
 
     return (
-
         isFirst ? (
             <Fragment>
                 <div className="container-confirm w-440 h-auto">
@@ -71,7 +70,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
                         <span className="email-link weight-400">{email}</span>
                         <div className="m-top-12 weight-400">Please visit email to verify (Note to check Spam/Junk).</div>
 
-                        <button className="resend-email-btn w-full">Submit</button>
+                        <button onClick={sendVerificationEmail} className="resend-email-btn w-full">Submit</button>
 
                      
                     </div>
@@ -99,7 +98,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
 
                         <div className="m-top-24 weight-400">If you have not received the verification email, select “Resend verification email”</div>
 
-                        <button className="resend-email-btn w-full">Resend verification email</button>
+                        <button onClick={sendVerificationEmail} className="resend-email-btn w-full">Resend verification email</button>
 
                     </div>
                 </div>

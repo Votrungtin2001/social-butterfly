@@ -117,74 +117,40 @@
 	margin-right: 10px;
   }
 
-  .loginInput{
-      width: 100%;
-      height: 37px;
-      border-radius: 10px;
-      border: 1px solid gray;
-      font-size: 14px;
-   
-      margin-top: 20px;
-      margin-bottom: 5px;
-      margin-left: auto;
-      margin-right: auto;
-  }
-  
-  .loginInput:focus{
-      outline: none;
-  }
-  
-  .loginButton{
-      height: 43px;
-      width: 33%;
-      border: none;
-      background-color: #FFB6B9;
-      color: white;
-      font-size: 18px;
-      font-weight: 600;
-      cursor: pointer;
-      align-self: center;
-      border-radius: 10px;
-      align-content: center;
-      display: block;
-      justify-self: center;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 30px;
-}
   
   .loginButton:focus{
     outline: none;
   }
+
   .loginButton:hover{
     background: #4b2888;
     color: #fff;
-}
+  }
+
   .loginButton:disabled{
     cursor: not-allowed;
   }
   
   .loginForgot{
-      
-      color: #333333;
-      align-self:flex-end;
-      background-color: transparent;
-      opacity: 0.5;
-      font-size: 12px;
-      text-decoration: none;
-      border: none;
+    color: #333333;
+    align-self:flex-end;
+    background-color: transparent;
+    opacity: 0.5;
+    font-size: 12px;
+    text-decoration: none;
+    border: none;
   }
 
   .loginForgot:hover{
     color: #000000;
     opacity: 1;
   }
+
   .signin-bottom {
     vertical-align: bottom;
     margin-left: 5px;
-   
-   
   }
+
   .input-box {
     width: 376px;
     height: 56px;
@@ -194,7 +160,6 @@
     text-overflow: ellipsis;
     margin-top: 16px;
     display: flex;
-   
   }
 
   .wrong-input-format {
@@ -206,21 +171,23 @@
     text-overflow: ellipsis;
     margin-top: 16px;
   }
+
   .username-input {
     background-image: url(../../assets/login/icons8-user-64.png);
     background-repeat: no-repeat;
     background-position: left;
     background-position-x: 12px;
     background-size: 8%;
-    width: 320px;
+    width: 376px;
     height: 45px;
     margin-top: 5px;
     padding-left: 52.8px;
     margin-left: 5px;
     color: #000000;
     background-color: transparent;
+    border-radius: 10px;
   }
-  
+ 
   .password-input {
     background-image: url(../../assets/login/padlock.png);
     background-repeat: no-repeat;
@@ -267,7 +234,6 @@ margin-top: 10px;
     
 }
 
-  
   .social-sign-in {
     align-items: center;
     height: 43px;
@@ -279,6 +245,9 @@ margin-top: 10px;
     margin-right: auto;
     justify-content: space-between;
     margin-top: 25px;
+  }
+  .social-sign-in:hover{
+    border:1.5px solid #1775ee;
   }
   .social-sign-in.active {
     background-color: #f0efed;
@@ -300,7 +269,6 @@ margin-top: 10px;
     font-weight: 500;
     font-size: 14px;
     width: 200px;
-   
   }
 
   .show-button {
@@ -315,12 +283,6 @@ margin-top: 10px;
   
   .m-left-340{
     margin-left: 340px;
-  }
-
-  .text-danger {
-   
-    font-size: 12px;
-    color: red;
   }
 
   .btn::after{
@@ -343,5 +305,93 @@ transition: .5s ease-in-out;
     width: 100%;
 
   }
-  
+
+  .loginButton{
+   
+    width: 33%;
+    height: 43px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .loginButton::before, .loginButton::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+  }
+  .loginButton::before{
+    left: -4px;
+  }
  
+  .loginButton::after{
+    right: -4px;
+  }
+
+  .loginButton button{
+    position: relative;
+    width: 225px;
+    height: 43px;
+    border: none;
+    outline: none;
+    background-color: #c4c4c4;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .loginButton button::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #FFA0A0;
+    z-index: -2;
+    transition: .3s;
+    transform: translateX(-320px)skewX(-20deg);
+  }
+
+  .loginButton button span{
+    z-index: 1;
+  }
+
+  .loginButton:hover{
+    border-color: #FFA0A0;
+    
+  }
+
+  .loginButton button:hover::after{
+    transform: translateX(0px)skewX(0deg);
+  }
+
+  .mr-1{
+  color: red;
+  margin-right: 5px;
+ 
+  }
+
+  .text-danger {
+   
+    font-size: 12px;
+    color: red;
+  }
+
+  .error-mess{
+    align-items: center;
+    display: flex;
+    margin-top: 3px;
+  }

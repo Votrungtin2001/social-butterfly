@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./sign-in.css"
-import GoogleLogin from "./google-login"
+import GoogleLogin from "react-google-login"
 import { Link } from "react-router-dom";
 import ForgotPassword from './forgot-password';
-import ConfirmEmail from './confirm-email';
+
 import Popup from 'reactjs-popup';
 import eyeOn from "../../assets/login/icons8-eye-24.png";
 import eyeOff from "../../assets/login/icons8-invisible-24.png";
@@ -12,16 +12,15 @@ import { checkValidEmail } from "./valid-email"
 import { checkValidPassword } from "./valid-password"
 import axios from 'axios'
 import Cookies from 'js-cookie';
-
+import CancelIcon from "@mui/icons-material/Cancel";
 import GoogleLoginUI from "./google-login";
 
 const Login = () => {
 
-  
   const [visibility, setVisibility] = useState(eyeOff);
   const [inputType, setInputType] = useState("password");
   const [isShowForgot, setIsShowForgot] = useState(false);
-  const [isShowConfirm, setIsShowConfirm] = useState(false);
+ 
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
   const [checkEmptyPassword, setCheckEmptyPassword] = useState(true);
@@ -29,22 +28,39 @@ const Login = () => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
+  const [isRememberMe, setIsRemember] = useState(false);
   const googleAppID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const history = useHistory()
+
+  useEffect(() => {
+    //Check if the Cookies name rememberStatus is exist to prevent null exception
+    const userEmail = Cookies.get("userEmail");
+    const userPassword = Cookies.get("userPassword");
+    if (userEmail && userPassword) {
+      setEmail(userEmail);
+      setPassword(userPassword);
+      setIsRemember(true);
+    }
+  }, [])
+
+  const setUserCookies = (email, password) => {
+    Cookies.set("userEmail", email);
+    Cookies.set("userPassword", password);
+  }
+  const removeUserCookies = () => {
+    Cookies.remove("userEmail");
+    Cookies.remove("userPassword");
+  }
 
 const handleForgot = () => {
   setIsShowForgot(true);
 }
 
 const handleCloseForgot = () => {
-  setIsShowForgot(false);
+  setIsShowForgot(false)
 }
 
-const handleConfirm = () => {
-  setIsShowConfirm(true);
-}
 
 let changeVisibilityHandler = () => {
   if (visibility === eyeOn) {
@@ -84,7 +100,20 @@ const login = (email, password) => {
     .then((res) => {
       // Sign in successfully
       const {accessToken, refreshToken} = res.data
-      
+     if (isRememberMe) {
+            setUserCookies(email, password);
+          }
+          else {
+            const emailInCookies = Cookies.get("userEmail");
+            const passwordInCookies = Cookies.get("userPassword");
+            if (emailInCookies === email && passwordInCookies === password) {
+              removeUserCookies();
+            }
+          }
+          
+          setEmail("");
+          setPassword("");
+          setError("")
       // Set remove error
 
       // Set loading false (stop)
@@ -111,7 +140,7 @@ const login = (email, password) => {
       }
       else if (code == "402") {
          //Print error "Incorrect password" (should use toast and also make error in password textbox - red)
-
+        
 
       } else {
         //Print error "Unknown network error happened" (should use toast)
@@ -179,42 +208,70 @@ const sendGoogleToken = tokenId => {
               className="username-input"
             />
             </div>
-            {!validEmail && <small className="text-danger">{emailError}</small>}
+            {!validEmail && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="text-danger" >{emailError}</small>
+								</span>}
+            
             
             <div className={checkEmptyPassword ? "input-box" : "wrong-input-format"}>
-            <input
+             <input
               placeholder="Password"
               value={password}
               onChange={(e) => { setPassword(e.target.value); setCheckEmptyPassword(true) }}
               type={inputType}
               className="password-input"
-            />
-            {/* <button className="m-left-340 m-top-16 show-button" onClick={changeVisibilityHandler}>
+             />
+             {/* <button className="m-left-340 m-top-16 show-button" onClick={changeVisibilityHandler}>
               <img src={visibility} />
-            </button> */}
+             </button> */}
             </div>
-            {!checkEmptyPassword && <small className="text-danger">Password can not be blank</small>}
-            
+
+            {!checkEmptyPassword && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="text-danger">Password can not be blank</small>
+								</span>}
+
            <span className="weight-400 block m-top-10">
              <div className="remember-container">
                   <input
                   type="checkbox"
+                  checked={isRememberMe}
+                  onClick={() => {
+                    setIsRemember(!isRememberMe)
+                  }}
                   className="  border-5 border-brown signin-middle" />
                   <span className="font-12 signin-bottom">Remember me</span>
                   </div>
+                  <div>
                   <button onClick = {handleForgot} 
                 className="loginForgot">Forgot Password?</button>
-                 <Popup open={isShowForgot} onClose={() => setIsShowForgot(false)} modal nested closeOnDocumentClick={false}>
+                
+                 <Popup
+                closeOnDocumentClick={false}
+                nested modal
+                onClose={() => setIsShowForgot(false)}
+                open={isShowForgot}>
+                
                 {<ForgotPassword
-                   />}
-              </Popup>
-            </span>
-
-            <button onClick={loginHandler} className="loginButton" >Log in</button>
-            <Popup open={isShowConfirm} onClose={() => setIsShowForgot(false)} modal nested closeOnDocumentClick={false}>
-                {<ConfirmEmail
+                  setIsShowForgot={handleCloseForgot}
                   />}
               </Popup>
+              </div>
+            </span>
+           <div className="loginButton">
+              <button onClick={loginHandler} > 
+               <span>Log in</span>
+               </button>
+           </div>
+            
+           
          
             <div className="other-option"><span className="other-text">Or</span></div>
 
