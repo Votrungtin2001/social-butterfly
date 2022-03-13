@@ -212,7 +212,7 @@ export default function SignUp() {
     let errorMessage = "";
     if (!checkValidName(firstName)) {
       errorMessage = firstName
-        ? "The name is formatted incorrectly, contains only letters or spaces, between 3 and 50 characters in length"
+        ? "The name is formatted incorrectly, contains only letters or spaces, between 1 and 50 characters in length"
         : "First name can not be blank";
       setIsFirstValidName(false);
       setFirstNameError(errorMessage);
@@ -225,7 +225,7 @@ export default function SignUp() {
     let errorMessage = "";
     if (!checkValidName(lastName)) {
       errorMessage = lastName
-        ? "The name is formatted incorrectly, contains only letters or spaces, between 3 and 50 characters in length"
+        ? "The name is formatted incorrectly, contains only letters or spaces, between 1 and 50 characters in length"
         : "Last name can not be blank";
       setIsLastValidName(false);
       setLastNameError(errorMessage);
@@ -343,9 +343,9 @@ export default function SignUp() {
               value={phone}
               onChange={(e) => setphone(e.target.value)}
               className="input-sign-up"
-              type="number"
-            
+              type="tel"
               placeholder="Phone Number"
+              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
             ></input>
             
           </div>

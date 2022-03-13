@@ -1,5 +1,5 @@
 function checkLengthName(name) {
-    if (name.length >= 3 && name.length <= 50) {
+    if (name.length >= 1 && name.length <= 50) {
         return true;
     }
     return false;
