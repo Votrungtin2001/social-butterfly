@@ -18,6 +18,7 @@ const registerSchema = {
         password: Joi.string().required().custom(password),
         birthday: Joi.date(),
         sex: Joi.string().required(),
+        mobile: Joi.string().required(),
     }),
 }
 

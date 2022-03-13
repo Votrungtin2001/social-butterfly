@@ -11,7 +11,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import WebFont from 'webfontloader'
 import CancelIcon from "@mui/icons-material/Cancel";
 
-// const jwt = require('jsonwebtoken')
 function ChangePassword() {
     const history = useHistory();
     const { reset_token } = useParams();
@@ -28,6 +27,25 @@ function ChangePassword() {
     const [rePasswordError, setRePasswordError] = useState();
     const [isValidToken, setIsValidToken] = useState(true);
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        WebFont.load({
+            google: {
+                families: ['Roboto:400,500']   
+            }
+        });
+        if (reset_token) {
+            axios
+            .post(`${process.env.REACT_APP_API_URL}/api/auth/checkResetTokenValid`, {
+              token: reset_token,
+            })
+            .then((res) => {
+            })
+            .catch((err) => {
+                setIsValidToken(false)
+            });
+        }
+    }, [reset_token])
 
     function getPasswordError(password) {
         let errorMessage = "";
@@ -65,8 +83,38 @@ function ChangePassword() {
         setError("")
         getPasswordError(password);
         getRePasswordError(password, rePassword);
-       
-    }
+
+        //Some conditions before call api from server
+        if(1==1) {
+        // Add loading when run api
+        
+        
+        resetPassword(reset_token, password);
+      }
+      
+    };
+  
+    const resetPassword = (
+      token,
+      password
+    ) => {
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/api/auth/reset`, {
+          token: token,
+          password: password
+        })
+        .then((res) => {
+            //Dùng toast thay cho alert
+            alert("Thay đổi mật khẩu thành công")
+
+            // Delay khoảng 3s rồi cho chạy history
+            history.replace('/');
+        })
+        .catch((err) => {
+            //Dùng toast thông báo "Link đã hết hạn hoặc lỗi mạng"
+
+        });
+    };
 
     const changePassVisibility = () => {
         if (passVisibility === eyeOn) {

@@ -18,14 +18,13 @@ const ForgotPassword = (setIsShowForgot) => {
 
     const handleClick = () => {
         getEmailError();
-      
+
          //Some conditions before call api from server
         if(1==1) {
         // Add loading when run api
   
         //
-        sendEmailForResetPassword(email); // name, name ?? => First Name and Last Name 
-        //gender not get value, fix and add as parameters in moveToConfirmEmail before in "Male"
+        sendEmailForResetPassword(email);
       }
     }
 
@@ -38,12 +37,8 @@ const ForgotPassword = (setIsShowForgot) => {
           })
           .then((res) => {
             // When this account is exist and sending email for reset password successfully
-            
-            // Set remove error
-    
-            // Set loading false (stop)
-    
-            // // Announce "A reset password email has been sent to your email. Please check" by toast
+          
+            // Announce "A reset password email has been sent to your email. Please check" by toast
             alert("A reset password email has been sent to your email. Please check!")
           })
           .catch((err) => {

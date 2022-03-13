@@ -13,5 +13,6 @@ router.post('/activate/', validate(authValidation.activateEmailTokenSchema), aut
 router.post('/google', authController.authGoogle)
 router.post('/forgot', validate(authValidation.forgotPasswordSchema), authController.forgotPassword)
 router.post('/reset/', validate(authValidation.resetPasswordTokenSchema), authController.resetPassword)
+router.post('/checkResetTokenValid/', authController.checkResetTokenValid)
 
 module.exports = router

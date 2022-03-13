@@ -20,7 +20,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
     const [isFirst, setIsFirst] = useState(true);
     const [error, setError] = useState("");
 
-    const sendVerificationEmail = (token) => {
+    const sendVerificationEmail = () => {
         axios
             .post(`${process.env.REACT_APP_API_URL}/api/auth/sendverificationemail`, {
                 firstName: firstName, 
