@@ -1,6 +1,5 @@
 
 function checkPasswordLength(password) {
-
     return password.length >= 6;
 }
 function checkCapitalCharacter(password) {

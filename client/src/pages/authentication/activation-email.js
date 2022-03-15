@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
 import "./activation-email.css"
+
 const ActivationEmail = () => {
     const history = useHistory();
     const { activation_token } = useParams()
@@ -10,15 +11,12 @@ const ActivationEmail = () => {
     useEffect(() => {
         if (activation_token) {
             axios
-                .post(`${process.env.REACT_APP_API_URL}/api/auth/activate`, {
+                .post(`${process.env.REACT_APP_API_URL}/api/v1/auth/activate`, {
                     token: activation_token,
                 })
                 .then(res => {
-                    //Dùng toast (Dùng thêm toast thông báo)
-
-                    setAnnounce("Xác thực tài khoản thành công") // cái này giữ nguyên khỏi xóa
-                    
-                    //Cho delay khoảng 3s rồi hãy chạy history ở dưới
+                    setAnnounce("Xác thực tài khoản thành công")
+                    alert("Xác thực tài khoản thành công")
                     history.replace('/')
                 })
                 .catch(error => {
@@ -30,10 +28,28 @@ const ActivationEmail = () => {
 
     return (
         <Fragment>
-            <div className="activation-container">
-                <h1>{announce}</h1>
-                <button onClick={() => history.replace('/')} className="activation-custom-btn">Đi đến trang chủ</button>
-            </div>
+           <div className="activation-container">
+                   <div className='activationLeft'>
+                       <div className='activationImage'> 
+                           <img></img>
+                       </div>
+                    </div>
+
+                <div className='activationRight'>
+                 <div className="header-activation">
+                    <span></span>
+                    <span className="weight-700 m-top-28 font-24">Notify</span>
+                 </div>
+         
+                 <div className="activation-title">
+                    <div className="opacity-50 font-14">Link expired, please try again later!</div>
+                 </div>
+                 <button onClick={() => history.replace('/')}
+                 className="activation-btn">
+                   Yes
+                     </button>
+                </div>
+        </div>
         </Fragment>
     )
 }

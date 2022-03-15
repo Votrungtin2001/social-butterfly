@@ -5,11 +5,12 @@ import eyeOn from "../../assets/login/icons8-eye-24.png";
 import eyeOff from "../../assets/login/icons8-invisible-24.png";
 import { checkValidPassword } from './valid-password';
 import axios from 'axios'
-// import { showErrMsg } from './notification/notification'
-import Cookies from 'js-cookie';
+import { toast, ToastPosition } from 'react-toastify';
 import { useHistory, useParams } from 'react-router-dom';
 import WebFont from 'webfontloader'
 import CancelIcon from "@mui/icons-material/Cancel";
+import Popup from 'reactjs-popup';
+import Loading from "../../components/loading";
 
 function ChangePassword() {
     const history = useHistory();
@@ -27,11 +28,12 @@ function ChangePassword() {
     const [rePasswordError, setRePasswordError] = useState();
     const [isValidToken, setIsValidToken] = useState(true);
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         WebFont.load({
             google: {
-                families: ['Roboto:400,500']   
+                families: ['Poppins:400,500']   
             }
         });
         if (reset_token) {
@@ -85,10 +87,9 @@ function ChangePassword() {
         getRePasswordError(password, rePassword);
 
         //Some conditions before call api from server
-        if(1==1) {
+        if(isValidPassword && password && rePassword && password == rePassword) {
         // Add loading when run api
-        
-        
+        setIsLoading(true);
         resetPassword(reset_token, password);
       }
       
@@ -104,15 +105,29 @@ function ChangePassword() {
           password: password
         })
         .then((res) => {
-            //Dùng toast thay cho alert
-            alert("Thay đổi mật khẩu thành công")
-
+            toast.success('Change password successfully', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             // Delay khoảng 3s rồi cho chạy history
-            history.replace('/');
+            setTimeout ( history.replace('/'), 3000 );
+            
         })
         .catch((err) => {
-            //Dùng toast thông báo "Link đã hết hạn hoặc lỗi mạng"
-
+            toast.error('Link has expired or network error', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         });
     };
 
@@ -138,7 +153,6 @@ function ChangePassword() {
         }
     }
     return (
-
         isValidToken ? (<Fragment>
             <div className="change-pass-main-container">
                 <div className="bg-white"> 
@@ -158,7 +172,7 @@ function ChangePassword() {
 
                     <div className="change-pass-content">
                         <div className={isValidPassword ? "input-field" : "invalid-input"}>
-                            <input value={password} onChange={(e) => setPassword(e.target.value)} className="input-sign-up required" type={inputType} required="required" />
+                            <input value={password} onChange={(e) => setPassword(e.target.value)} className="input-sign-up password-input-sign-in" type={inputType} required="required" />
                             <div className="placeholder">
                                 Password
                             </div>
@@ -175,7 +189,7 @@ function ChangePassword() {
 								</span>}
 
                         <div className={isValidRePassword ? "input-field" : "invalid-input"}>
-                            <input value={rePassword} onChange={(e) => setRePassword(e.target.value)} className="input-sign-up required" type={reInputType} required="required" />
+                            <input value={rePassword} onChange={(e) => setRePassword(e.target.value)} className="input-sign-up password-input-sign-in" type={reInputType} required="required" />
                             <div className="placeholder">
                                 Re-enter Password
                             </div>
@@ -195,6 +209,9 @@ function ChangePassword() {
               <button onClick={handleClick} > 
                <span>Save</span>
                </button>
+               <Popup  open={isLoading} >
+       <Loading  />
+       </Popup>
            </div>
                     </div>
                 </div></div>
@@ -222,8 +239,6 @@ function ChangePassword() {
                  className="activation-btn">
                    Yes
                      </button>
-                
-
                 </div>
         </div>
             </Fragment>

@@ -3,30 +3,37 @@ import { Fragment } from 'react/cjs/react.production.min';
 import './forgot-password.css'
 import { checkValidEmail } from './valid-email'
 import axios from 'axios'
-import exit from "../../assets/login/exit.png";
-import Cookies from 'js-cookie';
+import { toast, ToastPosition } from 'react-toastify';
+import CancelIcon from "@mui/icons-material/Cancel";
+import Popup from 'reactjs-popup';
+import Loading from "../../components/loading";
 
-
-const ForgotPassword = (setIsShowForgot) => {
+const ForgotPassword = (handleClose,handleLoading) => {
     const [email, setEmail] = useState("");
     const [validEmail, setValidEmail] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [emailError, setEmailError] = useState();
-    const handleShowLoginForm = () => {
-      setIsShowForgot();
-    }
+    const [isLoading, setIsLoading] = useState(false);
+
+    // const handleShow = () => {
+    //   setIsShowForgot(false);
+    // }
 
     const handleClick = () => {
         getEmailError();
 
          //Some conditions before call api from server
-        if(1==1) {
+        if(checkValidEmail(email)) {
+        setIsValidEmail(true);
         // Add loading when run api
-  
+        setIsLoading(true);
         //
         sendEmailForResetPassword(email);
       }
+      else {
+        getEmailError();
     }
+  }
 
     const sendEmailForResetPassword = (
         email
@@ -37,22 +44,45 @@ const ForgotPassword = (setIsShowForgot) => {
           })
           .then((res) => {
             // When this account is exist and sending email for reset password successfully
-          
+            setIsLoading(false);
             // Announce "A reset password email has been sent to your email. Please check" by toast
-            alert("A reset password email has been sent to your email. Please check!")
+            toast.success('A reset password email has been sent to your email. Please check!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+          });
           })
           .catch((err) => {
             // Set loading false (stop)
-    
+            setIsLoading(false);
             //Get status code of error
             const code = err.message.substring(32, err.message.length);
-    
             // This account is not exist
             if (code == "400") {
               setEmail("")
-              alert("This account is not exist!")
+              toast.error('This account is not exist!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             } else {
-              alert("Unknown network error happened")
+              toast.warning('Unknown network error happened', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             }
           });
       };
@@ -82,7 +112,7 @@ const ForgotPassword = (setIsShowForgot) => {
                 <div className="forgot-title">
                     <div className="opacity-50 font-14">Don’t worry! It happens. Please enter the email address associated with your account.</div>
                 </div>
-                <div className="content">
+                <div className="content-forgot">
                 <div className={isValidEmail ? "forgot-box" : "wrong-forgot-input-format"}>
             <input
               placeholder="Email"
@@ -92,10 +122,17 @@ const ForgotPassword = (setIsShowForgot) => {
             />
             
             </div>
-            {!isValidEmail && <small className="forgot-text-danger">{emailError}</small>}
-            
+           
+            {!isValidEmail && <span className="error-mess">
+									<CancelIcon
+										className="mr-1"
+										fontSize="small"
+									/>
+									<small className="forgot-text-danger" >{emailError}</small>
+								</span>}
+
                    <div>
-                   <button onClick={handleShowLoginForm}
+                   <button onClick={handleClose}
  className="cancel-btn">
                    Cancel
                      </button>
@@ -105,10 +142,10 @@ const ForgotPassword = (setIsShowForgot) => {
                         className="send-email-btn">
                         Send
                     </button>
-
                    </div>
-                    
-
+                   <Popup  open={isLoading} >
+       <Loading  />
+       </Popup>
                 </div>
                 </div>
                 

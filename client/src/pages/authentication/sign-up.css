@@ -104,10 +104,6 @@
 
   }
 
-  
-
- 
-  
   .registerInput:focus{
       outline: none;
   }
@@ -164,24 +160,21 @@
     display: flex;
   }
 
-
   input{
     border: none;
     outline: none;
   }
   .wrap2{
     width: 80%;
-   
     position: relative;
     border-bottom: 2px solid #b2b2b2;
     margin-bottom: 13px;
 }
+
 .wrap{
     display: flex;
     width: 100%;
-   
 }
-
 
 .flex1{
   display:flex;
@@ -199,7 +192,6 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  
   position: relative;
   padding-left: 0;
   opacity: 0.5;
@@ -217,9 +209,9 @@
 }
 
 .custom-radio-btn .checkmark {
-  --gap: 3px;
+  --gap: 1px;
   --border: 1px;
-  --check-color: rgba(0, 0, 0, 1);
+  --check-color: #FFB6B9;
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
@@ -236,9 +228,6 @@
 }
 
 .custom-radio-btn input:checked ~ .checkmark {
-  /* changes from the video  */
-
-  /*  content box origin will make sure the bg-image only stays inside content area in between padding  */
   background-origin: content-box;
   background-repeat: no-repeat;
   background-image: radial-gradient(
@@ -257,12 +246,7 @@
   justify-content: space-between;
   margin-left: 8px;
 }
-.type-select {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
+
 
 .m-top-14{
   margin-top: 14px;
@@ -292,16 +276,14 @@
     align-items: center;
   }
   
-  .placeholder {
-    position: absolute;
+  .placeholder {  
     float: left;
-    margin-right: auto;
-    margin-left: 15px;
     color: black;
     font-weight: 400;
     opacity: 0.5;
     pointer-events: none;
     font-size: 14px;
+    padding-left: 30px;
   }
   
   .input-field {
@@ -321,9 +303,46 @@
     margin-left: 16px;
     margin-right: 5px;
     width: 90%;
-    color: #111;
+    color: #000000;
     font-size: 14px;
   }
+
+  .email-input{
+    background-image: url(../../assets/login/icons8-user-64.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 8%;
+    padding-left: 30px;
+  }
+  .phone-input{
+    background-image: url(../../assets/login/icons8-phone-64.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 8%;
+    padding-left: 30px;
+  }
+  .name-input{
+    background-image: url(../../assets/login/icons8-contact-64.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 19%;
+    padding-left: 30px;
+  }
+  .password-input-sign-up {
+    background-image: url(../../assets/login/padlock.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 7.4%;
+    padding-left: 30px;
+  }
+  .date-input{
+    background-image: url(../../assets/login/icons8-calendar-64.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 6.7%;
+    padding-left: 30px;
+  }
+
   .sign-up-text-danger {
     font-size: 12px;
     color: red;

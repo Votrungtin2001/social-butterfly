@@ -1,22 +1,29 @@
-import { useContext,useState, useRef } from "react";
-
+import { useState, useRef } from "react";
 import "./sign-up.css";
-import GoogleLogin from "./google-login"
 import { Link } from "react-router-dom";
 import { checkValidEmail } from "./valid-email";
 import { checkValidPassword } from "./valid-password";
 import { checkValidName } from "./valid-name";
+import { checkValidPhone } from "./valid-phone";
+import { toast, ToastPosition } from 'react-toastify';
 import eyeOn from "../../assets/login/icons8-eye-24.png";
 import eyeOff from "../../assets/login/icons8-invisible-24.png";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ConfirmEmail from './confirm-email';
 import Popup from 'reactjs-popup';
+import Loading from '../../components/loading';
+import 'react-toastify/dist/ReactToastify.css';
+import { Backdrop, CircularProgress } from "@material-ui/core";
+import Page from 'react-page-loading'
+toast.configure()
 
 export default function SignUp() {
+  const ref = useRef();
+
   const [passVisibility, setPassVisibility] = useState(eyeOff);
   const [rePassVisibility, setRePassVisibility] = useState(eyeOff);
-  const ref = useRef();
+
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState();
@@ -41,8 +48,8 @@ export default function SignUp() {
   const [isAgreeError, setIsAgreeError] = useState();
   const [isAgreeChecked, setIsAgreeChecked] = useState(true);
 
-  const [phone, setphone] = useState();
-  const [isEnterphone, setIsEnterphone] = useState(true);
+  const [phone, setphone] = useState("");
+  const [isEnterPhone, setIsEnterPhone] = useState(true);
   const [phoneError, setphoneError] = useState();
 
   const [firstName, setfirstName] = useState("");
@@ -54,25 +61,38 @@ export default function SignUp() {
 
   const [isShowConfirm, setIsShowConfirm] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [headerEmail, setHeaderEmail] = useState();
+
   const handleConfirm = () => {
     setIsShowConfirm(true);
-
   }
+
   const handleSignUp = () => {
     getEmailError(email);
     getPasswordError(password);
     getRePasswordError(password, rePassword);
     getSetGenderError(gender);
     getIsAgreeError(isAgree);
-    getEnterphone(phone);
+    getPhoneError(phone);
     getFirstNameError(firstName);
     getLastNameError(lastName);
-    
+    setHeaderEmail(email);
+  
     //Some conditions before call api from server
-    if(1==1) {
+    if(
+    checkValidEmail(email) &&
+    checkValidPassword(password) &&
+    checkValidName(firstName) &&
+    checkValidName(lastName) &&
+    isAgree &&
+    password &&
+    rePassword == password  &&
+    gender ) {
       // Add loading when run api
-
-
+      setIsLoading(true);
+    
       const fullName = firstName + " " + lastName;
       if(birthday != "")  moveToConfirmEmail(firstName, lastName, fullName, email, password, birthday, gender, phone);
       else {
@@ -80,7 +100,6 @@ export default function SignUp() {
         moveToConfirmEmail(firstName, lastName, fullName, email, password, defaultBirthday, gender, phone);
       }
     }
-    
   };
 
   const moveToConfirmEmail = (
@@ -107,29 +126,45 @@ export default function SignUp() {
       .then((res) => {
         const {firstName, lastName, fullName, email, password, birthday, sex, mobile} = res.data
         // Set loading false (stop)
-
+        setIsLoading(false);
         // Pop up asking for confirm email appears but send firstName, lastName, fullName, email, password, birthday, sex, phone from here to that pop up by props
         handleConfirm();
       })
       .catch((err) => {
         // Set loading false (stop)
-
+        setIsLoading(false);
         //Get status code of error
         const code = err.message.substring(32, err.message.length);
 
         // Email already taken
         if (code == "401") {
           // Set text in email txt is empty
-
+          setEmail("");
           //Print error "This email was already taken" (should use toast)
-
+          toast.warning('This email was already taken', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
 
         } else {
           //Print error "Unknown network error happened" (should use toast)
-
+          toast.error('Unknown network error happened', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
         }
       });
-  };
+  }
 
   function getEmailError(email) {
     let errorMessage = "";
@@ -142,14 +177,16 @@ export default function SignUp() {
     }
   }
 
-  function getEnterphone(phone) {
+  function getPhoneError(phone) {
     let errorMessage = "";
-    if (phone) {
-      setIsEnterphone(true);
-    } else {
-      errorMessage = "Please enter your phone number";
-      setIsEnterphone(false);
+    if (!checkValidPhone(phone)) {
+      errorMessage = phone
+      ? "Phone number is wrong format" 
+      : "Please enter your phone number";
+      setIsEnterPhone(false);
       setphoneError(errorMessage);
+    } else {
+      setIsEnterPhone(true);
     }
   }
 
@@ -209,6 +246,19 @@ export default function SignUp() {
     let errorMessage = "";
     if (!checkValidName(firstName)) {
       errorMessage = firstName
+        ? "Tên sai định dạng, chỉ bao gồm chữ cái hoặc khoảng trắng, độ dài từ 3 đến 50 ký tự"
+        : "Tên không được để trống";
+        setIsFirstValidName(false);
+        setFirstNameError(errorMessage);
+    } else {
+      setIsFirstValidName(true);
+    }
+  }
+
+  function getFirstNameError(firstName) {
+    let errorMessage = "";
+    if (!checkValidName(firstName)) {
+      errorMessage = firstName
         ? "The name is formatted incorrectly, contains only letters or spaces, between 1 and 50 characters in length"
         : "First name can not be blank";
       setIsFirstValidName(false);
@@ -240,7 +290,8 @@ export default function SignUp() {
       setPassVisibility(eyeOn);
       setInputType("text");
     }
-  };
+  }
+
   const changeRePassVisibility = () => {
     if (rePassVisibility === eyeOn) {
       setRePassVisibility(eyeOff);
@@ -250,13 +301,14 @@ export default function SignUp() {
       setRePassVisibility(eyeOn);
       setReInputType("text");
     }
-  };
+  }
+
   return (
     <div className="register">
+      
       <div className="registerWrapper">
         <div className="registerLeft">
         <div className="registerBox" >
-         
           <span className="registerDesc">
             <img></img>
           </span>
@@ -269,48 +321,40 @@ export default function SignUp() {
                 <span className="font-12 weight-400">Already have an account? </span>
                 <Link to="/"><button className="font-12 sign-in-anchor weight-400 btn">Sign in</button></Link>
               </div>
-
-              <div className="wrap">
+           <div className="wrap">
               <div className={isValidFirstName ? "input-field" : "invalid-input"} >
             <input
               value={firstName}
               onChange={(e) => setfirstName(e.target.value)}
-              className="input-sign-up"
+              className="input-sign-up name-input"
               type="text"
-            
               placeholder="First Name"
-            ></input>
-            
-          </div>
-          
+            />
+            </div>
           <div className={isValidLastName ? "input-field m-left-8 " : "invalid-input m-left-8"} >
-            
             <input
               value={lastName}
               onChange={(e) => setlastName(e.target.value)}
-              className="input-sign-up "
+              className="input-sign-up name-input"
               type="text"
-            
               placeholder="Last Name"
-            ></input>
-            
-          </div>
-       
-                </div>
-
+            />
+        </div>
+      </div>
                 {!isValidFirstName  && <span className="error-mess">
 									<CancelIcon
 										className="mr-1"
 										fontSize="small"
 									/>
-									<small className="sign-up-text-danger" >{firstNameError}</small>
+									<small className="sign-up-text-danger">{firstNameError}</small>
 								</span>}
+
                 {!isValidLastName  && <span className="error-mess">
 									<CancelIcon
 										className="mr-1"
 										fontSize="small"
 									/>
-									<small className="sign-up-text-danger" >{lastNameError}</small>
+									<small className="sign-up-text-danger">{lastNameError}</small>
 								</span>}
         
 
@@ -318,35 +362,32 @@ export default function SignUp() {
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="input-sign-up"
+              className="email-input input-sign-up"
               type="text"
-            
               placeholder="Email"
             ></input>
-            
           </div>
+
           {!isValidEmail && <span className="error-mess">
 									<CancelIcon
 										className="mr-1"
 										fontSize="small"
 									/>
 									<small className="sign-up-text-danger" >{emailError}</small>
-								</span>}
-        
-        
+					 </span>}
 
-<div className={isEnterphone ? "input-field" : "invalid-input"} >
+<div className={isEnterPhone ? "input-field" : "invalid-input"} >
             <input
               value={phone}
               onChange={(e) => setphone(e.target.value)}
-              className="input-sign-up"
+              className="input-sign-up phone-input"
               type="tel"
               placeholder="Phone Number"
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+
             ></input>
             
           </div>
-          {!isEnterphone && <span className="error-mess">
+          {!isEnterPhone && <span className="error-mess">
 									<CancelIcon
 										className="mr-1"
 										fontSize="small"
@@ -354,16 +395,15 @@ export default function SignUp() {
 									<small className="sign-up-text-danger" >{phoneError}</small>
 								</span>}
          
-<div className={isValidPassword ? "input-field" : "invalid-input"}>
+          <div className={isValidPassword ? "input-field" : "invalid-input"}>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="input-sign-up required"
+              className="input-sign-up password-input-sign-up"
               type={inputType}
               
               placeholder="Password"
             />
-            
             <button onClick={changePassVisibility} className="show-button m-left-265 m-top-5">
               <img src={passVisibility} />
             </button>
@@ -380,7 +420,7 @@ export default function SignUp() {
             <input
               value={rePassword}
               onChange={(e) => setRePassword(e.target.value)}
-              className="input-sign-up required"
+              className="input-sign-up password-input-sign-up"
               type={reInputType}
               
               placeholder="Re-enter Password"
@@ -403,7 +443,7 @@ export default function SignUp() {
             <input
               value={birthday}
               onChange={(e) => setBirthday(e.target.value)}
-              className="input-sign-up"
+              className="input-sign-up date-input"
               type="text"
               required
               ref={ref}
@@ -419,7 +459,7 @@ export default function SignUp() {
             {!isTypeDate && <div className="placeholder">Date of Birth</div>}
           </div>
             
-            <div className="m-top-14">
+            <div >
          
          <div className="gender-select m-top-10">
            <label className="custom-radio-btn">
@@ -492,14 +532,19 @@ export default function SignUp() {
 									<small className="sign-up-text-danger" >{isAgreeError}</small>
 								</span>}
          
-<div className="loginButton">
+           <div className="loginButton">
               <button onClick={handleSignUp}  > 
                <span>Register</span>
                </button>
            </div>
-           
+
+       <Popup  open={isLoading} >
+       <Loading  />
+       </Popup>
+
            <Popup open={isShowConfirm} closeOnDocumentClick={false} >
                 {<ConfirmEmail
+                 email={headerEmail}
                    />}
               </Popup>
 

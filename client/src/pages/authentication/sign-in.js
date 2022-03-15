@@ -4,7 +4,7 @@ import "./sign-in.css"
 import GoogleLogin from "react-google-login"
 import { Link } from "react-router-dom";
 import ForgotPassword from './forgot-password';
-
+import { toast, ToastPosition } from 'react-toastify';
 import Popup from 'reactjs-popup';
 import eyeOn from "../../assets/login/icons8-eye-24.png";
 import eyeOff from "../../assets/login/icons8-invisible-24.png";
@@ -14,6 +14,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 import CancelIcon from "@mui/icons-material/Cancel";
 import GoogleLoginUI from "./google-login";
+import Loading from "../../components/loading";
 
 const Login = () => {
 
@@ -29,6 +30,11 @@ const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isRememberMe, setIsRemember] = useState(false);
+  
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [passwordError, setPasswordError] = useState();
+
   const googleAppID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const history = useHistory()
@@ -74,7 +80,6 @@ let changeVisibilityHandler = () => {
 };
 
 const loginHandler = () => {
-  setError("")
   setValidEmail(checkValidEmail(email));
   setValidPassword(checkValidPassword(password));
   setCheckEmptyPassword(password);
@@ -83,12 +88,11 @@ const loginHandler = () => {
   }
 
   //Some conditions before call api from server
-  if(1==1) {
+  if(checkValidEmail(email) && password) {
     // Add loading when run api
-
+    setIsLoading(true);
     login(email, password); 
   }
-  
 }
 
 const login = (email, password) => {
@@ -100,51 +104,79 @@ const login = (email, password) => {
     .then((res) => {
       // Sign in successfully
       const {accessToken, refreshToken} = res.data
-     if (isRememberMe) {
-            setUserCookies(email, password);
-          }
-          else {
-            const emailInCookies = Cookies.get("userEmail");
-            const passwordInCookies = Cookies.get("userPassword");
-            if (emailInCookies === email && passwordInCookies === password) {
-              removeUserCookies();
-            }
-          }
-          
-          setEmail("");
-          setPassword("");
-          setError("")
+  
       // Set remove error
-
+      setEmail("");
+      setPassword("");
+      setError("")
       // Set loading false (stop)
-
+      setIsLoading(false);
       // Save accessToken and refreshToken in cookies
-
+      if (isRememberMe) {
+        setUserCookies(email, password);
+      }
+      else {
+        const emailInCookies = Cookies.get("userEmail");
+        const passwordInCookies = Cookies.get("userPassword");
+        if (emailInCookies === email && passwordInCookies === password) {
+          removeUserCookies();
+        }
+      }
       // Print "Login successfully" by toast
-
+      toast.success('Login successfully', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
       // Move to home page
       history.push("/home")
-
       
     })
     .catch((err) => {
       // Set loading false (stop)
-
+      setIsLoading(false);
       //Get status code of error
       const code = err.message.substring(32, err.message.length);
 
       // Email already taken
       if (code == "401") {
         //Print error "This email does not exist" (should use toast and also make error in email textbox - red)
-
+        toast.error('This email does not exist', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+      });
       }
       else if (code == "402") {
          //Print error "Incorrect password" (should use toast and also make error in password textbox - red)
-        
+         toast.error('Incorrect password', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+      });
 
       } else {
-        //Print error "Unknown network error happened" (should use toast)
-
+        toast.warning('Unknown network error happened', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+      });
       }
     });
 }; 
@@ -157,7 +189,7 @@ const responseGoogle = (response) => {
 
 const sendGoogleToken = tokenId => {
   //Set loading is true
-
+setIsLoading(true);
   axios
     .post(`${process.env.REACT_APP_API_URL}/api/auth/google`, {
       idToken: tokenId
@@ -171,13 +203,21 @@ const sendGoogleToken = tokenId => {
       setError("")
 
       //Set loading is false (stop)
-
+      setIsLoading(false);
        // Move to home page
        history.push("/home")
 
     })
     .catch(error => {
-      // Announce "Log in by Google unsuccessfully" by toast
+      toast.error('Log in by Google unsuccessfully', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
 
     });
 };
@@ -200,14 +240,16 @@ const sendGoogleToken = tokenId => {
                 <span className="font-12 weight-400">Don’t have an account yet? </span>
                 <Link to="/sign-up"><button className="font-12 sign-in-anchor weight-400 btn">Register now</button></Link>
               </div>
-              <div className={validEmail ? "input-box" : "wrong-input-format"}>
+              
+            <div className={validEmail ? "input-field" : "invalid-input"}>
             <input
-              placeholder="Email"
               value={email}
               onChange={(e) => { setEmail(e.target.value); setValidEmail(true) }}
-              className="username-input"
-            />
-            </div>
+              className="email-input-sign-in input-sign-up"
+              type="text"
+              placeholder="Email"
+            ></input>
+          </div>
             {!validEmail && <span className="error-mess">
 									<CancelIcon
 										className="mr-1"
@@ -215,20 +257,19 @@ const sendGoogleToken = tokenId => {
 									/>
 									<small className="text-danger" >{emailError}</small>
 								</span>}
-            
-            
-            <div className={checkEmptyPassword ? "input-box" : "wrong-input-format"}>
-             <input
-              placeholder="Password"
+
+            <div className={checkEmptyPassword ? "input-field" : "invalid-input"}>
+            <input
               value={password}
               onChange={(e) => { setPassword(e.target.value); setCheckEmptyPassword(true) }}
+              className="input-sign-up password-input-sign-in"
               type={inputType}
-              className="password-input"
-             />
-             {/* <button className="m-left-340 m-top-16 show-button" onClick={changeVisibilityHandler}>
+              placeholder="Password"
+            />
+            <button onClick={changeVisibilityHandler} className="show-button m-left-340 m-top-5">
               <img src={visibility} />
-             </button> */}
-            </div>
+            </button>
+          </div>
 
             {!checkEmptyPassword && <span className="error-mess">
 									<CancelIcon
@@ -252,29 +293,27 @@ const sendGoogleToken = tokenId => {
                   <div>
                   <button onClick = {handleForgot} 
                 className="loginForgot">Forgot Password?</button>
-                
-                 <Popup
-                closeOnDocumentClick={false}
-                nested modal
-                onClose={() => setIsShowForgot(false)}
-                open={isShowForgot}>
-                
-                {<ForgotPassword
-                  setIsShowForgot={handleCloseForgot}
-                  />}
-              </Popup>
+                          
               </div>
             </span>
+            <Popup open={isShowForgot} onClose={() => setIsShowForgot(false)} nested modal closeOnDocumentClick={false}>
+                
+                {<ForgotPassword
+                  handleClose={handleCloseForgot}
+                
+                  />}
+              </Popup>
            <div className="loginButton">
               <button onClick={loginHandler} > 
                <span>Log in</span>
                </button>
            </div>
-            
            
-         
+       <Popup  open={isLoading} >
+       <Loading  />
+       </Popup>
+            
             <div className="other-option"><span className="other-text">Or</span></div>
-
 
             <GoogleLogin
               clientId={googleAppID}
