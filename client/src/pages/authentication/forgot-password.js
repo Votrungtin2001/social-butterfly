@@ -8,16 +8,12 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import Popup from 'reactjs-popup';
 import Loading from "../../components/loading";
 
-const ForgotPassword = (handleClose,handleLoading) => {
+const ForgotPassword = ({handleClose}) => {
     const [email, setEmail] = useState("");
     const [validEmail, setValidEmail] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [emailError, setEmailError] = useState();
     const [isLoading, setIsLoading] = useState(false);
-
-    // const handleShow = () => {
-    //   setIsShowForgot(false);
-    // }
 
     const handleClick = () => {
         getEmailError();

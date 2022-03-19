@@ -317,6 +317,7 @@ const Img = styled.img`
                 
                   />}
               </Popup>
+              
            <div className="loginButton">
               <button onClick={loginHandler} > 
                <span>Log in</span>
