@@ -14,8 +14,9 @@ import ConfirmEmail from './confirm-email';
 import Popup from 'reactjs-popup';
 import Loading from '../../components/loading';
 import 'react-toastify/dist/ReactToastify.css';
-import { Backdrop, CircularProgress } from "@material-ui/core";
-import Page from 'react-page-loading'
+import styled from "styled-components";
+import image from "../../assets/img/Saly-24.png";
+import Tilt from "react-tilt";
 toast.configure()
 
 export default function SignUp() {
@@ -302,16 +303,26 @@ export default function SignUp() {
       setReInputType("text");
     }
   }
+  const TiltWrapper = styled(Tilt)`
+  width: 60%;
+  min-width: 400px;
+  @media (max-width: 670px) {
+    display: none;
+  }
+`;
+const Img = styled.img`
+  width: 100%;
 
+`;
   return (
     <div className="register">
       
       <div className="registerWrapper">
         <div className="registerLeft">
         <div className="registerBox" >
-          <span className="registerDesc">
-            <img></img>
-          </span>
+        <TiltWrapper options={{ max: 25 }}>
+            <Img src={image} alt="@gouthamgtronics" />
+          </TiltWrapper>
           </div>
         </div>
         <div className="registerRight">
@@ -319,7 +330,7 @@ export default function SignUp() {
           <div class="heading">
                 <h3>Get Started</h3>
                 <span className="font-12 weight-400">Already have an account? </span>
-                <Link to="/"><button className="font-12 sign-in-anchor weight-400 btn">Sign in</button></Link>
+                <Link to="/sign-in"><button className="font-12 sign-in-anchor weight-400 btn">Sign in</button></Link>
               </div>
            <div className="wrap">
               <div className={isValidFirstName ? "input-field" : "invalid-input"} >

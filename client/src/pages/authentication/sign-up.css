@@ -31,8 +31,9 @@
     flex-direction: column;
     justify-content: center;
     margin-top: auto;
-    margin-bottom: 40px;
+    margin-bottom: auto;
     align-items: center;
+    align-self: center;
   }
   
   .registerLogo { 
@@ -44,9 +45,8 @@
   
   .registerDesc {
     font-size: 24px;
-    
-   
   }
+  
   .font-12{
       font-size: 12px;
   }
@@ -60,16 +60,9 @@
       display: flex;
       margin-right: 100px;
       justify-content: center;
-      background-image: url(../../assets/img/sign-up-image.png);
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: 100%;
-      align-self: center;
-     
-
-    
-     
+      align-items: flex-end;
 }
+
 .registerBoxRight{
   height: 100%;
   width: 320px;

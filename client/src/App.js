@@ -8,7 +8,7 @@ import Register from "./pages/authentication/sign-up";
 import Home from "./pages/home/home";
 import ChangePassword from "./pages/authentication/change_password";
 import ActivationEmail from "./pages/authentication/activation-email"
-import Loading from "./components/loading";
+import Introduction from "./pages/introduction/introduction";
 
 import ConfirmEmail from "./pages/authentication/confirm-email";
 
@@ -19,12 +19,11 @@ function App() {
      {/* <input type="checkbox" id="theme" /> */}
       <div class="App">
         <div className="main">
-          <Route exact path="/" component={Login} />
-          <Route exact path="/loading" component={Loading} />
+          <Route exact path="/" component={Introduction} />
           <Route exact path="/sign-up" component={Register} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/confirm" component={ConfirmEmail} />
-
+          <Route exact path="/sign-in" component={Login} />
           <Route
               path="/activate/:activation_token"
               component={ActivationEmail}

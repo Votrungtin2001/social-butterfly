@@ -15,6 +15,9 @@ import Cookies from 'js-cookie';
 import CancelIcon from "@mui/icons-material/Cancel";
 import GoogleLoginUI from "./google-login";
 import Loading from "../../components/loading";
+import styled from "styled-components";
+import image from "../../assets/img/Saly-12.png";
+import Tilt from "react-tilt";
 
 const Login = () => {
 
@@ -221,15 +224,26 @@ setIsLoading(true);
 
     });
 };
+const TiltWrapper = styled(Tilt)`
+  width: 60%;
+  min-width: 400px;
+  @media (max-width: 670px) {
+    display: none;
+  }
+`;
+const Img = styled.img`
+  width: 120%;
 
+`;
   return (
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">social butterfly</h3>
-          <span className="loginDesc">
-            <img></img>
-          </span>
+          {/* <h3 className="loginLogo">social butterfly</h3> */}
+          <TiltWrapper options={{ max: 25 }}>
+            <Img src={image} alt="@gouthamgtronics" />
+          </TiltWrapper>
+          
         </div>
         <div className="loginRight">
 
