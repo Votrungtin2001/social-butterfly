@@ -251,7 +251,7 @@ const Img = styled.img`
 
           <div class="heading m-top-35">
                 <h3>Welcome Back...</h3>
-                <span className="font-12 weight-400">Don’t have an account yet? </span>
+                <span className="font-12 weight-400">Don’t have an account yet?</span>
                 <Link to="/sign-up"><button className="font-12 sign-in-anchor weight-400 btn">Register now</button></Link>
               </div>
               
@@ -280,7 +280,7 @@ const Img = styled.img`
               type={inputType}
               placeholder="Password"
             />
-            <button onClick={changeVisibilityHandler} className="show-button m-left-340 m-top-5">
+            <button onClick={changeVisibilityHandler} className="show-button m-left-265">
               <img src={visibility} />
             </button>
           </div>

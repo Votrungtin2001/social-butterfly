@@ -9,9 +9,9 @@ import Home from "./pages/home/home";
 import ChangePassword from "./pages/authentication/change_password";
 import ActivationEmail from "./pages/authentication/activation-email"
 import Introduction from "./pages/introduction/introduction";
-
+import Profile from "./pages/profile/profile";
 import ConfirmEmail from "./pages/authentication/confirm-email";
-
+import EditProfile from "./pages/profile/edit-profile"
 function App() {
 
     return (
@@ -30,6 +30,8 @@ function App() {
               exact
             />
           <Route exact path="/reset/:reset_token" component={ChangePassword} />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/edit-profile" component={EditProfile} />
         </div>
       </div>
     </Router>

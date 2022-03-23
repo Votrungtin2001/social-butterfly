@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <Nav>
       <Container>
-        <LogoIcon size={1000}/>
+        <LogoIcon />
         <Hamburger onClick={() => setIsOpen(!isOpen)}>
           <span />
           <span />

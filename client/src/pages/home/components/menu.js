@@ -52,7 +52,7 @@ const Menu = () => {
                     </span>
 
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link className="dropdown-item">Profile</Link>
+                    <Link to='/profile' className="dropdown-item">Profile</Link>
                     <Link className="dropdown-item">Dark Mode</Link>
 
                     {/* <label htmlFor="theme" className="dropdown-item"

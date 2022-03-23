@@ -12,7 +12,7 @@ window.onresize = () => {
     posX = window.innerWidth;
 }
 
-const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday, sex, mobile, setIsLogin }) => {
+const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday, sex, mobile,closeConfirm }) => {
     const history = useHistory();
     const [isFirst, setIsFirst] = useState(true);
     const [error, setError] = useState("");
@@ -64,9 +64,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
                     <div className="header-confirm-email">
                         <span></span>
                         <span className="weight-500 m-top-28 font-24">Email Verification</span>
-                        <button className="m-top-28 close-image" onClick={() => {
-                            setIsLogin(true);
-                        }}>
+                        <button className="m-top-28 close-image" onClick={closeConfirm}>
                             <img src={exit} />
                         </button>
                     </div>
@@ -88,9 +86,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
                     <div className="header-confirm-email">
                         <span></span>
                         <span className="weight-500 m-top-28 font-24">Email Verification</span>
-                        <button className="m-top-28 close-image" onClick={() => {
-                            setIsLogin(true);
-                        }}>
+                        <button className="m-top-28 close-image" onClick={closeConfirm}>
                             <img src={exit} />
                         </button>
                     </div>

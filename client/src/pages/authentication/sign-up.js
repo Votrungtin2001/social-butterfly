@@ -314,6 +314,11 @@ const Img = styled.img`
   width: 100%;
 
 `;
+
+const handleCloseConfirm = () => {
+  setIsShowConfirm(false)
+}
+
   return (
     <div className="register">
       
@@ -556,6 +561,7 @@ const Img = styled.img`
            <Popup open={isShowConfirm} closeOnDocumentClick={false} >
                 {<ConfirmEmail
                  email={headerEmail}
+                 closeConfirm={handleCloseConfirm}
                    />}
               </Popup>
 

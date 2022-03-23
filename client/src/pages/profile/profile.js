@@ -1,10 +1,16 @@
-import React from 'react'
-
-
+import React, { useEffect, useState } from 'react'
+import Info from './info'
+import './profile.css'
+import Header from '../home/components/header'
 const Profile = () => {
-    return(
-        <div>
-            <h1>trang profile</h1>
+
+   
+    return (
+        <div className="profile">
+           <Header/>
+           <Info/>
+
+           
         </div>
     )
 }
