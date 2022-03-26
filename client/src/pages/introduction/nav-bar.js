@@ -72,7 +72,7 @@ const Container = styled.div`
   max-width: 1000px;
   margin: auto;
   width: 100%;
-  padding: 2rem;
+  padding: 40px 0px 80px 0px;
 
   svg {
     height: 1.4rem;

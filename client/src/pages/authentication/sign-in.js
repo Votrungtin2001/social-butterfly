@@ -18,6 +18,7 @@ import Loading from "../../components/loading";
 import styled from "styled-components";
 import image from "../../assets/img/Saly-12.png";
 import Tilt from "react-tilt";
+import {showErrMsg} from './error-message'
 
 const Login = () => {
 
@@ -111,7 +112,7 @@ const login = (email, password) => {
       // Set remove error
       setEmail("");
       setPassword("");
-      setError("")
+     
       // Set loading false (stop)
       setIsLoading(false);
       // Save accessToken and refreshToken in cookies
@@ -157,8 +158,11 @@ const login = (email, password) => {
           draggable: true,
           progress: undefined,
       });
+      setError("This email does not ....");
       }
       else if (code == "402") {
+        setError("incorrect ....");
+
          //Print error "Incorrect password" (should use toast and also make error in password textbox - red)
          toast.error('Incorrect password', {
           position: "top-right",
@@ -169,7 +173,6 @@ const login = (email, password) => {
           draggable: true,
           progress: undefined,
       });
-
       } else {
         toast.warning('Unknown network error happened', {
           position: "top-right",
@@ -251,10 +254,10 @@ const Img = styled.img`
 
           <div class="heading m-top-35">
                 <h3>Welcome Back...</h3>
-                <span className="font-12 weight-400">Don’t have an account yet?</span>
-                <Link to="/sign-up"><button className="font-12 sign-in-anchor weight-400 btn">Register now</button></Link>
+                <span className="font-12 weight-400">Don’t have an account yet? </span>
+                <Link to="/sign-up"><button className="font-12 sign-in-anchor btn-sign">Register now</button></Link>
               </div>
-              
+              {error && showErrMsg(error)}
             <div className={validEmail ? "input-field" : "invalid-input"}>
             <input
               value={email}

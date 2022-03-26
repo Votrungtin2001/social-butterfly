@@ -7,7 +7,7 @@ import Following from './following'
 import Popup from 'reactjs-popup';
 import { stepConnectorClasses } from '@mui/material'
 import { Link } from 'react-router-dom'
-
+import './profile.css'
 const Info = () => {
  
     const [onEdit, setOnEdit] = useState(false)
@@ -29,9 +29,8 @@ const Info = () => {
                                 <h2>name</h2>
                                 {
                                     1 === 1
-                                    ?  <Link className="btn btn-outline-info"
-                                    to="/edit-profile">
-                                        Edit Profile
+                                    ?  <Link  to="/edit-profile">
+                                        <button className="edit-profile-btn">Edit Profile</button>
                                     </Link>
                                     
                                     : <FollowBtn  />
@@ -44,14 +43,14 @@ const Info = () => {
                                 <span className="mr-4" onClick={() => setShowFollowers(true)}>
                                     14 Followers
                                 </span>
-                                <span className="ml-4" onClick={() => setShowFollowing(true)}>
+                                <span className="ml-4 m-left-50" onClick={() => setShowFollowing(true)}>
                                     113 Following
                                 </span>
                             </div>
 
-                            <h6>minhthi.nekk<span className="text-danger">0886026218</span></h6>
-                            <p className="m-0">binh dinh</p>
-                            <h6 className="m-0">mail@gmail.com</h6>
+                            <h6>minhthi.nekk</h6>
+                            <p className="m-0">binh dinh, viet nam, trai dat</p>
+                            
                             <a target="_blank" rel="noreferrer">
                                 fb.com
                             </a>

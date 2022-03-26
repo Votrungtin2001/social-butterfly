@@ -1,5 +1,4 @@
 .introduce {
-   
     padding :80px;
   }
   .introduce-header {
@@ -36,12 +35,31 @@
     align-items: center;
     transform: translateY(-50px);
     margin-bottom: 30px;
+    
   }
+  .icon-bg-3{
+    background-image: url("../../assets/icons/group.svg");
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+    }
+    .icon-bg-2{
+      background-image: url("../../assets/icons/user-profile.svg");
+      background-repeat: no-repeat;
+      background-size: 80%;
+      background-position: center;
+      }
+      .icon-bg-1{
+        background-image: url("../../assets/icons/add.svg");
+        background-repeat: no-repeat;
+        background-size: 80%;
+        background-position: center;
+        }
   .introduce-title {
     font-weight: 500;
     font-size: 30px;
     line-height: 1.5;
-    color: #2f327d;
+    color: #111;
     margin-bottom: 24px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -59,14 +77,16 @@
   }
 
   .global-heading {
-    color: #2f327d;
+    color: #BBDED6;
     font-weight: bold;
     font-size: 36px;
     line-height: 180%;
     margin-bottom: 20px;
   }
   .global-heading span {
-    color: #f48c06;
+    color: #FFB6B9;
+    font-weight: bold;
+    font-size: 36px;
   }
 
   .global-text {
@@ -76,15 +96,15 @@
   }
 
   .bg-purple {
-    background-color: #5b72ee;
+    background-color: #FFB6B9;
   }
   
   .bg-orange {
-    background-color: #f48c06;
+    background-color: #FAE3D9;
   }
   
   .bg-blue {
-    background-color: #29b9e7;
+    background-color: #BBDED6;
   }
 
   .about {
@@ -130,3 +150,5 @@
     padding: 24px 40px;
     border: 1px solid currentColor;
   }
+
+ 

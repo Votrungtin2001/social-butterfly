@@ -85,7 +85,7 @@
   .sign-in-anchor{
 	text-decoration: none;
 	color: #FFA0A0;
-	font-weight: 500;
+	font-weight: bold;
 	border: 0;
 	background-color: transparent;
     justify-content: right;
@@ -288,7 +288,7 @@ margin-top: 10px;
     margin-left: 340px;
   }
 
-  .btn::after{
+  .btn-sign::after{
 content: '';
 height: 2px;
 width: 0%;
@@ -297,10 +297,10 @@ display: block;
 transition: .5s ease-in-out;
   }
 
-  .btn{
+  .btn-sign{
     cursor: pointer;
   }
-  .btn:hover::after{
+  .btn-sign:hover::after{
     content: '';
     height: 2px;
     background-color: #FFA0A0;

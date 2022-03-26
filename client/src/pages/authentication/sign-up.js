@@ -335,7 +335,7 @@ const handleCloseConfirm = () => {
           <div class="heading">
                 <h3>Get Started</h3>
                 <span className="font-12 weight-400">Already have an account? </span>
-                <Link to="/sign-in"><button className="font-12 sign-in-anchor weight-400 btn">Sign in</button></Link>
+                <Link to="/sign-in"><button className="font-12 sign-in-anchor btn-sign">Sign in</button></Link>
               </div>
            <div className="wrap">
               <div className={isValidFirstName ? "input-field" : "invalid-input"} >
@@ -345,6 +345,7 @@ const handleCloseConfirm = () => {
               className="input-sign-up name-input"
               type="text"
               placeholder="First Name"
+              autocomplete='nope'
             />
             </div>
           <div className={isValidLastName ? "input-field m-left-8 " : "invalid-input m-left-8"} >
@@ -354,6 +355,7 @@ const handleCloseConfirm = () => {
               className="input-sign-up name-input"
               type="text"
               placeholder="Last Name"
+              autocomplete='nope'
             />
         </div>
       </div>
@@ -372,7 +374,6 @@ const handleCloseConfirm = () => {
 									/>
 									<small className="sign-up-text-danger">{lastNameError}</small>
 								</span>}
-        
 
                 <div className={isValidEmail ? "input-field" : "invalid-input"}>
             <input
@@ -381,6 +382,7 @@ const handleCloseConfirm = () => {
               className="email-input input-sign-up"
               type="text"
               placeholder="Email"
+              autocomplete='nope'
             ></input>
           </div>
 
@@ -399,7 +401,7 @@ const handleCloseConfirm = () => {
               className="input-sign-up phone-input"
               type="tel"
               placeholder="Phone Number"
-
+              autocomplete='nope'
             ></input>
             
           </div>
@@ -420,7 +422,7 @@ const handleCloseConfirm = () => {
               
               placeholder="Password"
             />
-            <button onClick={changePassVisibility} className="show-button m-left-265 m-top-5">
+            <button onClick={changePassVisibility} className="show-button m-left-265 ">
               <img src={passVisibility} />
             </button>
           </div>
@@ -442,7 +444,7 @@ const handleCloseConfirm = () => {
               placeholder="Re-enter Password"
             />
            
-            <button onClick={changeRePassVisibility} className="show-button m-left-265 m-top-5">
+            <button onClick={changeRePassVisibility} className="show-button m-left-265">
               <img src={rePassVisibility} />
             </button>
           </div>
@@ -468,11 +470,11 @@ const handleCloseConfirm = () => {
                 ref.current.type = "date";
               }}
               onBlur={() => {
-                setIsTypeDate(false);
+                setIsTypeDate(true);
                 ref.current.type = "text";
               }}
             />
-            {!isTypeDate && <div className="placeholder">Date of Birth</div>}
+            {!isTypeDate && <div className="placeholder-sign-up">Date of Birth</div>}
           </div>
             
             <div >

@@ -268,14 +268,16 @@
     align-items: center;
   }
   
-  .placeholder {  
+  .placeholder-sign-up {  
     float: left;
     color: black;
     font-weight: 400;
     opacity: 0.5;
     pointer-events: none;
     font-size: 14px;
-    padding-left: 30px;
+    display: flex;
+    position: absolute;
+    margin-left: 45px;
   }
   
   .input-field {

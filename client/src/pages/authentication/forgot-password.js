@@ -127,7 +127,7 @@ const ForgotPassword = ({handleClose}) => {
 									<small className="forgot-text-danger" >{emailError}</small>
 								</span>}
 
-                   <div>
+                   <div className='forgot-bottom'>
                    <button onClick={handleClose}
  className="cancel-btn">
                    Cancel

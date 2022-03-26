@@ -14,7 +14,6 @@ const Feature = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-  
   `;
   
     const TiltWrapper = styled(Tilt)`
@@ -47,11 +46,11 @@ const Img = styled.img`
         </div>
         <div class="introduce-list">
           <div class="introduce-item">
-            <div class="introduce-icon bg-purple">
-              <img src="./images/icon-file.svg" alt="" class="" />
+            <div class="introduce-icon icon-bg-1 bg-purple">
+              <img  />
             </div>
             <h3 class="introduce-title">
-              Easy Create account
+              Easy Create Account
             </h3>
             <p class="introduce-desc">
               Simple and secure control of your organization’s financial and
@@ -59,8 +58,8 @@ const Img = styled.img`
             </p>
           </div>
           <div class="introduce-item">
-            <div class="introduce-icon bg-orange">
-              <img src="./images/icon-calendar.svg" alt="" class="" />
+            <div class="introduce-icon icon-bg-2 bg-orange">
+              <img  />
             </div>
             <h3 class="introduce-title">
               Build Your Profile
@@ -71,10 +70,10 @@ const Img = styled.img`
             </p>
           </div>
           <div class="introduce-item">
-            <div class="introduce-icon bg-blue">
-              <img src="./images/icon-users.svg" alt="" class="" />
+            <div class="introduce-icon bg-blue icon-bg-3">
+              <img />
             </div>
-            <h3 class="introduce-title">Connect with friends</h3>
+            <h3 class="introduce-title">Connect With Friends</h3>
             <p class="introduce-desc">
               Automate and track emails to individuals or groups. Skilline’s
               built-in system helps organize your organization
@@ -86,12 +85,14 @@ const Img = styled.img`
       <div class="about-header">
         <h2 class="global-heading">What is <span>Social Butterfly?</span></h2>
         <p class="global-text">
-          Social Butterfly is a platform that allows educators to create online
-          classes whereby they can store the course materials online; manage
-          assignments, quizzes and exams; monitor due dates; grade results
-          and provide students with feedback all in one place.
+          Social Butterfly is a platform that lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis,
+ lectus magna fringilla urna, porttitor rhoncus dolor purus non enim.
         </p>
     </div>
+    <div className='feature-bg'>
+
+    </div>
+    
      <InnerWrapper>
       <TiltWrapper options={{ max: 25 }}>
             <Img src={image} alt="@gouthamgtronics" />

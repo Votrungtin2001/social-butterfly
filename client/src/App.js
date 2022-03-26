@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-// import "./App.css";
-
 import {BrowserRouter as Router, Route} from "react-router-dom";
-
 import Login from './pages/authentication/sign-in'
 import Register from "./pages/authentication/sign-up";
 import Home from "./pages/home/home";
@@ -12,6 +9,7 @@ import Introduction from "./pages/introduction/introduction";
 import Profile from "./pages/profile/profile";
 import ConfirmEmail from "./pages/authentication/confirm-email";
 import EditProfile from "./pages/profile/edit-profile"
+
 function App() {
 
     return (
