@@ -7,9 +7,9 @@ const Profile = () => {
    
     return (
         <div className="profile">
+
            <Header/>
            <Info/>
-
            
         </div>
     )

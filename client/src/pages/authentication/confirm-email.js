@@ -72,7 +72,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
                         <img></img>
                     </div>
                     {/* {error && showErrMsg(error)} */}
-                    <div className="content m-top-42">
+                    <div className="content-confirm m-top-42">
                         <span className="weight-400">Authentication email will be sent to mail </span>
                         <span className="email-link weight-400">{email}</span>
                         <div className="m-top-12 weight-400">Please visit email to verify (Note to check Spam/Junk).</div>
@@ -94,7 +94,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
                         <img ></img>
                     </div>
                     {/* {error && showErrMsg(error)} */}
-                    <div className="content m-top-42">
+                    <div className="content-confirm m-top-42">
                         <span className="weight-400">A verification email has been sent, please visit </span>
                         <span className="email-link weight-400">{email}</span>
                         <span className="weight-400"> to verify (Note to check Spam/Junk).</span>

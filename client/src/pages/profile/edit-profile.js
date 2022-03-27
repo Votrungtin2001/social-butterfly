@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { checkImage } from './image-upload'
 import { Fragment } from 'react'
+import { toast } from 'react-toastify';
 import "./edit-profile.css"
 import "../authentication/confirm-email"
 import Avatar from '../../components/avatar'
@@ -9,8 +10,10 @@ import ChangeEmail from './change-email'
 import Popup from 'reactjs-popup';
 import Select from "react-select";
 import axios from "axios";
+import Loading from '../../components/loading'
 
 const EditProfile = () => {
+
   const customStyle = {
     dropdownIndicator: (base) => ({
       ...base,
@@ -30,27 +33,36 @@ const EditProfile = () => {
     }),
   };
     const initState = {
-        fullname: '', phone: '', address: '', website: '', story: '', birthday:'', gender: ''
+        fullname: '', phone: '', email:'' ,address: '', website: '', story: '', birthday:'', gender: ''
     }
+    
+    const [userData, setUserData] = useState(initState)
+    const { fullname, phone,email, address, website, story, birthday, gender } = userData
+    
     const validFileType = ["image/png", "image/jpeg", "image/gif", "image/jpg"];
     let imageURL;
-    const [userData, setUserData] = useState(initState)
-    const { fullname, phone, address, website, story, birthday, gender } = userData
-
     const [avatar, setAvatar] = useState('')
     const [image, setImage] = useState("");
    
     const maxFileSize = 10000000;
     const [isShowChange,setIsShowChange] = useState(false)
+    //Address
     const [province, setProvince] = useState("");
     const [ward, setWard] = useState("");
     const [district, setDistrict] = useState("");
    
     const [provinces, setProvinces] = useState([]);
-  const [districts, setDistricts] = useState([]);
+    const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
-  const [selectedDistricts, setSelectedDistricts] = useState([]);
-  const [selectedWards, setSelectedWards] = useState([]);
+    const [selectedDistricts, setSelectedDistricts] = useState([]);
+    const [selectedWards, setSelectedWards] = useState([]);
+    //Loading
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+      getProvinces();
+    }, []);
+
     const handleCloseChange = () => {
       setIsShowChange(false)
     }
@@ -73,9 +85,33 @@ const EditProfile = () => {
 
           }
           else {
-              alert("File sai định dạng");
+            toast.warning('File is wrong format', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+          });
           }
       }
+  }
+  useEffect(() => {
+    getProvinces();
+  }, []);
+
+  async function getProvinces() {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/v1/address/provinces`)
+      .then((res) => {
+        const data = res.data;
+        const list = data.map((item) => ({
+          value: item._id,
+          label: item.name,
+        }));
+        setProvinces(list);
+      });
   }
 
   const selectedProvince = (e) => {
@@ -99,6 +135,7 @@ const EditProfile = () => {
         setDistricts(list);
       });
   };
+
   const selectedDistrict = (e) => {
     setDistrict(e.value);
     setSelectedDistricts(e);
@@ -150,20 +187,25 @@ const EditProfile = () => {
    
           <div className="input-field-profile m-top-20">
             <input
-              // value={fullname}
+              value={fullname}
                onChange={handleInput}
               className="input-edit-profile"
               type="text"
               placeholder="Full Name"
               autocomplete="nope"
+              
             />
+            <small className="text-danger position-absolute"
+                        style={{top: '50%', right: '10px', transform: 'translateY(-50%)'}}>
+                            {fullname.length}/50
+                        </small>
         </div>
       <div className='email-input-container m-top-20'>
         <div className= "input-field-profile">
             <input
-              // value={email}
+              value={email}
               onChange={handleInput}
-              className="input-edit-profile "
+              className="input-edit-profile weight-700"
               type="tel"
               placeholder="Email"
               readOnly 
@@ -187,6 +229,10 @@ const EditProfile = () => {
               placeholder="Phone Number"
               autocomplete="nope"
             ></input>
+            <small className="text-danger position-absolute"
+                        style={{top: '50%', right: '10px', transform: 'translateY(-50%)'}}>
+                            {phone.length}/10
+                        </small>
         </div>
 
         
@@ -248,6 +294,9 @@ const EditProfile = () => {
               cols="30" rows="4"
               placeholder="Story"
             />
+            <small className="text-danger d-block text-right m-left-290">
+                        {story.length}/200
+                    </small>
         </div>
 
         <div className="input-field-profile m-top-20">
@@ -308,6 +357,9 @@ const EditProfile = () => {
                
 
                 <button className="send-email-btn m-top-20">Save</button>
+                <Popup  open={isLoading} >
+       <Loading  />
+       </Popup>
             </div>
             </div>
         </div>

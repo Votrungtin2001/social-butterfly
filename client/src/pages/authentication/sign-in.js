@@ -158,10 +158,10 @@ const login = (email, password) => {
           draggable: true,
           progress: undefined,
       });
-      setError("This email does not ....");
+      setError("This email does not exist");
       }
       else if (code == "402") {
-        setError("incorrect ....");
+        setError("Incorrect password");
 
          //Print error "Incorrect password" (should use toast and also make error in password textbox - red)
          toast.error('Incorrect password', {
@@ -174,6 +174,7 @@ const login = (email, password) => {
           progress: undefined,
       });
       } else {
+        setError("Unknown network error happened")
         toast.warning('Unknown network error happened', {
           position: "top-right",
           autoClose: 5000,

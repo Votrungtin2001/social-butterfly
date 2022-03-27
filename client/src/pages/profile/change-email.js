@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react';
 import { Fragment } from 'react/cjs/react.production.min';
 import './change-email.css'
-import exit from '../../assets/login/exit.png'
+
 import { checkValidEmail } from '../authentication/valid-email'
 import CancelIcon from "@mui/icons-material/Cancel";
 
@@ -14,9 +14,6 @@ function ChangeEmail({ handleClose, setHeaderEmail, headerEmail }) {
     const handleClick = () => {
        getEmailError()
     }
-
-   
-
 
     const getEmailError = () => {
         setIsValidEmail(false);
@@ -55,7 +52,7 @@ function ChangeEmail({ handleClose, setHeaderEmail, headerEmail }) {
                             onChange={(e) => {
                                 handleEmailChange(e.target.value)
                             }}
-                            className="w-full email-input" type="text" placeholder="Email" autocomplete='nope' />
+                            className="w-full email-input-change" type="text" placeholder="Email" autocomplete='nope' />
                 </div>
                 {!isValidEmail && <span className="error-mess">
 									<CancelIcon
