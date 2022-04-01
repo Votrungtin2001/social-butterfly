@@ -6,7 +6,7 @@ import UserCard from '../../../components/user-card'
 import './header.css'
 const Search = () => {
     const [search, setSearch] = useState("");
-    // const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([])
     // const { auth } = useSelector(state => state)
     // const dispatch = useDispatch()
     const [isLoading, setIsLoading] = useState(false)
@@ -15,18 +15,20 @@ const Search = () => {
     
     // }
 
-    // const handleClose = () => {
+    const handleClose = () => {
       
-    // }
+    }
 
     return (
         <div className="search_bar" >
-            <input 
+            <input
+           
+            className='search-input' 
             type="text" 
             name="search" 
             value={search} 
             id="search" 
-            title="Enter to Search"
+            
             onChange={e => setSearch(e.target.value.toLowerCase().replace(/ /g, ''))} 
             placeholder="Search for creator......"
             />
@@ -38,19 +40,14 @@ const Search = () => {
                 <span>Enter to Search</span>
             </div> */}
 
-            {/* <div className="close_search" 
-            // style={{opacity: users.length === 0 ? 0 : 1}} 
-            >
-                &times;
-            </div> */}
 
-            {/* <button type="submit"  style={{display: 'none'}}>Search</button> */}
+            <button type="submit"  style={{display: 'none'}}>Search</button>
 
             { isLoading && <Popup open={isLoading}>
                 <Loading />
                 </Popup> }
 
-            {/* <div className="users">
+            <div className="users">
                 {
                     search && users.map(user => (
                         <UserCard 
@@ -61,7 +58,7 @@ const Search = () => {
                         />
                     ))
                 }
-            </div> */}
+            </div>
         </div>
     )
 }
