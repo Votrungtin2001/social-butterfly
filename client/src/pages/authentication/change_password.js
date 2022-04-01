@@ -172,10 +172,14 @@ function ChangePassword() {
 
                     <div className="change-pass-content">
                         <div className={isValidPassword ? "input-field" : "invalid-input"}>
-                            <input value={password} onChange={(e) => setPassword(e.target.value)} className="input-sign-up password-input-sign-in" type={inputType} required="required" />
-                            <div className="placeholder">
-                                Password
-                            </div>
+                            <input 
+                            
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
+                            className="input-sign-up password-input-sign-in" type={inputType} 
+                            required="required" 
+                            placeholder='New Password'/>
+                           
                             <button onClick={changePassVisibility} className="m-right-5-per eye">
                                 <img src={passVisibility} />
                             </button>
@@ -189,10 +193,11 @@ function ChangePassword() {
 								</span>}
 
                         <div className={isValidRePassword ? "input-field" : "invalid-input"}>
-                            <input value={rePassword} onChange={(e) => setRePassword(e.target.value)} className="input-sign-up password-input-sign-in" type={reInputType} required="required" />
-                            <div className="placeholder">
-                                Re-enter Password
-                            </div>
+                            <input value={rePassword} onChange={(e) => setRePassword(e.target.value)} 
+                            className="input-sign-up password-input-sign-in" type={reInputType} 
+                            required="required" 
+                            placeholder='Re-enter New Password'/>
+                            
                             <button onClick={changeRePassVisibility} className="m-right-5-per eye">
                                 <img src={rePassVisibility} />
                             </button>

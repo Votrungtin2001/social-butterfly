@@ -30,9 +30,10 @@
 }
 .info_content_title h2{
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 500;
     transform: translateY(4px);
     flex: 3;
+    color:black;
 }
 .info_content_title button{
     flex: 2;
@@ -41,9 +42,7 @@
     color: teal;
     cursor: pointer;
 }
-.info_container .follow_btn span:hover{
-    text-decoration: underline;
-}
+
 
 .edit-profile-btn {
     border: 2px solid black;
@@ -64,6 +63,20 @@
     background: #2196F3;
     color: white;
     border:none;
+  }
+  .text-follow{
+      
+      color:#000;
+      font-size: 16px;
+  }
+  .number-follow{
+      color:#FFB6B9;
+      font-weight: 600;
+      font-size: 18px;
+  }
+
+  .m-left-50{
+      margin-left: 50px;
   }
 
 /* -------------- Profile Edit ------------ */
@@ -144,7 +157,7 @@
     z-index: 4;
 }
 .follow_box{
-    width: 350px;
+    width: 400px;
     border: 1px solid #222;
     border-radius: 5px;
     background: white;
@@ -154,9 +167,18 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.header-follow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 5%;
+    
+    margin-right: 5%;
+    background: transparent;
+}
 .follow_content{
     width: 100%;
-    height: 350px;
+    height: 400px;
     overflow: auto;
 }
 .follow_box .close{

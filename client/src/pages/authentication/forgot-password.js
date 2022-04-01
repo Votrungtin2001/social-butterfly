@@ -60,7 +60,7 @@ const ForgotPassword = ({handleClose}) => {
             // This account is not exist
             if (code == "400") {
               setEmail("")
-              toast.error('This account is not exist!', {
+              toast.warning('This account is not exist!', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -70,7 +70,7 @@ const ForgotPassword = ({handleClose}) => {
                 progress: undefined,
             });
             } else {
-              toast.warning('Unknown network error happened', {
+              toast.error('Unknown network error happened', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,

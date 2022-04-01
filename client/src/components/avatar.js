@@ -4,11 +4,11 @@ import "./avatar.css"
 import avatar from '../assets/img/hero.png'
 
 const Avatar = ({src, size}) => {
-    // const { theme } = useSelector(state => state)
+    const { theme } = useSelector(state => state)
 
     return (
-        <img src={avatar} alt="avatar" className={size}
-        // style={{filter: `${theme ? 'invert(1)' : 'invert(0)'}`}}
+        <img src={src} alt="avatar" className={size}
+            style={{filter: `${theme ? 'invert(1)' : 'invert(0)'}`}}
          />
     )
 }

@@ -193,3 +193,34 @@ input.custom-file-input:focus {
   .m-left-290{
     margin-left: 290px;
   }
+
+  .gender-select-edit {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    
+  }
+  .update-profile-btn {
+    
+    width: 90%;
+    height: 43px;
+    border-radius: 40px;
+    outline: none;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    background: #8c8c8c;
+    color: #fff;
+    
+    transition: 0.4s;
+  
+    
+  }
+  .update-profile-btn:hover{
+    background: #61C0BF;
+    color: #000;
+}
+
+ 

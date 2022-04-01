@@ -42,21 +42,25 @@ const UserCard = ({children, user, border, handleClose, setShowFollowers, setSho
 
 
     return (
-        <div className={`d-flex p-2 align-items-center justify-content-between w-100 ${border}`}>
+     
+         (<div className={`d-flex p-2 align-items-center justify-content-between w-100 ${border}`}>
             <div>
-                <Link to={`/profile/${user._id}`} onClick={handleCloseAll}
-                className="d-flex align-items-center">
+                <Link  
+                className="result-search d-flex align-items-center"
+                to={`/home/profile/${user._id}`} 
+                onClick={handleCloseAll}
+                >
                     
                     <Avatar src={user.avatar} size="big-avatar" />
 
-                    <div className="ml-1" style={{transform: 'translateY(-2px)'}}>
-                        <span className="d-block">{user.username}</span>
+                    <div className="m-left-8" style={{transform: 'translateY(-2px)'}}>
+                        <span className="fullname-search d-block">{user.fullName}</span>
                         
-                        <small style={{opacity: 0.7}}>
+                        <small className='email-search' style={{opacity: 0.7}}>
                             {
                                 msg 
                                 ? showMsg(user)
-                                : user.fullname
+                                : user.email
                             }
                         </small>
                     </div>
@@ -64,7 +68,7 @@ const UserCard = ({children, user, border, handleClose, setShowFollowers, setSho
             </div>
             
             {children}
-        </div>
+        </div>)
     )
 }
 

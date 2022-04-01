@@ -2,13 +2,21 @@ import React from 'react'
 import UserCard from '../../components/user-card'
 import FollowBtn from '../../components/follow-btn'
 import { useSelector } from 'react-redux'
+import exit from "../../assets/login/exit.png"
 
 const Followers = ({users, setShowFollowers}) => {
     const { auth } = useSelector(state => state)
     return (
         <div className="follow">
             <div className="follow_box">
-                <h5 className="text-center">Followers</h5>
+               
+                <div className="header-follow">
+                        <span></span>
+                        <span className="weight-500 font-24">Followers</span>
+                        <button className=" close-image" onClick={() => setShowFollowers(false)}>
+                            <img src={exit} />
+                        </button>
+                    </div>
                 <hr/>
                 
                 <div className="follow_content">
@@ -24,9 +32,7 @@ const Followers = ({users, setShowFollowers}) => {
                 </div>
                 
 
-                <div className="close" onClick={() => setShowFollowers(false)}>
-                    &times;
-                </div>
+               
                 
             </div>
         </div>

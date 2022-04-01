@@ -17,7 +17,9 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
     const [isFirst, setIsFirst] = useState(true);
     const [error, setError] = useState("");
 
-    const sendVerificationEmail = (email) => {
+    const sendVerificationEmail = () => {
+        console.log('hihihihi')
+       
         axios
             .post(`${process.env.REACT_APP_API_URL}/api/auth/sendverificationemail`, {
                 firstName: firstName, 
@@ -33,6 +35,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
                 // Pop up re send email appears and should send this token to that pop up by props (use isFirst in this component -> webbds)
                 setIsFirst(false);
                 // Announce "A verification email has been sent to your email. Please check" by toast
+                
                 toast.success('A verification email has been sent to your email. Please check!', {
                     position: "top-right",
                     autoClose: 5000,
@@ -77,10 +80,11 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
                         <span className="email-link weight-400">{email}</span>
                         <div className="m-top-12 weight-400">Please visit email to verify (Note to check Spam/Junk).</div>
 
-                        <button onClick={sendVerificationEmail(email)} className="resend-email-btn w-full">Submit</button>
+                        <button onClick={() => sendVerificationEmail()} className="resend-email-btn w-full">Submit</button>
                     </div>
                 </div>
-            </Fragment >)
+            </Fragment >
+            )
             :(  <Fragment>
                 <div className="container-confirm w-440 h-auto">
                     <div className="header-confirm-email">
@@ -101,7 +105,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
 
                         <div className="m-top-24 weight-400">If you have not received the verification email, select “Resend”</div>
 
-                        <button onClick={sendVerificationEmail(email)} className="resend-email-btn w-full">Resend</button>
+                        <button onClick={() => sendVerificationEmail()} className="resend-email-btn w-full">Resend</button>
 
                     </div>
                 </div>

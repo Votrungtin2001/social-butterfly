@@ -49,25 +49,22 @@
 }
 
 /* ---------- Header Search -------- */
-.search-input{
-    background-image: url("../../../assets/icons/search.svg");
-    background-repeat: no-repeat;
-    background-position: left;
-    background-position-x: 12px;
-    background-size: 8%;
-    padding-left: 35px;
-}
-/* .header .search_form{
+
+
+.header .search_form{
     position: relative;
 }
+
 .header .search_form #search{
     background: #fafafa;
     border: 1px solid #ddd;
     min-width: 250px;
+    height: 37px;
     width: 100%;
     outline: none;
     text-indent: 5px;
-    border-radius: 3px;
+    border-radius: 10px;
+    
 }
 .header .search_form .search_icon{
     position: absolute;
@@ -76,14 +73,27 @@
     transform: translate(-50%, -50%);
     font-size: 12px;
     pointer-events: none;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
-
+.header .search_form .search_icon .material-icons{
+    font-size: 16px;
+    transform: translateY(3px);
+    margin-left: 10px;
+}
+.header .search_form .search_icon .search-text{
+    font-size: 14px;
+    transform: translateY(3px);
+    margin-left: 5px;
+}
 .header .search_form .close_search{
     position: absolute;
-    top: 0;
-    right: 5px;
+    top: 6px;
+   
+    right: 6px;
     cursor: pointer;
-    font-weight: 900;
+    font-weight: 600;
     color: crimson;
 }
 .header .search_form .users{
@@ -96,36 +106,15 @@
     margin-top: 3px;
 }
 .header .search_form .loading{
-    position: absolute;
+    position:absolute;
+   margin-left: 90%;
+    justify-content: flex-end;
     top: 50%;
+    cursor: pointer;
     right: 5px;
     width: 15px;
     height: 15px;
     transform: translateY(-50%);
-} */
-.header .search_bar .material-icons{
-    font-size: 14px;
-    transform: translateY(3px);
-}
-.search_bar{
-    width: 400px;
-    background: white;
-    opacity: 0.5;
-    border-radius: 20px;
-    padding: 0.6rem 1rem;
-    box-shadow: 0 0 10px #ddd;
-}
-
-.search_bar input[type="search"]{
-    background: c4c4c4;
-    width: 30vw;
-    margin-left: 1rem;
-    color: #333;
-    font-size: 0.9rem;
-}
-
-.search_bar input[type="search"]::placeholder{
-   color: #111;
 }
 
 /*  Hover icon */
@@ -136,4 +125,23 @@
 }
 .icon-btn:hover{
     color: #FFA0A0;
+}
+
+/*User Card*/
+.result-search{
+    text-decoration: none;
+}
+.email-search {
+    font-size: 12px;
+    text-decoration: none;
+	color: #111;
+    
+	border: 0;
+}
+.fullname-search {
+    font-size: 16px;
+    text-decoration: none;
+	color: #FFA0A0;
+	border: 0;
+    font-weight:500;
 }

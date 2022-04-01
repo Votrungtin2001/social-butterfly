@@ -55,6 +55,7 @@ export default function SignUp() {
 
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [isValidFirstName, setIsFirstValidName] = useState(true);
   const [isValidLastName, setIsLastValidName] = useState(true);
   const [firstNameError, setFirstNameError] = useState();
@@ -63,8 +64,6 @@ export default function SignUp() {
   const [isShowConfirm, setIsShowConfirm] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const [headerEmail, setHeaderEmail] = useState();
 
   const handleConfirm = () => {
     setIsShowConfirm(true);
@@ -79,7 +78,6 @@ export default function SignUp() {
     getPhoneError(phone);
     getFirstNameError(firstName);
     getLastNameError(lastName);
-    setHeaderEmail(email);
   
     //Some conditions before call api from server
     if(
@@ -95,6 +93,7 @@ export default function SignUp() {
       setIsLoading(true);
     
       const fullName = firstName + " " + lastName;
+      setFullName(fullName)
       if(birthday != "")  moveToConfirmEmail(firstName, lastName, fullName, email, password, birthday, gender, phone);
       else {
         const defaultBirthday = "2001-01-01";
@@ -182,8 +181,8 @@ export default function SignUp() {
     let errorMessage = "";
     if (!checkValidPhone(phone)) {
       errorMessage = phone
-      ? "Phone number is wrong format" 
-      : "Please enter your phone number";
+      ? "Phone number must have 10 digits" 
+      : "Please enter your phone number"
       setIsEnterPhone(false);
       setphoneError(errorMessage);
     } else {
@@ -247,20 +246,7 @@ export default function SignUp() {
     let errorMessage = "";
     if (!checkValidName(firstName)) {
       errorMessage = firstName
-        ? "Tên sai định dạng, chỉ bao gồm chữ cái hoặc khoảng trắng, độ dài từ 3 đến 50 ký tự"
-        : "Tên không được để trống";
-        setIsFirstValidName(false);
-        setFirstNameError(errorMessage);
-    } else {
-      setIsFirstValidName(true);
-    }
-  }
-
-  function getFirstNameError(firstName) {
-    let errorMessage = "";
-    if (!checkValidName(firstName)) {
-      errorMessage = firstName
-        ? "The name is formatted incorrectly, contains only letters or spaces, between 1 and 50 characters in length"
+        ? "The name is formatted incorrectly, contains only letters or spaces, between 1 and 30 characters in length"
         : "First name can not be blank";
       setIsFirstValidName(false);
       setFirstNameError(errorMessage);
@@ -321,7 +307,6 @@ const handleCloseConfirm = () => {
 
   return (
     <div className="register">
-      
       <div className="registerWrapper">
         <div className="registerLeft">
         <div className="registerBox" >
@@ -399,7 +384,7 @@ const handleCloseConfirm = () => {
               value={phone}
               onChange={(e) => setphone(e.target.value)}
               className="input-sign-up phone-input"
-              type="tel"
+              type="number"
               placeholder="Phone Number"
               autocomplete='nope'
             ></input>
@@ -554,18 +539,26 @@ const handleCloseConfirm = () => {
               <button onClick={handleSignUp}  > 
                <span>Register</span>
                </button>
+               <Popup open={isShowConfirm} onClose={() => setIsShowConfirm(false)} nested modal closeOnDocumentClick={false} >
+                {<ConfirmEmail
+                  firstName={firstName}
+                  lastName={lastName}
+                  fullName={fullName}
+                  email={email}
+                  password={password}
+                  birthday={birthday}
+                  sex={gender}
+                  mobile={phone}
+                 
+                 closeConfirm={handleCloseConfirm}
+                   />}
+              </Popup>
            </div>
 
        <Popup  open={isLoading} >
        <Loading  />
        </Popup>
-
-           <Popup open={isShowConfirm} closeOnDocumentClick={false} >
-                {<ConfirmEmail
-                 email={headerEmail}
-                 closeConfirm={handleCloseConfirm}
-                   />}
-              </Popup>
+           
 
             </div>
         </div>

@@ -6,25 +6,29 @@ import "./activation-email.css"
 
 const ActivationEmail = () => {
     const history = useHistory();
-    const { activation_token } = useParams()
+    const {activation_token} = useParams()
     const [announce, setAnnounce] = useState("")
     useEffect(() => {
         if (activation_token) {
-            axios
-                .post(`${process.env.REACT_APP_API_URL}/api/v1/auth/activate`, {
-                    token: activation_token,
-                })
-                .then(res => {
-                    setAnnounce("Xác thực tài khoản thành công")
-                    alert("Xác thực tài khoản thành công")
-                    history.replace('/')
-                })
-                .catch(error => {
-                    setAnnounce("Link xác thực đã hết hạn. Vui lòng thử lại sau")
-                });
+            activateEmail(activation_token)
         }
     }, [activation_token])
 
+    const activateEmail = (activation_token) => {
+        axios
+            .post(`${process.env.REACT_APP_API_URL}/api/auth/activate`, {
+                token: activation_token,
+            })
+            .then(res => {
+                setAnnounce("Xác thực tài khoản thành công")
+                alert("Xác thực tài khoản thành công")
+                history.replace('/')
+            })
+            .catch(err => {
+                console.log(err)
+                setAnnounce("Link xác thực đã hết hạn. Vui lòng thử lại sau")
+            });
+    }
 
     return (
         <Fragment>
