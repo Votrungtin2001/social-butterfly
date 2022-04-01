@@ -24,6 +24,7 @@ const password = (value, helpers) => {
 }
 
 module.exports = {
+    objectId,
     email,
     password,
 }

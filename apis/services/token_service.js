@@ -57,9 +57,49 @@ const generateResetPasswordToken = (email) => {
     return resetPasswordToken
 }
 
+const checkAccessTokenAndRefreshToken = (accessToken, refreshToken) => {
+    try {
+        jwt.verify(accessToken, process.env.PASSPORT_JWT_ACCESS_TOKEN)
+        const token = {
+            accessToken: accessToken,
+            refreshToken: refreshToken
+        }
+        return token
+    } catch (err) {
+        try {
+            jwt.verify(refreshToken, process.env.PASSPORT_JWT_REFRESH_TOKEN)
+            const { id } = jwt.decode(refreshToken)
+            const newAccessToken = generateAccessToken(id)
+            const newRefreshToken = generateRefreshToken(id)
+
+            const token = {
+                accessToken: newAccessToken,
+                refreshToken: newRefreshToken
+            }
+            return token
+        } catch (err) {
+            throw new CustomError(500, err.message)
+        }
+    }
+
+}
+
+const getUserIDByRefreshToken= (refreshToken) => {
+    try {
+        jwt.verify(refreshToken, process.env.PASSPORT_JWT_REFRESH_TOKEN)
+        const { id } = jwt.decode(refreshToken)
+        return id.id
+    } catch (err) {
+        throw new CustomError(500, err.message)
+    }
+
+}
+
 module.exports = {
     generateTokenForSendVerificationEmail,
     generateAccessToken,
     generateRefreshToken,
     generateResetPasswordToken,
+    checkAccessTokenAndRefreshToken,
+    getUserIDByRefreshToken,
 }

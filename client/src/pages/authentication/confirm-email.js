@@ -17,7 +17,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
     const [isFirst, setIsFirst] = useState(true);
     const [error, setError] = useState("");
 
-    const sendVerificationEmail = (email) => {
+    const sendVerificationEmail = () => {
         axios
             .post(`${process.env.REACT_APP_API_URL}/api/auth/sendverificationemail`, {
                 firstName: firstName, 
@@ -77,7 +77,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
                         <span className="email-link weight-400">{email}</span>
                         <div className="m-top-12 weight-400">Please visit email to verify (Note to check Spam/Junk).</div>
 
-                        <button onClick={sendVerificationEmail(email)} className="resend-email-btn w-full">Submit</button>
+                        <button onClick={sendVerificationEmail()} className="resend-email-btn w-full">Submit</button>
                     </div>
                 </div>
             </Fragment >)
@@ -101,7 +101,7 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
 
                         <div className="m-top-24 weight-400">If you have not received the verification email, select “Resend”</div>
 
-                        <button onClick={sendVerificationEmail(email)} className="resend-email-btn w-full">Resend</button>
+                        <button onClick={sendVerificationEmail()} className="resend-email-btn w-full">Resend</button>
 
                     </div>
                 </div>

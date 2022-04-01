@@ -22,6 +22,9 @@ const UserSchema = new mongoose.Schema({
         maxlength: 45
     },
 
+    fullNameNotVietnamese: {
+
+    },
     email: {
         type: String,
         required: true,

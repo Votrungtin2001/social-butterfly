@@ -19,6 +19,13 @@ import styled from "styled-components";
 import image from "../../assets/img/Saly-12.png";
 import Tilt from "react-tilt";
 import {showErrMsg} from './error-message'
+import { useDispatch, useSelector } from 'react-redux'
+import { GLOBALTYPES } from '../../redux/actions/globalTypes'
+import { checkLogin } from '../../redux/actions/authActions'
+
+import { Fragment } from "react/cjs/react.production.min";
+import { Redirect } from 'react-router'
+
 
 const Login = () => {
 
@@ -43,6 +50,9 @@ const Login = () => {
 
   const history = useHistory()
 
+  const { auth } = useSelector(state => state)
+  const dispatch = useDispatch()
+
   useEffect(() => {
     //Check if the Cookies name rememberStatus is exist to prevent null exception
     const userEmail = Cookies.get("userEmail");
@@ -58,6 +68,12 @@ const Login = () => {
     Cookies.set("userEmail", email);
     Cookies.set("userPassword", password);
   }
+
+  const setAccessAndRefreshToken = (accessToken, refreshToken) => {
+    Cookies.set("accessToken", accessToken);
+    Cookies.set("refreshToken", refreshToken);
+  }
+
   const removeUserCookies = () => {
     Cookies.remove("userEmail");
     Cookies.remove("userPassword");
@@ -107,7 +123,8 @@ const login = (email, password) => {
     })
     .then((res) => {
       // Sign in successfully
-      const {accessToken, refreshToken} = res.data
+      const {accessToken, refreshToken, user} = res.data
+      console.log(user)
   
       // Set remove error
       setEmail("");
@@ -116,6 +133,8 @@ const login = (email, password) => {
       // Set loading false (stop)
       setIsLoading(false);
       // Save accessToken and refreshToken in cookies
+      setAccessAndRefreshToken(accessToken, refreshToken)
+
       if (isRememberMe) {
         setUserCookies(email, password);
       }
@@ -136,6 +155,14 @@ const login = (email, password) => {
         draggable: true,
         progress: undefined,
     });
+      dispatch({ 
+        type: GLOBALTYPES.AUTH, 
+        payload: {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            user: user
+        } 
+      })
       // Move to home page
       history.push("/home")
       
@@ -145,6 +172,7 @@ const login = (email, password) => {
       setIsLoading(false);
       //Get status code of error
       const code = err.message.substring(32, err.message.length);
+      console.log(err)
 
       // Email already taken
       if (code == "401") {
@@ -202,20 +230,28 @@ setIsLoading(true);
       idToken: tokenId
     })
     .then(res => {
-      const { accessToken, refreshToken } = res.data.user
-      const bearerToken = res.headers['authorization']
-      Cookies.set('bearerToken', bearerToken);
+      const { accessToken, refreshToken, user } = res.data
       Cookies.set('accessToken', accessToken);
       Cookies.set('refreshToken', refreshToken);
       setError("")
 
       //Set loading is false (stop)
       setIsLoading(false);
-       // Move to home page
-       history.push("/home")
+
+      dispatch({ 
+        type: GLOBALTYPES.AUTH, 
+        payload: {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            user: user
+        } 
+      })
+      // Move to home page
+      history.push("/home")
 
     })
     .catch(error => {
+      console.log(error)
       toast.error('Log in by Google unsuccessfully', {
         position: "top-right",
         autoClose: 5000,
@@ -240,7 +276,10 @@ const Img = styled.img`
 
 `;
   return (
-    <div className="login">
+    auth.accessToken ? (
+      <Redirect to="/"/>)
+      :(  <Fragment>
+          <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
           {/* <h3 className="loginLogo">social butterfly</h3> */}
@@ -349,6 +388,8 @@ const Img = styled.img`
         </div>
       </div>
     </div>
+      </Fragment >)
+    
   );
 };
 

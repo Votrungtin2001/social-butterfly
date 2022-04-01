@@ -55,6 +55,7 @@ export default function SignUp() {
 
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [isValidFirstName, setIsFirstValidName] = useState(true);
   const [isValidLastName, setIsLastValidName] = useState(true);
   const [firstNameError, setFirstNameError] = useState();
@@ -63,8 +64,6 @@ export default function SignUp() {
   const [isShowConfirm, setIsShowConfirm] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const [headerEmail, setHeaderEmail] = useState();
 
   const handleConfirm = () => {
     setIsShowConfirm(true);
@@ -79,7 +78,6 @@ export default function SignUp() {
     getPhoneError(phone);
     getFirstNameError(firstName);
     getLastNameError(lastName);
-    setHeaderEmail(email);
   
     //Some conditions before call api from server
     if(
@@ -95,6 +93,7 @@ export default function SignUp() {
       setIsLoading(true);
     
       const fullName = firstName + " " + lastName;
+      setFullName(fullName)
       if(birthday != "")  moveToConfirmEmail(firstName, lastName, fullName, email, password, birthday, gender, phone);
       else {
         const defaultBirthday = "2001-01-01";
@@ -559,10 +558,17 @@ const handleCloseConfirm = () => {
        <Popup  open={isLoading} >
        <Loading  />
        </Popup>
-
            <Popup open={isShowConfirm} closeOnDocumentClick={false} >
                 {<ConfirmEmail
-                 email={headerEmail}
+                  firstName={firstName}
+                  lastName={lastName}
+                  fullName={fullName}
+                  email={email}
+                  password={password}
+                  birthday={birthday}
+                  sex={gender}
+                  mobile={phone}
+                 
                  closeConfirm={handleCloseConfirm}
                    />}
               </Popup>

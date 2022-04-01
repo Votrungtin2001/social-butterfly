@@ -3,12 +3,24 @@ import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Avatar from '../../../components/avatar'
 import './header.css'
+
+import { logout } from '../../../redux/actions/authActions'
+import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
+
 const Menu = () => {
     const navLinks = [
-        { label: 'Home', icon: 'home', path: '/home'},
+        { label: 'Home', icon: 'home', path: '/'},
         { label: 'Message', icon: 'near_me', path: '/message'},
         { label: 'Discover', icon: 'explore', path: '/discover'}
     ]
+
+    const { auth, theme } = useSelector(state => state)
+    const dispatch = useDispatch()
+    const { pathname } = useLocation()
+
+    const isActive = (pn) => {
+        if(pn === pathname) return 'active'
+    }
 
     return (
         <div className="menu">
@@ -17,7 +29,7 @@ const Menu = () => {
 			
                 {
                     navLinks.map((link, index) => (
-                        <li className="nav-item active px-2" >
+                        <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
                             <Link className="nav-link" to={link.path}>
                                 <button className="material-icons icon-btn">{link.icon}</button>
                             </Link>
@@ -48,24 +60,22 @@ const Menu = () => {
                 <li className="nav-item dropdown" style={{opacity: 1}} >
                     <span className="nav-link dropdown-toggle" id="navbarDropdown" 
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <Avatar  size="medium-avatar" />
+                        <Avatar src={auth.user.avatar}  size="medium-avatar" />
                     </span>
 
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link to='/profile' className="dropdown-item">Profile</Link>
-                    <Link className="dropdown-item">Dark Mode</Link>
+                    <Link to={`/home/profile/${auth.user._id}`} className="dropdown-item">Profile</Link>
 
-                    {/* <label htmlFor="theme" className="dropdown-item"
-                    // onClick={() => dispatch({
-                    //     type: GLOBALTYPES.THEME, payload: !theme
-                    // })}
-                    >
-
+                    <label htmlFor="theme" className="dropdown-item"
+                        onClick={() => dispatch({
+                            type: GLOBALTYPES.THEME, payload: !theme
+                        })}>
                         {theme ? 'Light mode' : 'Dark mode'}
-                    </label> */}
+                    </label>
 
                     <div className="dropdown-divider"></div>
-                    <Link className="dropdown-item" to="/sign-in">
+                    <Link className="dropdown-item" to="/"
+                        onClick={() => dispatch(logout())}>
                         Logout
                     </Link>
                 </div>

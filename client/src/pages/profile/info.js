@@ -8,79 +8,116 @@ import Popup from 'reactjs-popup';
 import { stepConnectorClasses } from '@mui/material'
 import { Link } from 'react-router-dom'
 import './profile.css'
-const Info = () => {
+import moment from "moment";
+
+import { useParams } from 'react-router-dom'
+
+import { getAddressLineByUserID } from '../../utils/fetchData'
+
+import { GLOBALTYPES } from '../../redux/actions/globalTypes'
+
+const Info = ({userID, auth, profile, dispatch}) => {
  
+    const [userData, setUserData] = useState([])
     const [onEdit, setOnEdit] = useState(false)
+
+    const { id } = useParams()
+    userID = id
 
     const [showFollowers, setShowFollowers] = useState(false)
     const [showFollowing, setShowFollowing] = useState(false)
 
-   
+    const [addressLine, setAddressLine] = useState("")
+
+    useEffect(() => {
+        if(userID === auth.user._id){
+            setUserData([auth.user])
+        }else{
+            const newData = profile.users.filter(user => user._id === userID)
+            setUserData(newData)
+        }
+    }, [userID, auth, dispatch, profile.users])
+
+    useEffect(() => {
+        getAddressLine()
+    }, [userID, auth, dispatch, profile.users])
+
+    async function getAddressLine() {
+        const res = await getAddressLineByUserID(userID, auth.refreshToken)
+        if(res.data == "") setAddressLine("No address information")
+        else setAddressLine(res.data)
+      }
+    
+
+   /* useEffect(() => {
+        if(showFollowers || showFollowing || onEdit){
+            dispatch({ type: GLOBALTYPES.MODAL, payload: true})
+        }else{
+            dispatch({ type: GLOBALTYPES.MODAL, payload: false})
+        }
+    },[showFollowers, showFollowing, onEdit, dispatch])*/
 
     return (
         <div className="info">
             {
-              
-                    <div className="info_container" >
-                        <Avatar  size="supper-avatar" />
+              userData.map(user =>  (
+                <div className="info_container" key={user._id}>
+                    <Avatar src={user.avatar} size="supper-avatar" />
 
-                        <div className="info_content">
-                            <div className="info_content_title">
-                                <h2>name</h2>
-                                {
-                                    1 === 1
-                                    ?  <Link  to="/edit-profile">
-                                        <button className="edit-profile-btn">Edit Profile</button>
-                                    </Link>
-                                    
-                                    : <FollowBtn  />
-                                }
-                               
+                    <div className="info_content">
+                        <div className="info_content_title">
+                            <h2>{user.fullName}</h2>
+                            {
+                                user._id === auth.user._id
+                                ?  <Link  to={`/home/profile/${user._id}/edit-profile`}>
+                                    <button className="edit-profile-btn">Edit Profile</button>
+                                </Link>
+
                                 
-                            </div>
-
-                            <div className="follow_btn">
-                                <span className="mr-4" onClick={() => setShowFollowers(true)}>
-                                    14 Followers
-                                </span>
-                                <span className="ml-4 m-left-50" onClick={() => setShowFollowing(true)}>
-                                    113 Following
-                                </span>
-                            </div>
-
-                            <h6>minhthi.nekk</h6>
-                            <p className="m-0">binh dinh, viet nam, trai dat</p>
+                                : <FollowBtn user={user} />
+                            }
+                           
                             
-                            <a target="_blank" rel="noreferrer">
-                                fb.com
-                            </a>
-                            <p>this is sad story</p>
                         </div>
 
-                        <Popup open={onEdit} onClose={() => setOnEdit(false)} nested modal closeOnDocumentClick={false}>
-                
-                {<EditProfile
-                  
-                
-                  />}
-              </Popup>
+                        <div className="follow_btn">
+                            <span className="mr-4" onClick={() => setShowFollowers(true)}>
+                                {user.followers.length} Followers
+                            </span>
+                            <span className="ml-4" onClick={() => setShowFollowing(true)}>
+                                {user.following.length} Following
+                            </span>
+                        </div>
 
-                        {
-                            showFollowers &&
-                            <Followers 
-                            
-                            setShowFollowers={setShowFollowers} 
-                            />
-                        }
-                        {
-                            showFollowing &&
-                            <Following 
-                           
-                            setShowFollowing={setShowFollowing} 
-                            />
-                        }
+                        <h6>{moment(user.birthday).format("YYYY-MM-DD")} <span className="text-danger">{user.mobile}</span></h6>
+                        <p className="m-0">{user.email}</p>
+                        <h6 className="m-0">{addressLine}</h6>
+                        <a href={user.website} target="_blank" rel="noreferrer">
+                            {user.website}
+                        </a>
+                        <p>{user.story}</p>
                     </div>
-                
+
+                    {
+                        onEdit && <EditProfile setOnEdit={setOnEdit} />
+                    }
+
+                    {
+                        showFollowers &&
+                        <Followers 
+                        users={user.followers} 
+                        setShowFollowers={setShowFollowers} 
+                        />
+                    }
+                    {
+                        showFollowing &&
+                        <Following 
+                        users={user.following} 
+                        setShowFollowing={setShowFollowing} 
+                        />
+                    }
+                </div>
+            ))
             }
         </div>
     )

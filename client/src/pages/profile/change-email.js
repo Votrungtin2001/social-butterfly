@@ -4,24 +4,92 @@ import './change-email.css'
 
 import { checkValidEmail } from '../authentication/valid-email'
 import CancelIcon from "@mui/icons-material/Cancel";
+import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 
-function ChangeEmail({ handleClose, setHeaderEmail, headerEmail }) {
+import { toast } from 'react-toastify';
+
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+
+import { updateEmail } from '../../utils/fetchData'
+
+import Popup from 'reactjs-popup';
+
+import Loading from '../../components/loading'
+
+function ChangeEmail({ auth, handleClose }) {
     const [email, setEmail] = useState("");
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [emailError, setEmailError] = useState();
     const [error, setError] = useState("");
+
+    const history = useHistory()
+    
+    const dispatch = useDispatch()
+
+    
+    //Loading
+    const [isLoading, setIsLoading] = useState(false);
     
     const handleClick = () => {
        getEmailError()
+       if(checkValidEmail(email)) {
+           setIsLoading(true)
+           updateEmailOfUser()
+       }
     }
 
+    async function updateEmailOfUser() {
+        try {
+            const res = await updateEmail(email, auth.user._id, auth.refreshToken)
+
+            dispatch({
+                type: GLOBALTYPES.AUTH,
+                payload: {
+                    ...auth,
+                    user: {
+                        ...auth.user,
+                        email: email
+                    }
+                }
+            })
+            toast.success('Update email successfully', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            setIsLoading(false)
+            handleClose()
+
+        } catch (error) {
+            toast.error("Some error happened!!!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+        }
+      }
+
     const getEmailError = () => {
-        setIsValidEmail(false);
         if (!email) {
             setEmailError("Email can not be blank")
+            setIsValidEmail(false);
+        }
+        else if (!checkValidEmail(email)) {
+            setEmailError("Email is wrong format")
+            setIsValidEmail(false);
         }
         else {
-            setEmailError("Email is wrong format")
+            setIsValidEmail(true);
+            setEmailError("")
         }
     }
     function handleEmailChange(email) {
@@ -30,6 +98,9 @@ function ChangeEmail({ handleClose, setHeaderEmail, headerEmail }) {
     return (
         <Fragment>
             <div className="container-change">
+            <Popup  open={isLoading} >
+                <Loading  />
+            </Popup>
                 <div className='change-top'>
                 <div className='change-email-left'>
                  <div className='change-email-image'>
