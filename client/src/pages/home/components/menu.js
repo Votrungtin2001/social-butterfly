@@ -26,7 +26,32 @@ const Menu = () => {
         <div className="menu">
 
             <ul className="navbar-nav flex-row">
+
+            {/* <div class="container-menu-icon">
+     <div class="button-icon">
+         <div class="icon-btn">
+         <i class="bi bi-house"></i>
+         </div>
+         <span>Home</span>
+     </div>
+ 
+     <div class="button-icon">
+         <div class="icon-btn">
+         <i class="bi bi-chat-dots"></i>
+         </div>
+         <span>Message</span>
+     </div>
+ 
+     <div class="button-icon">
+         <div class="icon-btn">
+         <i class="bi bi-globe2"></i>
+         </div>
+         <span>Discover</span>
+     </div>
+ 
+ </div> */}
 			
+            
                 {
                     navLinks.map((link, index) => (
                         <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>

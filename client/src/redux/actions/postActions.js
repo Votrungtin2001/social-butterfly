@@ -2,7 +2,7 @@ import { GLOBALTYPES } from './globalTypes'
 import { imageUpload } from '../../utils/imageUpload'
 import { postDataAPI, getDataAPI, patchDataAPI, deleteDataAPI, addPost, getPostsApi, getPostApi } from '../../utils/fetchData'
 import { createNotify, removeNotify } from './notifyActions'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 export const POST_TYPES = {
     CREATE_POST: 'CREATE_POST',

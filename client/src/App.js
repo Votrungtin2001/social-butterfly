@@ -20,6 +20,7 @@ import { GLOBALTYPES } from './redux/actions/globalTypes'
 import { getPosts } from './redux/actions/postActions'
 import { getSuggestions } from './redux/actions/suggestionsActions'
 import { getNotifies } from './redux/actions/notifyActions'
+import StatusModal from './pages/home/components/status_modal'
 
 function App() {
     const { auth, status, modal, call } = useSelector(state => state)
@@ -74,8 +75,8 @@ function App() {
      <input type="checkbox" id="theme" /> 
       <div class={`App ${(status || modal) && 'mode'}`}>
         <div className="main">
-          {/* {status && <StatusModal />}
-          {auth.refreshToken && <SocketClient />}
+          {status && <StatusModal />}
+          {/* {auth.refreshToken && <SocketClient />}
           {call && <CallModal />} */}
           <Route exact path="/" component={Introduction} />
           <Route exact path="/sign-up" component={Register} />
