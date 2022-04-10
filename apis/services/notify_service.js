@@ -21,7 +21,7 @@ const removeNotify = async (notifyID, url) => {
 
 
 const getNotifies = async (userID) => {
-    const notify = await Notifie.find({recipients: userID})
+    const notify = await Notify.find({recipients: userID})
         .sort('-createdAt').populate('user', 'avatar username')
     return notify
 }

@@ -5,7 +5,7 @@ const {Comment} = require('../models/comment_model')
 
 const createPost = async (content, images, id) => {
     const newPost = new Post({
-        content, images, user: req.user._id
+        content, images, user: id
     })
     return newPost.save()
 }

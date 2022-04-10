@@ -52,7 +52,6 @@ const getPosts = catchAsync(async (req, res) => {
         })
 
         console.log("Get posts finished")
-        console.log(posts)
         return res.status(httpStatus.OK).send({result: posts.length, posts})
 
     } catch (err) {

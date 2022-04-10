@@ -79,7 +79,7 @@ const StatusModal = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         if(images.length === 0)
-        toast.error("err", {
+        return toast.warn("Please choose image before you post something", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -87,14 +87,12 @@ const StatusModal = () => {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-          });
-        // return dispatch({ 
-        //     type: GLOBALTYPES.ALERT, payload: {error: "Please add your photo."}
-        // })
+        });
 
         if(status.onEdit){
             dispatch(updatePost({content, images, auth, status}))
-        }else{
+        }
+        else{
             dispatch(createPost({content, images, auth, socket}))
         }
         
