@@ -1,5 +1,6 @@
 import React, { Component, useEffect } from "react";
 import {BrowserRouter as Router, Route} from "react-router-dom";
+import { Switch } from "react-router";
 import Login from './pages/authentication/sign-in'
 import Register from "./pages/authentication/sign-up";
 import Home from "./pages/home/home";
@@ -9,7 +10,7 @@ import Introduction from "./pages/introduction/introduction";
 import Profile from "./pages/profile/profile";
 import ConfirmEmail from "./pages/authentication/confirm-email";
 import EditProfile from "./pages/profile/edit-profile"
-
+import Layout from "./pages/layout"
 import { useSelector, useDispatch } from 'react-redux'
 import { checkLogin } from './redux/actions/authActions'
 
@@ -25,7 +26,6 @@ import StatusModal from './pages/home/components/status_modal'
 function App() {
     const { auth, status, modal, call } = useSelector(state => state)
     const dispatch = useDispatch()
-    
 
     useEffect(() => {
       dispatch(checkLogin())
@@ -34,7 +34,6 @@ function App() {
      });
      dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
       return () => socket.close()
-      
       
     },[dispatch])
 
@@ -56,7 +55,8 @@ function App() {
           if (permission === "granted") {}
         });
       }
-    },[])
+    },
+    [])
   
    
     // useEffect(() => {
@@ -82,12 +82,13 @@ function App() {
           <Route exact path="/sign-up" component={Register} />
           <Route exact path="/confirm" component={ConfirmEmail} />
           <Route exact path="/sign-in" component={Login} />
-          <Route
-              path="/activate/:activation_token"
-              component={ActivationEmail}
-              exact
-            />
-          <Route exact path="/home" component={auth.accessToken ? Home : Login} />
+          <Route exact path="/activate/:activation_token" component={ActivationEmail} />
+          <Switch>
+          <Route exact path="/home" component = {auth.accessToken ? 
+                Home : Login}
+           />
+          </Switch>
+
           <Route exact path="/reset/:reset_token" component={ChangePassword} />
           <Route exact path="/home/profile/:id" component={auth.accessToken ? Profile : Login} />
           <Route exact path="/home/profile/:id/edit-profile" component={auth.accessToken ? EditProfile : Login} />

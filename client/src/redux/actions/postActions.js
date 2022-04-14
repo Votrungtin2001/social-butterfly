@@ -17,7 +17,7 @@ export const POST_TYPES = {
 export const createPost = ({content, images, auth, socket}) => async (dispatch) => {
     let media = []
     try {
-        //dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
+        dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
         if(images.length > 0) media = await imageUpload(images)
 
         const res = await addPost(content, media, auth.refreshToken)
@@ -27,7 +27,7 @@ export const createPost = ({content, images, auth, socket}) => async (dispatch) 
             payload: {...res.data.newPost, user: auth.user} 
         })
 
-        //dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: false} })
+        dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: false} })
 
         // Notify
         const msg = {

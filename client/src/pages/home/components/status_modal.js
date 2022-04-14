@@ -4,7 +4,10 @@ import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
 import { createPost, updatePost } from '../../../redux/actions/postActions'
 import Icons from './icons'
 import { toast } from 'react-toastify';
-import { imageShow, videoShow } from '../../../utils/media_show'
+import { imageShow, videoShow } from '../../../utils/media_show' 
+import Popup from 'reactjs-popup';
+import LoadingVer2 from '../../../components/loading-ver2'
+import exit from "../../../assets/login/exit.png";
 import './status_modal.css'
 
 const StatusModal = () => {
@@ -18,6 +21,8 @@ const StatusModal = () => {
     const videoRef = useRef()
     const refCanvas = useRef()
     const [tracks, setTracks] = useState('')
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChangeImages = e => {
         const files = [...e.target.files]
@@ -78,6 +83,7 @@ const StatusModal = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+       
         if(images.length === 0)
         return toast.warn("Please choose image before you post something", {
             position: "top-right",
@@ -88,12 +94,15 @@ const StatusModal = () => {
             draggable: true,
             progress: undefined,
         });
-
         if(status.onEdit){
+            
             dispatch(updatePost({content, images, auth, status}))
+            
         }
         else{
+            
             dispatch(createPost({content, images, auth, socket}))
+            
         }
         
 
@@ -121,13 +130,13 @@ const StatusModal = () => {
                     <span onClick={() => dispatch({
                         type: GLOBALTYPES.STATUS, payload: false
                     })}>
-                        &times;
+                       <img src={exit} />
                     </span>
                 </div>
 
                 <div className="status_body">
                     <textarea name="content" value={content}
-                    placeholder={`${auth.user.username}, what are you thinking?`}
+                    placeholder={`${auth.user.fullName}, what are you thinking?`}
                     onChange={e => setContent(e.target.value)}
                     style={{
                         filter: theme ? 'invert(1)' : 'invert(0)',
@@ -199,9 +208,10 @@ const StatusModal = () => {
                 </div>
 
                 <div className="status_footer">
-                    <button className="btn btn-secondary w-100" type="submit">
+                    <button className="btn-post w-100" type="submit">
                         Post
                     </button>
+                    
                 </div>
 
             </form>

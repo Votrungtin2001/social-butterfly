@@ -13,7 +13,7 @@ const Status = () => {
             
             <button className="statusBtn flex-fill"
             onClick={() => dispatch({ type: GLOBALTYPES.STATUS, payload: true })}>
-                what are you thinking?
+               {auth.user.fullName}, what are you thinking?
             </button>
         </div>
     )

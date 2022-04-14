@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Avatar from '../../../components/avatar'
 import './header.css'
-
+import NotifyModal from '../../../components/notify-modal'
 import { logout } from '../../../redux/actions/authActions'
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
 
@@ -14,7 +14,7 @@ const Menu = () => {
         { label: 'Discover', icon: 'explore', path: '/discover'}
     ]
 
-    const { auth, theme } = useSelector(state => state)
+    const { auth, theme, notify } = useSelector(state => state)
     const dispatch = useDispatch()
     const { pathname } = useLocation()
 
@@ -24,39 +24,12 @@ const Menu = () => {
 
     return (
         <div className="menu">
-
             <ul className="navbar-nav flex-row">
-
-            {/* <div class="container-menu-icon">
-     <div class="button-icon">
-         <div class="icon-btn">
-         <i class="bi bi-house"></i>
-         </div>
-         <span>Home</span>
-     </div>
- 
-     <div class="button-icon">
-         <div class="icon-btn">
-         <i class="bi bi-chat-dots"></i>
-         </div>
-         <span>Message</span>
-     </div>
- 
-     <div class="button-icon">
-         <div class="icon-btn">
-         <i class="bi bi-globe2"></i>
-         </div>
-         <span>Discover</span>
-     </div>
- 
- </div> */}
-			
-            
                 {
                     navLinks.map((link, index) => (
                         <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
                             <Link className="nav-link" to={link.path}>
-                                <button className="material-icons icon-btn">{link.icon}</button>
+                                <span className="material-icons">{link.icon}</span>
                             </Link>
                         </li>
                     ))
@@ -66,17 +39,18 @@ const Menu = () => {
                     <span className="nav-link position-relative" id="navbarDropdown" 
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                        <span className="material-icons" >
+                        <span className="material-icons" 
+                        style={{color: notify.data.length > 0 ? 'crimson' : ''}}>
                             favorite
                         </span>
 
-                        {/* <span className="notify_length">{notify.data.length}</span> */}
+                        <span className="notify_length">{notify.data.length}</span>
 
                     </span>
 
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown"
                     style={{transform: 'translateX(75px)'}}>
-                        {/* <NotifyModal /> */}
+                        <NotifyModal />
                     </div>
                         
                 </li>
@@ -85,22 +59,23 @@ const Menu = () => {
                 <li className="nav-item dropdown" style={{opacity: 1}} >
                     <span className="nav-link dropdown-toggle" id="navbarDropdown" 
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <Avatar src={auth.user.avatar}  size="medium-avatar" />
+                        <Avatar src={auth.user.avatar} size="medium-avatar" />
                     </span>
 
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link to={`/home/profile/${auth.user._id}`} className="dropdown-item">Profile</Link>
+                    <Link className="dropdown-item" to={`home/profile/${auth.user._id}`}>Profile</Link>
 
                     <label htmlFor="theme" className="dropdown-item"
-                        onClick={() => dispatch({
-                            type: GLOBALTYPES.THEME, payload: !theme
-                        })}>
+                    onClick={() => dispatch({
+                        type: GLOBALTYPES.THEME, payload: !theme
+                    })}>
+
                         {theme ? 'Light mode' : 'Dark mode'}
                     </label>
 
                     <div className="dropdown-divider"></div>
                     <Link className="dropdown-item" to="/"
-                        onClick={() => dispatch(logout())}>
+                    onClick={() => dispatch(logout())}>
                         Logout
                     </Link>
                 </div>

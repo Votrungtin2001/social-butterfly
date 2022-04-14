@@ -107,11 +107,13 @@
     background: #fafafa;
     border: 1px solid #ddd;
     min-width: 250px;
-    height: 37px;
+    height: 43px;
     width: 100%;
     outline: none;
     text-indent: 5px;
-    border-radius: 10px;
+    border-radius: 20px;
+    padding-left: 5px;
+
     
 }
 .header .search_form .search_icon{
@@ -193,3 +195,4 @@
 	border: 0;
     font-weight:500;
 }
+

@@ -37,8 +37,12 @@ const Profile = () => {
            { 
                 auth.user._id === id &&
                 <div className="profile_tab">
-                    <button className={saveTab ? '' : 'active'} onClick={() => setSaveTab(false)}>Posts</button>
-                    <button className={saveTab ? 'active' : ''} onClick={() => setSaveTab(true)}>Saved</button>
+                    <button className={saveTab ? '' : 'active'} onClick={() => setSaveTab(false)}>
+                            
+                            <h5>Posts</h5>
+                        
+                        </button>
+                    <button className={saveTab ? 'active' : ''} onClick={() => setSaveTab(true)}><h5>Saved</h5></button>
                 </div>
              }
 

@@ -106,3 +106,25 @@
 .status_body .dropdown-menu{
     transform: translate3d(-153px, -190px, 0px) !important;
 }
+
+.btn-post{
+    height:50px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 900;
+    background-color: #000;
+    color:#fff;
+    border: 1px solid;
+   transition: all 1s ease;
+   border:4px solid #FAE3D9;
+   transition-delay:0.2s;
+   cursor: pointer;
+}
+
+.btn-post:hover{
+    box-shadow: 0 0 20px #FFB6B9,0 0 40px #FAE3D9;
+    border: 4px solid #FFB6B9;
+    background:#FFB6B9;
+    color:#000;
+    transition: box-shadow 7s, border 3s, background 3s,color 3s ;
+}

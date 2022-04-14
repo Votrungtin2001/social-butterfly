@@ -31,12 +31,15 @@ const CardHeader = ({post}) => {
     return (
         <div className="card_header">
             <div className="d-flex">
-                <Avatar src={post.user.avatar} size="big-avatar" />
+            <Link to={`home/profile/${post.user._id}`} >
+            <Avatar src={post.user.avatar} size="big-avatar" />
+                        </Link>
+                
 
-                <div className="card_name">
+                <div className="card_name m-left-8">
                     <h6 className="m-0">
-                        <Link to={`/profile/${post.user._id}`} className="text-dark">
-                            {post.user.username}
+                        <Link to={`home/profile/${post.user._id}`} className="text-dark none-line">
+                            {post.user.fullName}
                         </Link>
                     </h6>
                     <small className="text-muted">

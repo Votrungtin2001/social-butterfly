@@ -5,7 +5,12 @@ import './post-thumb.css'
 const PostThumb = ({posts, result}) => {
     const { theme } = useSelector(state => state)
 
-    if(result === 0) return <h2 className="text-center text-danger">No Post</h2>
+    if(result === 0) return <div className='no-post-container'>
+    <div className="no-post-image">
+      <img></img>
+   </div>
+    <h2 className="text-center">No Post</h2>
+</div>
 
     return (
         <div className="post_thumb">
