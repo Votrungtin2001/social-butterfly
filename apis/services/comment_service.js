@@ -9,10 +9,11 @@ const getCommentByID = async (id) => {
     return comment
 }
 
-const createComment = async (userID, content, reply, postUserId, postId) => {
+const createComment = async (userID, content, tag, reply, postUserId, postId) => {
     const newComment = new Comment({
         user: userID, content, tag, reply, postUserId, postId
     })
+    console.log(newComment)
     const post = await postService.updateCommentsInPost(postId, newComment)
     await newComment.save()
     return newComment

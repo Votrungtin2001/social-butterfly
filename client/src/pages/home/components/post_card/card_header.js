@@ -12,6 +12,7 @@ const CardHeader = ({post}) => {
     const dispatch = useDispatch()
 
     const history = useHistory()
+    console.log(post.user.fullName)
 
     const handleEditPost = () => {
         dispatch({ type: GLOBALTYPES.STATUS, payload: {...post, onEdit: true}})

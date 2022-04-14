@@ -48,7 +48,7 @@ const deletePost = async (postID, userID) => {
 }
 
 const updateCommentsInPost = async (postID, newComment) => {
-    const post = await Post.findOneAndUpdate({_id: postId}, {
+    const post = await Post.findOneAndUpdate({_id: postID}, {
         $push: {comments: newComment._id}
     }, {new: true})
     return post

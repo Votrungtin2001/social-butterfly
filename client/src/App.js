@@ -22,6 +22,7 @@ import { getPosts } from './redux/actions/postActions'
 import { getSuggestions } from './redux/actions/suggestionsActions'
 import { getNotifies } from './redux/actions/notifyActions'
 import StatusModal from './pages/home/components/status_modal'
+import SocketClient from './SocketClient'
 
 function App() {
     const { auth, status, modal, call } = useSelector(state => state)
@@ -32,7 +33,7 @@ function App() {
       const socket = io('http://localhost:5050', {
         transports: ['websocket'],
      });
-     dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
+      dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
       return () => socket.close()
       
     },[dispatch])
@@ -76,8 +77,8 @@ function App() {
       <div class={`App ${(status || modal) && 'mode'}`}>
         <div className="main">
           {status && <StatusModal />}
-          {/* {auth.refreshToken && <SocketClient />}
-          {call && <CallModal />} */}
+          {auth.refreshToken && <SocketClient />}
+          {/*call && <CallModal />} */}
           <Route exact path="/" component={Introduction} />
           <Route exact path="/sign-up" component={Register} />
           <Route exact path="/confirm" component={ConfirmEmail} />

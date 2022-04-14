@@ -10,7 +10,6 @@ const createComment = catchAsync(async (req, res) => {
         const { postId, content, tag, reply, postUserId } = data
         const post = await postService.getPostByIDForComment(postId)
         if(!post) return res.status(400).json({msg: "This post does not exist."})
-
         if(reply){
             const comment = await commentService.getCommentByID(reply)
             if(!comment) return res.status(400).json({msg: "This comment does not exist."})
@@ -22,6 +21,7 @@ const createComment = catchAsync(async (req, res) => {
         return res.status(httpStatus.OK).send({newComment})
 
     } catch (err) {
+        console.log(err)
         return res.status(500).json({msg: err.message})
     }
     
