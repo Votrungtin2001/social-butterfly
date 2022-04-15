@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import NoNotice from '../assets/icons/notification.png'
 import { Link } from 'react-router-dom'
@@ -9,6 +9,7 @@ import { isReadNotify, NOTIFY_TYPES, deleteAllNotifies } from '../redux/actions/
 const NotifyModal = () => {
     const { auth, notify } = useSelector(state => state)
     const dispatch = useDispatch()
+
 
     const handleIsRead = (msg) => {
         dispatch(isReadNotify({msg, auth}))

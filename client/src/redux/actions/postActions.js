@@ -34,7 +34,7 @@ export const createPost = ({content, images, auth, socket}) => async (dispatch) 
             id: res.data.newPost._id,
             text: 'added a new post.',
             recipients: res.data.newPost.user.followers,
-            url: `/post/${res.data.newPost._id}`,
+            url: `/home/post/${res.data.newPost._id}`,
             content, 
             image: media[0].url
         }
@@ -125,7 +125,7 @@ export const likePost = ({post, auth, socket}) => async (dispatch) => {
             id: auth.user._id,
             text: 'like your post.',
             recipients: [post.user._id],
-            url: `/post/${post._id}`,
+            url: `/home/post/${post._id}`,
             content: post.content, 
             image: post.images[0].url
         }
@@ -159,7 +159,7 @@ export const unLikePost = ({post, auth, socket}) => async (dispatch) => {
             id: auth.user._id,
             text: 'like your post.',
             recipients: [post.user._id],
-            url: `/post/${post._id}`,
+            url: `/home/post/${post._id}`,
         }
         dispatch(removeNotify({msg, auth, socket}))
 
@@ -206,7 +206,7 @@ export const deletePost = ({post, auth, socket}) => async (dispatch) => {
             id: post._id,
             text: 'deleted this post.',
             recipients: res.data.post.user.followers,
-            url: `/post/${post._id}`,
+            url: `/home/post/${post._id}`,
         }
         dispatch(removeNotify({msg, auth, socket}))
         

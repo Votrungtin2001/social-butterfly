@@ -3,17 +3,17 @@ const { Notify } = require('../models/notify_model')
 
 
 const createNotify = async (id, recipients, url, text, content, image, userID) => {
-    const notify = new Notifie({
-        id, recipients, url, text, content, image, userID
+    const notify = new Notify({
+        id, recipients, url, text, content, image, user: userID
     })
 
     await notify.save()
 
-    return newMessage
+    return notify
 }
 
 const removeNotify = async (notifyID, url) => {
-    const notify = await Notifie.findOneAndDelete({
+    const notify = await Notify.findOneAndDelete({
         id: notifyID, url: url
     })
     return notify
@@ -22,7 +22,8 @@ const removeNotify = async (notifyID, url) => {
 
 const getNotifies = async (userID) => {
     const notify = await Notify.find({recipients: userID})
-        .sort('-createdAt').populate('user', 'avatar username')
+        .sort('-createdAt').populate('user', 'avatar fullName')
+    
     return notify
 }
 

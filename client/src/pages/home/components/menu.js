@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Avatar from '../../../components/avatar'
@@ -14,6 +14,8 @@ const Menu = () => {
         { label: 'Discover', icon: 'explore', path: '/discover'}
     ]
 
+    const [isNotReadCount, setIsNotReadCount] = useState(0)
+
     const { auth, theme, notify } = useSelector(state => state)
     const dispatch = useDispatch()
     const { pathname } = useLocation()
@@ -21,6 +23,19 @@ const Menu = () => {
     const isActive = (pn) => {
         if(pn === pathname) return 'active'
     }
+    
+
+    useEffect(() => {
+        let count = 0
+        const notifies = notify.data
+        for (const Notify of notifies) {
+            const {isRead} = Notify
+            if (isRead === false) {
+                count++
+            }
+        }
+        setIsNotReadCount(count)
+      }, [dispatch, notify])
 
     return (
         <div className="menu">
@@ -40,11 +55,11 @@ const Menu = () => {
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         <span className="material-icons" 
-                        style={{color: notify.data.length > 0 ? 'crimson' : ''}}>
+                        style={{color: isNotReadCount > 0 ? 'crimson' : ''}}>
                             favorite
                         </span>
 
-                        <span className="notify_length">{notify.data.length}</span>
+                        <span className="notify_length">{isNotReadCount}</span>
 
                     </span>
 

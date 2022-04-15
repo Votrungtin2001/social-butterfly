@@ -14,7 +14,7 @@ export const NOTIFY_TYPES = {
 
 export const createNotify = ({msg, auth, socket}) => async (dispatch) => {
     try {
-        const res = await createNotify(msg, auth.refreshToken)
+        const res = await createNotifyApi(msg, auth.refreshToken)
 
         socket.emit('createNotify', {
             ...res.data.notify,
@@ -57,7 +57,6 @@ export const removeNotify = ({msg, auth, socket}) => async (dispatch) => {
 export const getNotifies = (token) => async (dispatch) => {
     try {
         const res = await getNotifiesApi(token)
-        
         dispatch({ type: NOTIFY_TYPES.GET_NOTIFIES, payload: res.data.notifies })
     } catch (err) {
         toast.error(err, {
@@ -76,7 +75,7 @@ export const getNotifies = (token) => async (dispatch) => {
 export const isReadNotify = ({msg, auth}) => async (dispatch) => {
     dispatch({type: NOTIFY_TYPES.UPDATE_NOTIFY, payload: {...msg, isRead: true}})
     try {
-        await patchDataAPI(`/isReadNotify/${msg._id}`, null, auth.refreshToken)
+        await patchDataAPI(`notify/isReadNotify/${msg._id}`, null, auth.refreshToken)
     } catch (err) {
         toast.error(err, {
             position: "top-right",
@@ -93,7 +92,7 @@ export const isReadNotify = ({msg, auth}) => async (dispatch) => {
 export const deleteAllNotifies = (token) => async (dispatch) => {
     dispatch({type: NOTIFY_TYPES.DELETE_ALL_NOTIFIES, payload: []})
     try {
-        await deleteDataAPI('deleteAllNotify', token)
+        await deleteDataAPI('notify/deleteAllNotify', token)
     } catch (err) {
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}})
     }

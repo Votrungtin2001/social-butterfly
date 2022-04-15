@@ -25,7 +25,7 @@ import StatusModal from './pages/home/components/status_modal'
 import SocketClient from './SocketClient'
 
 function App() {
-    const { auth, status, modal, call } = useSelector(state => state)
+    const { auth, status, modal, call, notify } = useSelector(state => state)
     const dispatch = useDispatch()
 
     useEffect(() => {

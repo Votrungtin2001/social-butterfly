@@ -95,7 +95,7 @@ const SocketClient = () => {
                 msg.user.fullName + ' ' + msg.text,
                 msg.user.avatar,
                 msg.url,
-                'V-NETWORK'
+                'Social Butterfly'
             )
         })
 

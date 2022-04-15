@@ -28,7 +28,10 @@ const createPost = catchAsync(async (req, res) => {
         const newPost = await postService.createPost(content, images, req.user._id)
         console.log("Add new post finished")
         console.log(newPost)
-        return res.status(httpStatus.OK).send({newPost})
+        return res.status(httpStatus.OK).send({newPost: {
+            ...newPost._doc,
+            user: req.user
+        }})
     } catch (err) {
         return res.status(500).json({msg: err.message})
     }

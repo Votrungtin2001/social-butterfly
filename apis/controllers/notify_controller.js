@@ -6,16 +6,18 @@ const { Conversation } = require('../models/conversation_model')
 const createNotify = catchAsync(async (req, res) => {
     try {
         const {msg} = req.body
+        console.log(msg)
         const { id, recipients, url, text, content, image } = msg
 
         if(recipients.includes(req.user._id.toString())) return;
 
-        const notify = notifyService.createNotify(id, recipients, url, text, content, image, req.user._id)
+        const notify = await notifyService.createNotify(id, recipients, url, text, content, image, req.user._id)
 
         console.log("Create notify finished")
         return res.status(httpStatus.OK).send({notify})
 
     } catch (err) {
+        console.log(err)
         return res.status(500).json({msg: err.message})
     }
     
