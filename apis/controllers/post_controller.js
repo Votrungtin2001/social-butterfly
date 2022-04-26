@@ -228,6 +228,7 @@ const unSavePost = catchAsync(async (req, res) => {
 })
 
 const getSavePosts = catchAsync(async (req, res) => {
+    console.log('here')
     try {
         const features = new APIfeatures(Post.find({
             _id: {$in: req.user.saved}
@@ -243,6 +244,7 @@ const getSavePosts = catchAsync(async (req, res) => {
         })
 
     } catch (err) {
+        console.log(err)
         return res.status(500).json({msg: err.message})
     }
 })

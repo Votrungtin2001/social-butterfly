@@ -52,7 +52,7 @@ export const updateComment = ({comment, post, content, auth}) => async (dispatch
     
     dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost })
     try {
-        patchDataAPI(`comment/${comment._id}`, { content }, auth.token)
+        patchDataAPI(`comment/${comment._id}`, { content }, auth.refreshToken)
     } catch (err) {
         toast.error(err, {
             position: "top-right",
@@ -76,7 +76,7 @@ export const likeComment = ({comment, post, auth}) => async (dispatch) => {
     dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost })
 
     try {
-        await patchDataAPI(`comment/${comment._id}/like`, null, auth.token)
+        await patchDataAPI(`comment/${comment._id}/like`, null, auth.refreshToken)
     } catch (err) {
         dispatch({ type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg} })
     }
@@ -93,7 +93,7 @@ export const unLikeComment = ({comment, post, auth}) => async (dispatch) => {
     dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost })
 
     try {
-        await patchDataAPI(`comment/${comment._id}/unlike`, null, auth.token)
+        await patchDataAPI(`comment/${comment._id}/unlike`, null, auth.refreshToken)
     } catch (err) {
         dispatch({ type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg} })
     }
@@ -112,7 +112,7 @@ export const deleteComment = ({post, comment, auth, socket}) => async (dispatch)
     socket.emit('deleteComment', newPost)
     try {
        deleteArr.forEach(item => {
-            deleteDataAPI(`comment/${item._id}`, auth.token)
+            deleteDataAPI(`comment/${item._id}`, auth.refreshToken)
 
             const msg = {
                 id: item._id,

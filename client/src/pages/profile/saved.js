@@ -13,7 +13,7 @@ const Saved = ({auth, dispatch}) => {
 
     useEffect(() => {
         setLoad(true)
-        getDataAPI('getSavePosts', auth.token)
+        getDataAPI('post/getSavePosts', auth.refreshToken)
         .then(res => {
             setSavePosts(res.data.savePosts)
             setResult(res.data.result)
@@ -24,11 +24,11 @@ const Saved = ({auth, dispatch}) => {
         })
 
         return () => setSavePosts([])
-    },[auth.token, dispatch])
+    },[auth.refreshToken, dispatch])
 
     const handleLoadMore = async () => {
         setLoad(true)
-        const res = await getDataAPI(`getSavePosts?limit=${page * 9}`, auth.token)
+        const res = await getDataAPI(`post/getSavePosts?limit=${page * 9}`, auth.refreshToken)
         setSavePosts(res.data.savePosts)
         setResult(res.data.result)
         setPage(page + 1)

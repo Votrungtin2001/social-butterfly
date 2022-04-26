@@ -19,7 +19,7 @@ const PageRender = () => {
 
     let pageName = "";
 
-    if(auth.token){
+    if(auth.refreshToken){
         if(id){
             pageName = `${page}/[id]`
         }else{

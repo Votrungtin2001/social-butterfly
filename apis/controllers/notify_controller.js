@@ -55,6 +55,7 @@ const deleteAllNotifies = catchAsync(async (req, res) => {
         return res.status(httpStatus.OK).send({notifies})
         
     } catch (err) {
+        console.log(err)
         return res.status(500).json({msg: err.message})
     }
 })

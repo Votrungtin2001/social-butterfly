@@ -23,10 +23,10 @@ const NotifyModal = () => {
 
     const handleDeleteAll = () => {
         const newArr = notify.data.filter(item => item.isRead === false)
-        if(newArr.length === 0) return dispatch(deleteAllNotifies(auth.token))
+        if(newArr.length === 0) return dispatch(deleteAllNotifies(auth.refreshToken))
 
         if(window.confirm(`You have ${newArr.length} unread notices. Are you sure you want to delete all?`)){
-            return dispatch(deleteAllNotifies(auth.token))
+            return dispatch(deleteAllNotifies(auth.refreshToken))
         }
     }
 

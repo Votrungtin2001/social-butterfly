@@ -23,7 +23,7 @@ const RightSideBar = () => {
                 {
                     !suggestions.loading &&
                     <i className="fas fa-redo" style={{cursor: 'pointer'}}
-                    onClick={ () => dispatch(getSuggestions(auth.token)) } />
+                    onClick={ () => dispatch(getSuggestions(auth.refreshToken)) } />
                 }
             </div>
 

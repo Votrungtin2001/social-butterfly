@@ -228,7 +228,7 @@ export const savePost = ({post, auth}) => async (dispatch) => {
     dispatch({ type: GLOBALTYPES.AUTH, payload: {...auth, user: newUser}})
 
     try {
-        await patchDataAPI(`savePost/${post._id}`, null, auth.refreshToken)
+        await patchDataAPI(`post/savePost/${post._id}`, null, auth.refreshToken)
     } catch (err) {
         toast.error(err, {
             position: "top-right",

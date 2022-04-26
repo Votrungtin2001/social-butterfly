@@ -179,8 +179,8 @@ export const getSuggestionsApi = async (token) => {
 
 
 export const getDataAPI = async (url, token) => {
-    const res = await axios.get(`/api/${url}`, {
-        headers: { Authorization: token}
+    axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/${url}`, {
     })
     return res;
 }
@@ -208,6 +208,6 @@ export const patchDataAPI = async (url, post, token) => {
 
 export const deleteDataAPI = async (url, token) => {
     axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-    const res = await axios.delete(`${process.env.REACT_APP_API_URL}/api/${url}`)
+    const res = await axios.delete(`${process.env.REACT_APP_API_URL}/api/${url}`, {})
     return res;
 }

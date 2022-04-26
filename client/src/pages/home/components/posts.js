@@ -14,7 +14,7 @@ const Posts = () => {
 
     const handleLoadMore = async () => {
         setLoad(true)
-        const res = await getDataAPI(`posts?limit=${homePosts.page * 9}`, auth.token)
+        const res = await getDataAPI(`posts?limit=${homePosts.page * 9}`, auth.refreshToken)
 
         dispatch({
             type: POST_TYPES.GET_POSTS, 

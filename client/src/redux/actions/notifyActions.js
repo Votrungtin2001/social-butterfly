@@ -38,7 +38,7 @@ export const createNotify = ({msg, auth, socket}) => async (dispatch) => {
 
 export const removeNotify = ({msg, auth, socket}) => async (dispatch) => {
     try {
-        await deleteDataAPI(`notify/${msg.id}?url=${msg.url}`, auth.refreshToken)
+        await deleteDataAPI(`notify/deleteNotify/${msg.id}?url=${msg.url}`, auth.refreshToken)
         
         socket.emit('removeNotify', msg)
     } catch (err) {
@@ -92,8 +92,17 @@ export const isReadNotify = ({msg, auth}) => async (dispatch) => {
 export const deleteAllNotifies = (token) => async (dispatch) => {
     dispatch({type: NOTIFY_TYPES.DELETE_ALL_NOTIFIES, payload: []})
     try {
-        await deleteDataAPI('notify/deleteAllNotify', token)
+        await deleteDataAPI('notify/deleteAllNotifies', token)
     } catch (err) {
+        toast.error(err, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}})
     }
 }

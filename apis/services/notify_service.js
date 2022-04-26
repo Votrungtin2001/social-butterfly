@@ -35,7 +35,7 @@ const updateReadNotify = async (notifyID) => {
 }
 
 const deleteAllNotifies = async (userID) => {
-    const notifies = await Notifie.deleteMany({recipients: userID})
+    const notifies = await Notify.deleteMany({recipients: userID})
     return notifies
 }
 

@@ -82,7 +82,7 @@ const CardFooter = ({post}) => {
                     handleUnLike={handleUnLike}
                     />
 
-                    <Link to={`/post/${post._id}`} className="text-dark">
+                    <Link to={`/home/post/${post._id}`} className="text-dark">
                         <i className="far fa-comment" />
                     </Link>
 
