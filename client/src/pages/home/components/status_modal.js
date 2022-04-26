@@ -6,8 +6,8 @@ import Icons from './icons'
 import { toast } from 'react-toastify';
 import { imageShow, videoShow } from '../../../utils/media_show' 
 import Popup from 'reactjs-popup';
-import LoadingVer2 from '../../../components/loading-ver2'
 import exit from "../../../assets/login/exit.png";
+import cancelIcon from '../../../assets/icons/cancel.svg'
 import './status_modal.css'
 
 const StatusModal = () => {
@@ -21,8 +21,6 @@ const StatusModal = () => {
     const videoRef = useRef()
     const refCanvas = useRef()
     const [tracks, setTracks] = useState('')
-
-    const [isLoading, setIsLoading] = useState(false);
 
     const handleChangeImages = e => {
         const files = [...e.target.files]
@@ -171,7 +169,11 @@ const StatusModal = () => {
                                                 }
                                             </>
                                     }
-                                    <span onClick={() => deleteImages(index)}>&times;</span>
+                                    <span className='cancelreply' onClick={() => deleteImages(index)}>
+                                   
+                    <img src={cancelIcon}></img>
+         
+                                    </span>
                                 </div>
                             ))
                         }
@@ -208,7 +210,7 @@ const StatusModal = () => {
                 </div>
 
                 <div className="status_footer">
-                    <button className="btn-post w-100" type="submit">
+                    <button className="btn-post" type="submit">
                         Post
                     </button>
                     

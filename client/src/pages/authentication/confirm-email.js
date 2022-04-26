@@ -18,7 +18,6 @@ const ConfirmEmail = ({ firstName, lastName, fullName, email, password, birthday
     const [error, setError] = useState("");
 
     const sendVerificationEmail = () => {
-        console.log('hihihihi')
        
         axios
             .post(`${process.env.REACT_APP_API_URL}/api/auth/sendverificationemail`, {

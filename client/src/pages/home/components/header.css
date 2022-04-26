@@ -21,7 +21,7 @@
 
 /* ----------- Header Menu ---------- */
 .header .menu li{
-    opacity: 0.5;
+    text-align: center;
 }
 .header .menu li.active{
     opacity: 1;
@@ -29,6 +29,10 @@
 .header .menu .material-icons{
     font-size: 30px;
 }
+.menu-icon:hover{
+    color: #111;
+}
+
 .header .menu .dropdown-menu{
     position: absolute;
     left: inherit;
@@ -47,6 +51,7 @@
     font-weight: bold;
     font-size: 10px;
 }
+
 .container-menu-icon{
     display: flex;
      height: 100%;
@@ -196,3 +201,39 @@
     font-weight:500;
 }
 
+.menu-icon{
+    display: grid;
+}
+
+.notify-wrapper{
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    display:grid;
+    align-items: center;
+}
+
+
+
+.notify-wrapper:hover .notify-icon{
+    animation: shake 1s forwards;
+}
+
+@keyframes shake {
+    10%{
+        transform:rotate(15deg)
+    }
+    20%{
+        transform:rotate(-15deg)
+    }
+    30%{
+        transform:rotate(15deg)
+    }
+    50%{
+        transform:rotate(0deg)
+    }
+}
+
+.m-left-24{
+    margin-left: 24px;
+}

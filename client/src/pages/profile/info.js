@@ -5,7 +5,6 @@ import FollowBtn from '../../components/follow-btn'
 import Followers from './folower'
 import Following from './following'
 import Popup from 'reactjs-popup';
-import { stepConnectorClasses } from '@mui/material'
 import { Link } from 'react-router-dom'
 import './profile.css'
 import moment from "moment";

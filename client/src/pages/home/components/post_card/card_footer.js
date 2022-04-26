@@ -4,6 +4,7 @@ import Send from '../../../../assets/icons/send.svg'
 import LikeButton from '../../../../components/like-button'
 import { useSelector, useDispatch } from 'react-redux'
 import { likePost, unLikePost, savePost, unSavePost } from '../../../../redux/actions/postActions'
+import './post-card.css'
 // import ShareModal from '../../ShareModal'
 // import { BASE_URL } from '../../../utils/config'
 
@@ -72,7 +73,7 @@ const CardFooter = ({post}) => {
     }
 
     return (
-        <div className="card_footer">
+        <div className="card--footer">
             <div className="card_icon_menu">
                 <div>
                     <LikeButton 

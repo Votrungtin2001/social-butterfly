@@ -1,7 +1,6 @@
 /* --------- Status ---------- */
 .status{
     background: white;
-    box-shadow: 0 0 5px #ddd;
     padding: 20px;
     border-radius: 5px;
     border: 1px solid rgb(0, 0, 0, .125);
@@ -22,7 +21,7 @@
 
 /* ------------Posts ------ */
 .posts .card{
-    box-shadow: 0 0 4px #ddd;
+   
 }
 /* --------- Post Card Header --------- */
 .posts .card_header{
@@ -91,3 +90,16 @@
     background-size: 40%;
     margin-bottom: 25px;
 }
+
+.home{
+    padding: 0px 85px 0px 85px;
+}
+
+.right-side-bar{
+    background: white;
+    box-shadow: 0 0 5px #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0, .125);
+}
+

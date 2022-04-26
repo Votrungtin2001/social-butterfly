@@ -6,6 +6,7 @@ import './header.css'
 import NotifyModal from '../../../components/notify-modal'
 import { logout } from '../../../redux/actions/authActions'
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
+import notifyIcon from '../../../assets/icons/notifications.svg'
 
 const Menu = () => {
     const navLinks = [
@@ -43,9 +44,11 @@ const Menu = () => {
                 {
                     navLinks.map((link, index) => (
                         <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
-                            <Link className="nav-link" to={link.path}>
-                                <span className="material-icons">{link.icon}</span>
+                            <Link className="nav-link menu-icon" to={link.path}>
+                                <span class="material-icons">{link.icon}</span>
+                                <small class='icon-label'>{link.label}</small>
                             </Link>
+                           
                         </li>
                     ))
                 }
@@ -54,24 +57,29 @@ const Menu = () => {
                     <span className="nav-link position-relative" id="navbarDropdown" 
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                        <span className="material-icons" 
+                        {/* <span className="material-icons" 
                         style={{color: isNotReadCount > 0 ? 'crimson' : ''}}>
                             favorite
                         </span>
 
-                        <span className="notify_length">{isNotReadCount}</span>
+                        <span className="notify_length">{isNotReadCount}</span> */}
+                        <div class='notify-wrapper'>
+                            {/* <img src={notifyIcon} alt="" class='notify-icon'/> */}
+                            <span class="material-icons">notifications</span>
+                            <small >Notification</small>
+                        </div>
 
                     </span>
 
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown"
-                    style={{transform: 'translateX(75px)'}}>
+                    <div className="dropdown-menu dropdown-notify" aria-labelledby="navbarDropdown"
+                    style={{transform: 'translateX(65px)'}}>
                         <NotifyModal />
                     </div>
                         
                 </li>
            
             
-                <li className="nav-item dropdown" style={{opacity: 1}} >
+                <li className="nav-item dropdown m-left-24" style={{opacity: 1}} >
                     <span className="nav-link dropdown-toggle" id="navbarDropdown" 
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <Avatar src={auth.user.avatar} size="medium-avatar" />

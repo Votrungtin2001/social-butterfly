@@ -8,6 +8,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import CommentMenu from '../comments/comment-menu'
 import { updateComment, likeComment, unLikeComment } from '../../../../redux/actions/commentActions'
 import InputComment from '../input-comment'
+import cancelIcon from '../../../../assets/icons/cancel.svg'
+import InputCommentEdit from '../input-comment-edit'
+
 
 const CommentCard = ({children, comment, post, commentId}) => {
     const { auth, theme } = useSelector(state => state)
@@ -68,32 +71,41 @@ const CommentCard = ({children, comment, post, commentId}) => {
 
     const styleCard = {
         opacity: comment._id ? 1 : 0.5,
-        pointerEvents: comment._id ? 'inherit' : 'none'
+        pointerEvents: comment._id ? 'inherit' : 'none',
+    
     }
 
     return (
         <div className="comment_card mt-2" style={styleCard}>
-            <Link to={`home/profile/${comment.user._id}`} className="d-flex text-dark">
-                <Avatar src={comment.user.avatar} size="small-avatar" />
-                <h6 className="mx-1">{comment.user.fullName}</h6>
-            </Link>
-
+        
             <div className="comment_content">
-                <div className="flex-fill" 
+
+            <Avatar src={comment.user.avatar} size="medium-avatar" />
+
+
+                <div className="flex-fill text-comment m-left-8" 
                 style={{
                     filter: theme ? 'invert(1)' : 'invert(0)',
                     color: theme ? 'white' : '#111',
                 }}>
+
+                 <Link to={`home/profile/${comment.user._id}`} className="d-flex text-dark none-line">
+                     <h6>{comment.user.fullName}</h6>
+                 </Link>
                     {
                         onEdit 
-                        ? <textarea rows="5" value={content}
-                        onChange={e => setContent(e.target.value)} />
+                        ? <input value={content} onChange={e => setContent(e.target.value)} 
+                        style={{
+                            filter: theme ? 'invert(1)' : 'invert(0)',
+                            color: theme ? 'white' : '#111',
+                            width:'100%'
+                        }}/>
 
                         : <div>
                             {
                                 comment.tag && comment.tag._id !== comment.user._id &&
-                                <Link to={`/profile/${comment.tag._id}`} className="mr-1">
-                                    @{comment.tag.username}
+                                <Link to={`home/profile/${comment.tag._id}`} className="mr-1 none-line">
+                                    {comment.tag.fullName}
                                 </Link>
                             }
                             <span>
@@ -111,54 +123,59 @@ const CommentCard = ({children, comment, post, commentId}) => {
                         </div>
                     }
                     
-
-                    <div style={{cursor: 'pointer'}}>
-                        <small className="text-muted mr-3">
+                        <small className="text-muted mr-3 font-12">
                             {moment(comment.createdAt).fromNow()}
-                        </small>
-
-                        <small className="font-weight-bold mr-3">
-                            {comment.likes.length} likes
                         </small>
 
                         {
                             onEdit
                             ? <>
-                                <small className="font-weight-bold mr-3"
+                                <small className="font-weight-bold mr-3 m-left-8 font-12"
                                 onClick={handleUpdate}>
-                                    update
+                                    Update
                                 </small>
-                                <small className="font-weight-bold mr-3"
+                                <small className="font-weight-bold mr-3 m-left-8 font-12"
                                 onClick={() => setOnEdit(false)}>
-                                    cancel
+                                    Cancel
                                 </small>
                             </>
-
-                            : <small className="font-weight-bold mr-3"
+                            : <small className="font-weight-bold mr-3 m-left-8 font-12"
                             onClick={handleReply}>
-                                {onReply ? 'cancel' :'reply'}
+                                {onReply ? '' : 'Reply'}
                             </small>
                         }
-                        
-                    </div>
+ {
+                onReply &&
+                <div className='reply-input'>
+                <InputComment post={post} onReply={onReply} setOnReply={setOnReply} >
+                    <Link to={`/profile/${onReply.user._id}`} className="none-line">
+                        {onReply.user.fullName}:
+                    </Link>
+                    
+                </InputComment>
+                <button className='cancel-reply' onClick={() => setOnReply(false)}>
+                    <img src={cancelIcon}></img>
+                </button>
+ 
+                </div>
+            }
+                    
                     
                 </div>
-
-
                 <div className="d-flex align-items-center mx-2" style={{cursor: 'pointer'}}>
+                    <div className='like-button-container'>
+                        <LikeButton isLike={isLike} handleLike={handleLike} handleUnLike={handleUnLike} />
+                        <small className="font-weight-bold mr-3 ">
+                            {comment.likes.length}
+                        </small>
+                    </div>
                     <CommentMenu post={post} comment={comment} setOnEdit={setOnEdit} />
-                    <LikeButton isLike={isLike} handleLike={handleLike} handleUnLike={handleUnLike} />
+
                 </div>
+                
             </div> 
             
-            {
-                onReply &&
-                <InputComment post={post} onReply={onReply} setOnReply={setOnReply} >
-                    <Link to={`/profile/${onReply.user._id}`} className="mr-1">
-                        @{onReply.user.username}:
-                    </Link>
-                </InputComment>
-            }
+           
 
             {children}
         </div>
@@ -166,3 +183,6 @@ const CommentCard = ({children, comment, post, commentId}) => {
 }
 
 export default CommentCard
+
+
+

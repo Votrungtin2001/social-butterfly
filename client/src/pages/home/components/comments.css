@@ -1,38 +1,56 @@
 .comment_input{
     display: flex;
     align-items: center;
+   
 }
 .comment_input input{
-    background: #f7f7f7;
+    background: transparent;
     border: none;
     outline: none;
     flex: 1;
     overflow: auto;
+    margin-left: 8px;
 }
 .comment_input .postBtn{
     border: none;
     outline: none;
-    background: #f7f7f7;
-    color: blue;
-    font-weight: 600;
+    background-color: transparent;
+    text-align: right;
 }
+.post-icon{
+    width: 8%;
+    margin-right: 8px;   
+}
+
 .comment_input .dropdown-menu{
     transform: translate3d(-120px, -200px, 0px) !important;
 }
 
 /* ---------- Comments ---------- */
 .comment_display{
-    padding: 10px 25px;
+    padding: 0px 25px;
 }
+
 .comment_card .comment_content{
-    background: #eee;
+    width:100%;
     padding: 7px;
-    border-radius: 10px;
-    border-top-left-radius: 0;
+    border-radius: 20px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+
+   
 }
+.comment_card .text-comment{
+    background:rgb(253, 246, 246);
+    padding: 7px;
+    border-radius: 10px;
+    /* display: flex;
+    justify-content: space-between;
+    align-items: start; */
+
+}
+
+
 .comment_card .comment_content .readMore{
     cursor: pointer;
     color: crimson;
@@ -59,3 +77,43 @@
     border: none;
     outline: none;
 }
+
+.like-button-container{
+   
+    display: grid;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+}
+.m-left-24{
+    margin-left: 24px;
+}
+
+.m-left-32{
+    margin-left: 32px;
+}
+
+
+
+    
+      .see-comments:hover{
+        opacity:1;    
+      }
+      .see-comments{
+          opacity:0.5;
+      }
+
+      .reply-input{
+          display:flex;
+          align-items: center;
+          border-radius: 10px;
+      }
+      .cancel-reply{
+          width: 20px;
+          border:none;
+          outline: none;
+          background-color: transparent;
+          align-items: center;
+          text-align: center;
+          margin-left: 8px;
+      }

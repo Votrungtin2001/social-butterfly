@@ -5,7 +5,7 @@ import postIcon from '../../../assets/icons/post.svg'
 
 import Icons from '../components/icons'
 
-const InputComment = ({children, post, onReply, setOnReply}) => {
+const InputCommentEdit = ({children, post, onReply, setOnReply}) => {
     const [content, setContent] = useState('')
 
     const { auth, socket, theme } = useSelector(state => state)
@@ -35,7 +35,7 @@ const InputComment = ({children, post, onReply, setOnReply}) => {
     }
 
     return (
-        <form className="card--footer comment_input" onSubmit={handleSubmit} >
+        <form className="card-footer comment_input" onSubmit={handleSubmit} >
             {children}
              <Icons setContent={setContent} content={content} theme={theme} />
             <input type="text" placeholder="Write a comment..."
@@ -43,7 +43,7 @@ const InputComment = ({children, post, onReply, setOnReply}) => {
             style={{
                 filter: theme ? 'invert(1)' : 'invert(0)',
                 color: theme ? 'white' : '#111',
-                background: theme ? 'rgba(0,0,0,.03)' : '',
+                backgroundColor: 'transparent',
             }} />
 
            
@@ -55,4 +55,4 @@ const InputComment = ({children, post, onReply, setOnReply}) => {
     )
 }
 
-export default InputComment
+export default InputCommentEdit

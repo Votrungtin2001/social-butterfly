@@ -13,7 +13,7 @@ const CommentDisplay = ({comment, post, replyCm}) => {
     return (
         <div className="comment_display">
             <CommentCard comment={comment} post={post} commentId={comment._id} >
-                <div className="pl-4">
+                <div className="pl-4 m-left-32">
                     {
                         showRep.map((item, index) => (
                             item.reply &&
@@ -28,15 +28,17 @@ const CommentDisplay = ({comment, post, replyCm}) => {
 
                     {
                         replyCm.length - next > 0
-                        ? <div style={{cursor: 'pointer', color: 'crimson'}}
+                        ? <div className='see-comments'
+                        style={{cursor: 'pointer', textAlign:'start',fontSize:'12px',marginLeft:'43px'}}
                         onClick={() => setNext(next + 10)}>
-                            See more comments...
+                            See all {replyCm.length} comments.
                         </div>
 
                         : replyCm.length > 1 &&
-                        <div style={{cursor: 'pointer', color: 'crimson'}}
+                        <div className='see-comments'
+                        style={{cursor: 'pointer', textAlign:'start',fontSize:'12px',marginLeft:'43px'}}
                         onClick={() => setNext(1)}>
-                            Hide comments...
+                            Hide comments.
                         </div>
                     }
                 </div>

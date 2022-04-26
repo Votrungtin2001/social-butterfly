@@ -1,0 +1,60 @@
+.dropdown-notify{
+    border-radius: 5px;
+}
+
+.notify-modal-container{
+    min-width: 370px;  
+}
+.notify-header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    padding: 0 8px 8px 8px;
+}
+.notify-header h5{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.delete-icon{
+    width: 20%;
+    margin-right: 8px;    
+}
+.notify-img-container{
+    display:grid;
+    justify-content: center;
+    text-align: center;
+    position:relative;
+    margin:auto;
+    text-align: center;
+}
+.notify-img{
+    width: 70%;
+    justify-content: center;
+    text-align: center;
+    position:relative;
+    margin:auto;
+    padding:20px;
+    text-align: center;
+}
+
+.delete-icon-container{
+    width: 30px;
+    background-image: url(../assets/icons/delete.svg);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    outline: none;
+    border:none;
+    margin-left: 8px;
+    
+}
+
+.icon---{
+    align-items: center;
+}
+
+.font-12{
+    font-size: 12px;
+}

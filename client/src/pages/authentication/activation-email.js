@@ -20,13 +20,10 @@ const ActivationEmail = () => {
                 token: activation_token,
             })
             .then(res => {
-                setAnnounce("Xác thực tài khoản thành công")
-                alert("Xác thực tài khoản thành công")
-                history.replace('/')
             })
             .catch(err => {
                 console.log(err)
-                setAnnounce("Link xác thực đã hết hạn. Vui lòng thử lại sau")
+                
             });
     }
 
@@ -46,7 +43,7 @@ const ActivationEmail = () => {
                  </div>
          
                  <div className="activation-title">
-                    <div className="opacity-50 font-14">Link expired, please try again later!</div>
+                    <div className="opacity-50 font-14">Account verification successful!</div>
                  </div>
                  <button onClick={() => history.replace('/')}
                  className="activation-btn">

@@ -10,7 +10,8 @@ import Introduction from "./pages/introduction/introduction";
 import Profile from "./pages/profile/profile";
 import ConfirmEmail from "./pages/authentication/confirm-email";
 import EditProfile from "./pages/profile/edit-profile"
-import Layout from "./pages/layout"
+import RemovePost from "./components/remove-post"
+import Header from './pages/home/components/header'
 import { useSelector, useDispatch } from 'react-redux'
 import { checkLogin } from './redux/actions/authActions'
 
@@ -83,6 +84,8 @@ function App() {
           <Route exact path="/sign-up" component={Register} />
           <Route exact path="/confirm" component={ConfirmEmail} />
           <Route exact path="/sign-in" component={Login} />
+          <Route exact path="/remove" component={RemovePost} />
+
           <Route exact path="/activate/:activation_token" component={ActivationEmail} />
           <Switch>
           <Route exact path="/home" component = {auth.accessToken ? 
@@ -90,7 +93,7 @@ function App() {
            />
           </Switch>
 
-          <Route exact path="/reset/:reset_token" component={ChangePassword} />
+          <Route exact path="/reset" component={ChangePassword} />
           <Route exact path="/home/profile/:id" component={auth.accessToken ? Profile : Login} />
           <Route exact path="/home/profile/:id/edit-profile" component={auth.accessToken ? EditProfile : Login} />
         </div>

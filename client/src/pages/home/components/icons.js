@@ -1,4 +1,5 @@
 import React from 'react'
+import smiley from '../../../assets/icons/smiley.svg'
 import './icons.css'
 
 const Icons = ({setContent, content, theme}) => {
@@ -14,7 +15,8 @@ const Icons = ({setContent, content, theme}) => {
             
             <span className="nav-link position-relative px-1" id="navbarDropdown" 
             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span style={{opacity: 0.4}}>😄</span>
+                {/* <span style={{opacity: 0.4}}>😄</span> */}
+                <img className='smiley' src={smiley}></img>
             </span>
 
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">

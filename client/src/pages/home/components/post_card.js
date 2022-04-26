@@ -12,7 +12,11 @@ const PostCard = ({post, theme}) => {
             <CardBody post={post} theme={theme} />
             <CardFooter post={post} />
 
+            <div className='mt-1'></div>
+           
+
             <Comments post={post} />
+            <div className='mt-1'></div>
             <InputComment post={post} />
         </div>
     )

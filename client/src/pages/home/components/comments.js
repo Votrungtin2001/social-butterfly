@@ -24,27 +24,29 @@ const Comments = ({post}) => {
     return (
         <div className="comments">
             {
+                comments.length - next > 0
+                ? <div className='see-comments'
+                style={{cursor: 'pointer', textAlign:'start',fontSize:'12px',padding:'10px 35px 0px 35px'}}
+                onClick={() => setNext(next + 10)}>
+                    See all {comments.length} comments.
+                </div>
+
+                : comments.length > 2 &&
+                <div className='see-comments'
+                style={{cursor: 'pointer', textAlign:'start', fontSize:'12px', padding:'10px 35px 0px 35px'}}
+                onClick={() => setNext(2)}>
+                    Hide comments.
+                </div>
+            }
+            
+            {
                 showComments.map((comment, index) => (
                     <CommentDisplay key={index} comment={comment} post={post}
                     replyCm={replyComments.filter(item => item.reply === comment._id)} />
                 ))
             }
 
-            {
-                comments.length - next > 0
-                ? <div className="p-2 border-top"
-                style={{cursor: 'pointer', color: 'crimson'}}
-                onClick={() => setNext(next + 10)}>
-                    See more comments...
-                </div>
-
-                : comments.length > 2 &&
-                <div className="p-2 border-top"
-                style={{cursor: 'pointer', color: 'crimson'}}
-                onClick={() => setNext(2)}>
-                    Hide comments...
-                </div>
-            }
+            
         </div>
     )
 }
