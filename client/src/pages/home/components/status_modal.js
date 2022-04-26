@@ -169,11 +169,7 @@ const StatusModal = () => {
                                                 }
                                             </>
                                     }
-                                    <span className='cancelreply' onClick={() => deleteImages(index)}>
-                                   
-                    <img src={cancelIcon}></img>
-         
-                                    </span>
+                                  <span onClick={() => deleteImages(index)}>&times;</span>
                                 </div>
                             ))
                         }
