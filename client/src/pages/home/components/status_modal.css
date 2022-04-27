@@ -14,7 +14,8 @@
     background: white;
     margin: 30px auto;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: 8px 10px 30px rgba(0, 0, 0, 0.329);
 }
 .status_header{
     display: flex;

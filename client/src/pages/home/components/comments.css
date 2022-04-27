@@ -41,7 +41,7 @@
    
 }
 .comment_card .text-comment{
-    background:rgb(253, 246, 246);
+    background:#bcdbd4;
     padding: 7px;
     border-radius: 10px;
     /* display: flex;
@@ -53,7 +53,7 @@
 
 .comment_card .comment_content .readMore{
     cursor: pointer;
-    color: crimson;
+    
 }
 
 .comment_card .comment_content .nav-item{

@@ -11,7 +11,7 @@ import Profile from "./pages/profile/profile";
 import ConfirmEmail from "./pages/authentication/confirm-email";
 import EditProfile from "./pages/profile/edit-profile"
 import RemovePost from "./components/remove-post"
-import Header from './pages/home/components/header'
+import Post from './pages/post/post'
 import { useSelector, useDispatch } from 'react-redux'
 import { checkLogin } from './redux/actions/authActions'
 
@@ -94,6 +94,7 @@ function App() {
           </Switch>
 
           <Route exact path="/reset" component={ChangePassword} />
+          <Route exact path="/home/post/:id" component={Post} />
           <Route exact path="/home/profile/:id" component={auth.accessToken ? Profile : Login} />
           <Route exact path="/home/profile/:id/edit-profile" component={auth.accessToken ? EditProfile : Login} />
         </div>

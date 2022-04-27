@@ -60,14 +60,17 @@ const Menu = () => {
                         {/* <span className="material-icons" 
                         style={{color: isNotReadCount > 0 ? 'crimson' : ''}}>
                             favorite
-                        </span>
+                        </span> */}
 
-                        <span className="notify_length">{isNotReadCount}</span> */}
+                        
                         <div class='notify-wrapper'>
                             {/* <img src={notifyIcon} alt="" class='notify-icon'/> */}
-                            <span class="material-icons">notifications</span>
+                            <span class="material-icons">notifications
+                            <small className="notify_length">{isNotReadCount}</small>
+                            </span>
                             <small >Notification</small>
                         </div>
+                       
 
                     </span>
 

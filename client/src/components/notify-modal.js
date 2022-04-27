@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import NoNotice from '../assets/img/undraw_notify_re_65on.svg'
 import deleteIcon from '../assets/icons/delete.svg'
+import Popup from 'reactjs-popup'
 import { Link } from 'react-router-dom'
 import Avatar from './avatar'
 import moment from 'moment'
 import './notify-modal.css'
 import { isReadNotify, NOTIFY_TYPES, deleteAllNotifies } from '../redux/actions/notifyActions'
+import DeleteNotify from './delete-notify'
 
 const NotifyModal = () => {
     const { auth, notify } = useSelector(state => state)
     const dispatch = useDispatch()
+    const [isShowDelete, setIsShowDelete] = useState(false)
 
 
     const handleIsRead = (msg) => {
@@ -20,14 +23,20 @@ const NotifyModal = () => {
     const handleSound = () => {
         dispatch({type: NOTIFY_TYPES.UPDATE_SOUND, payload: !notify.sound})
     }
+    const handleCloseDeleteNotify = () => {
+        setIsShowDelete(false)
+    }
 
     const handleDeleteAll = () => {
         const newArr = notify.data.filter(item => item.isRead === false)
-        if(newArr.length === 0) return dispatch(deleteAllNotifies(auth.refreshToken))
-
-        if(window.confirm(`You have ${newArr.length} unread notices. Are you sure you want to delete all?`)){
-            return dispatch(deleteAllNotifies(auth.refreshToken))
-        }
+        if(newArr.length === 0) 
+        {return dispatch(deleteAllNotifies(auth.refreshToken))}
+ 
+        else 
+        {setIsShowDelete(true);}
+        // if(window.confirm(`You have ${newArr.length} unread notices. Are you sure you want to delete all?`)){
+        //     return dispatch(deleteAllNotifies(auth.refreshToken))
+        // }
     }
 
     return (
@@ -49,6 +58,13 @@ const NotifyModal = () => {
                     
                    <img  />
                 </button>
+                <Popup open={isShowDelete} onClose={() => setIsShowDelete(false)} nested modal closeOnDocumentClick={false}>
+                
+                {<DeleteNotify
+                  handleCloseDelete={handleCloseDeleteNotify}
+                
+                  />}
+              </Popup>
                 </div>
             </div>
             <hr className="mt-0" />
@@ -74,7 +90,7 @@ const NotifyModal = () => {
                                 <div className="m-left-8">
                                 <div className=" flex-fill font-12">
                                     <div >
-                                        <strong className="mr-1">{msg.user.fullName}</strong>
+                                        <strong className="mr-2">{msg.user.fullName}</strong>
                                         <span>{msg.text}</span>
                                     </div>
                                     {msg.content && <small>{msg.content.slice(0,20)}...</small>}

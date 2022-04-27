@@ -40,10 +40,21 @@ const Comments = ({post}) => {
             }
             
             {
+                comments.length > 0 ?
                 showComments.map((comment, index) => (
                     <CommentDisplay key={index} comment={comment} post={post}
                     replyCm={replyComments.filter(item => item.reply === comment._id)} />
                 ))
+                :
+            //     <div className='no-comment-container'>
+            //     <h6 className="text-center">There are no comments here yet.</h6>
+            // </div>
+            <div className='no-post-container'>
+    <div className="no-comment-image">
+      <img></img>
+   </div>
+    <h6 className="text-center">There are no comments here yet.</h6>
+</div>
             }
 
             

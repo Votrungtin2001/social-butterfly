@@ -3,11 +3,11 @@ import Avatar from '../../../../components/avatar'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux'
 import moment from 'moment'
+import { deletePost } from '../../../../redux/actions/postActions'
 import { GLOBALTYPES } from '../../../../redux/actions/globalTypes'
-import {deletePost} from '../../../../redux/actions/postActions'
 import Popup from 'reactjs-popup'
 import RemovePost from '../../../../components/remove-post'
-// import { BASE_URL } from '../../../utils/config'
+ import { BASE_URL } from '../../../../utils/config'
 
 const CardHeader = ({post}) => {
     const { auth, socket } = useSelector(state => state)
@@ -19,20 +19,21 @@ const CardHeader = ({post}) => {
     const handleEditPost = () => {
         dispatch({ type: GLOBALTYPES.STATUS, payload: {...post, onEdit: true}})
     }
+
     const handleCloseNotify = () => {
         setOpenNotify(false)
     }
 
     const handleDeletePost = () => {
-        setOpenNotify(true);
-        // if(window.confirm("Are you sure want to delete this post?")){
-        //     dispatch(deletePost({post, auth, socket}))
-        //     return history.push("/home")
-        // }
+         setOpenNotify(true);
+       
+            // dispatch(deletePost({post, auth, socket}))
+            // history.push("/home")
+        
     }
 
     const handleCopyLink = () => {
-        // navigator.clipboard.writeText(`${BASE_URL}/post/${post._id}`)
+        navigator.clipboard.writeText(`${BASE_URL}/home/post/${post._id}`)
     }
 
     return (
@@ -70,20 +71,24 @@ const CardHeader = ({post}) => {
                             <div className="dropdown-item" onClick={handleDeletePost} >
                                 <span className="material-icons">delete_outline</span> Remove Post
                             </div>
-                        </>
-                    }
-
-                    <div className="dropdown-item" onClick={handleCopyLink}>
-                        <span className="material-icons">content_copy</span> Copy Link
-                    </div>
-                </div>
-                <Popup open={openNotify} onClose={() => setOpenNotify(false)} nested modal closeOnDocumentClick={false}>
+                            <Popup open={openNotify} onClose={() => setOpenNotify(false)} nested modal closeOnDocumentClick={false}>
                 
                 {<RemovePost
                   handleCloseNotify={handleCloseNotify}
                 
                   />}
               </Popup>
+                            
+                        </>
+                    }
+                    
+                    
+
+                    <div className="dropdown-item" onClick={handleCopyLink}>
+                        <span className="material-icons">content_copy</span> Copy Link
+                    </div>
+                </div>
+                
             </div>
         </div>
     )

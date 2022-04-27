@@ -32,9 +32,9 @@ const Posts = () => {
                 ))
             }
 
-            {
+            {/* {
                 load && <img src={LoadIcon} alt="loading" className="d-block mx-auto" />
-            }
+            } */}
 
             
             <LoadMoreBtn result={homePosts.result} page={homePosts.page}
