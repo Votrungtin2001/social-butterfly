@@ -66,7 +66,12 @@ const Menu = () => {
                         <div class='notify-wrapper'>
                             {/* <img src={notifyIcon} alt="" class='notify-icon'/> */}
                             <span class="material-icons">notifications
-                            <small className="notify_length">{isNotReadCount}</small>
+                            {
+                               
+                                isNotReadCount < 10 ? <small className="notify_length">{isNotReadCount}</small>
+                                : <small className="notify_length">9+</small>
+                            }
+                            
                             </span>
                             <small >Notification</small>
                         </div>
