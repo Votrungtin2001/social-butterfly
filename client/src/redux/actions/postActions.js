@@ -201,6 +201,16 @@ export const deletePost = ({post, auth, socket}) => async (dispatch) => {
     try {
         const res = await deleteDataAPI(`post/deletePost/${post._id}`, auth.refreshToken)
 
+        toast.success("The post has been successfully deleted!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
         // Notify
         const msg = {
             id: post._id,
