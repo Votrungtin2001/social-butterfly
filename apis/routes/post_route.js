@@ -13,7 +13,7 @@ router.patch('/:id/unlike',  passport.authenticate('jwt', { session: false }),  
 router.get('/user_posts/:id',  passport.authenticate('jwt', { session: false }),  postController.getUserPosts)
 router.post('/getPost', passport.authenticate('jwt', { session: false }),  postController.getPost)
 router.get('/post_discover', passport.authenticate('jwt', { session: false }),  postController.getPostsDiscovery)
-router.delete('/:id', passport.authenticate('jwt', { session: false }),  postController.deletePost)
+router.delete('/deletePost/:id', passport.authenticate('jwt', { session: false }),  postController.deletePost)
 router.patch('/savePost/:id',  passport.authenticate('jwt', { session: false }),  postController.savePost)
 router.patch('/unSavePost/:id',  passport.authenticate('jwt', { session: false }),  postController.unSavePost)
 router.get('/getSavePosts', passport.authenticate('jwt', { session: false }), postController.getSavePosts)

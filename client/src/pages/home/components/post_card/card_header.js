@@ -74,7 +74,8 @@ const CardHeader = ({post}) => {
                             <Popup open={openNotify} onClose={() => setOpenNotify(false)} nested modal closeOnDocumentClick={false}>
                 
                 {<RemovePost
-                  handleCloseNotify={handleCloseNotify}
+                    post={post}
+                    handleCloseNotify={handleCloseNotify}
                 
                   />}
               </Popup>

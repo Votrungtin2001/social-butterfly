@@ -199,7 +199,7 @@ export const deletePost = ({post, auth, socket}) => async (dispatch) => {
     dispatch({ type: POST_TYPES.DELETE_POST, payload: post })
 
     try {
-        const res = await deleteDataAPI(`post/${post._id}`, auth.refreshToken)
+        const res = await deleteDataAPI(`post/deletePost/${post._id}`, auth.refreshToken)
 
         // Notify
         const msg = {
@@ -247,7 +247,7 @@ export const unSavePost = ({post, auth}) => async (dispatch) => {
     dispatch({ type: GLOBALTYPES.AUTH, payload: {...auth, user: newUser}})
 
     try {
-        await patchDataAPI(`unSavePost/${post._id}`, null, auth.refreshToken)
+        await patchDataAPI(`post/unSavePost/${post._id}`, null, auth.refreshToken)
     } catch (err) {
         toast.error(err, {
             position: "top-right",

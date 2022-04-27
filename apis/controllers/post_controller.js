@@ -173,6 +173,7 @@ const getPostsDiscovery = catchAsync(async (req, res) => {
 })
 
 const deletePost = catchAsync(async (req, res) => {
+    console.log('here')
     try {
         const post = await postService.deletePost(req.params.id,  req.user._id)
 

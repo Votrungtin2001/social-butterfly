@@ -13,7 +13,6 @@ const RemovePost = ({ post, handleCloseNotify}) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const handleRemove = () => {
-      
             dispatch(deletePost({post, auth, socket}))
             handleCloseNotify()
             history.push("/home")
