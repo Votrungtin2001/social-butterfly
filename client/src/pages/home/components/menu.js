@@ -7,6 +7,8 @@ import NotifyModal from '../../../components/notify-modal'
 import { logout } from '../../../redux/actions/authActions'
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
 import notifyIcon from '../../../assets/icons/notifications.svg'
+import {getPosts} from "../../../redux/actions/postActions"
+
 
 const Menu = () => {
     const navLinks = [
@@ -17,7 +19,8 @@ const Menu = () => {
 
     const [isNotReadCount, setIsNotReadCount] = useState(0)
 
-    const { auth, theme, notify } = useSelector(state => state)
+    const { auth, theme, notify, post } = useSelector(state => state)
+   
     const dispatch = useDispatch()
     const { pathname } = useLocation()
 
@@ -44,7 +47,7 @@ const Menu = () => {
                 {
                     navLinks.map((link, index) => (
                         <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
-                            <Link className="nav-link menu-icon" to={link.path}>
+                            <Link className="nav-link menu-icon" to={link.path} onClick= {() => dispatch(getPosts(auth.refreshToken)) }>
                                 <span class="material-icons">{link.icon}</span>
                                 <small class='icon-label'>{link.label}</small>
                             </Link>
@@ -56,20 +59,14 @@ const Menu = () => {
                 <li className="nav-item dropdown" style={{opacity: 1}} >
                     <span className="nav-link position-relative" id="navbarDropdown" 
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                        {/* <span className="material-icons" 
-                        style={{color: isNotReadCount > 0 ? 'crimson' : ''}}>
-                            favorite
-                        </span> */}
-
                         
                         <div class='notify-wrapper'>
-                            {/* <img src={notifyIcon} alt="" class='notify-icon'/> */}
-                            <span class="material-icons">notifications
+                            <span class="material-icons notify-icon">notifications
                             {
                                
-                                isNotReadCount < 10 ? <small className="notify_length">{isNotReadCount}</small>
-                                : <small className="notify_length">9+</small>
+                                isNotReadCount < 1 ? '' 
+                                : (isNotReadCount < 10 ? <small className="notify_length">{isNotReadCount}</small>
+                                 : <small className="notify_length">9+</small>)
                             }
                             
                             </span>
