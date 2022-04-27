@@ -43,17 +43,17 @@
 }
 
 .header .menu .notify_length{
-    width: 25px;
+    width: 20px;
     position: absolute;
     top: 30%;
-    left: 95%;
+    left: 90%;
     transform: translate(-50%, -50%);
     color: #fff;
     font-weight: bold;
     font-size: 10px;
     background-color: red;
     padding:3px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .container-menu-icon{

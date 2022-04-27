@@ -5,6 +5,7 @@ import { getPost } from '../../redux/actions/postActions'
 import LoadIcon from '../../assets/img/loading.gif'
 import PostCard from '../../pages/home/components/post_card'
 import { Fragment } from 'react/cjs/react.production.min';
+import Header from '../home/components/header'
 
 
 
@@ -26,6 +27,7 @@ const Post = () => {
 
     return (
         <Fragment>
+            <Header/>
         <div className="post-detail">
         <div className="posts ">
             {
