@@ -47,7 +47,7 @@ const UserCard = ({children, user, border, handleClose, setShowFollowers, setSho
             <div>
                 <Link  
                 className="result-search d-flex align-items-center"
-                to={`/home/profile/${user._id}`} 
+                to={`/profile/${user._id}`} 
                 onClick={handleCloseAll}
                 >
                     

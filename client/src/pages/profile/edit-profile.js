@@ -193,7 +193,7 @@ const EditProfile = () => {
       address.ward_Id=ward.value
     }
     dispatch(updateProfileUser({userData, avatar, address, auth}))
-    history.push(`/home/profile/${auth.user._id}`)
+    history.push(`/profile/${auth.user._id}`)
   }
 
   const changeAvatar = (e) => {

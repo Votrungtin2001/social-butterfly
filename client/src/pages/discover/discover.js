@@ -15,13 +15,13 @@ const Discover = () => {
 
     useEffect(() => {
         if(!discover.firstLoad){
-            dispatch(getDiscoverPosts(auth.token))
+            dispatch(getDiscoverPosts(auth.refreshToken))
         }
-    },[dispatch, auth.token, discover.firstLoad])
+    },[dispatch, auth.refreshToken, discover.firstLoad])
 
     const handleLoadMore = async () => {
         setLoad(true)
-        const res = await getDataAPI(`post_discover?num=${discover.page * 9}`, auth.token)
+        const res = await getDataAPI(`post/post_discover?num=${discover.page * 9}`, auth.refreshToken)
         dispatch({type: DISCOVER_TYPES.UPDATE_POST, payload: res.data})
         setLoad(false)
     }

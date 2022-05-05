@@ -120,8 +120,9 @@ const resetPassword = async (token, password) => {
 
 const updateUser = async (userData, address) => {
     const { _id, avatar, fullName, mobile, story, website, birthday, sex} = userData
+    const fullNameNotVietnamese = nonAccentVietnamese(fullName)
     const user = await User.findOneAndUpdate({_id: _id}, {
-        avatar, fullName, mobile, address, story, website, sex, birthday
+        avatar, fullName, mobile, address, story, website, sex, birthday, fullNameNotVietnamese
     }).select('-password').populate("followers following", "-password")
     const temp = user
     temp.password = ""

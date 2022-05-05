@@ -162,7 +162,7 @@ const getPostsDiscovery = catchAsync(async (req, res) => {
         ])
 
         console.log("Get post discovery finished")
-        console.log(posts)
+        console.log('Length post discovery: ' + posts.length)
         return res.status(httpStatus.OK).send({
             result: posts.length,
             posts})

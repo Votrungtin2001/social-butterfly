@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import UserCard from '../../../components/user-card'
 import { useSelector, useDispatch } from 'react-redux'
-import { getDataAPI } from '../../../utils/fetchData'
+import { getUsersBySearch } from '../../../utils/fetchData'
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
 import { useHistory, useParams } from 'react-router-dom'
 import { MESS_TYPES, getConversations } from '../../../redux/actions/messageActions'
@@ -26,7 +26,7 @@ const LeftSide = () => {
         if(!search) return setSearchUsers([]);
 
         try {
-            const res = await getDataAPI(`search?fullName=${search}`, auth.token)
+            const res = await getUsersBySearch(search, auth.refreshToken)
             setSearchUsers(res.data.users)
         } catch (err) {
             dispatch({
