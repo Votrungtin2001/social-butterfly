@@ -68,7 +68,7 @@ const Info = ({userID, auth, profile, dispatch}) => {
                             <h2>{user.fullName}</h2>
                             {
                                 user._id === auth.user._id
-                                ?  <Link  to={`/home/profile/${user._id}/edit-profile`}>
+                                ?  <Link  to={`/profile/${user._id}/edit-profile`}>
                                     <button className="edit-profile-btn">Edit Profile</button>
                                 </Link>
                                 

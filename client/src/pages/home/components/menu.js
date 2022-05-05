@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation,useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Avatar from '../../../components/avatar'
 import './header.css'
@@ -20,7 +20,8 @@ const Menu = () => {
     const [isNotReadCount, setIsNotReadCount] = useState(0)
 
     const { auth, theme, notify, post } = useSelector(state => state)
-   
+    const history = useHistory()
+
     const dispatch = useDispatch()
     const { pathname } = useLocation()
 
@@ -91,7 +92,7 @@ const Menu = () => {
                     </span>
 
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link className="dropdown-item" to={`home/profile/${auth.user._id}`}>Profile</Link>
+                    <Link className="dropdown-item" onClick={()=>{history.push(`/profile/${auth.user._id}`)}}>Profile</Link>
 
                     <label htmlFor="theme" className="dropdown-item"
                     onClick={() => dispatch({

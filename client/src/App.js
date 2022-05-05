@@ -12,10 +12,12 @@ import ConfirmEmail from "./pages/authentication/confirm-email";
 import EditProfile from "./pages/profile/edit-profile"
 import RemovePost from "./components/remove-post"
 import Post from './pages/post/post'
+import Message from './pages/chat/index'
 import { useSelector, useDispatch } from 'react-redux'
 import { checkLogin } from './redux/actions/authActions'
-
+import Discover from './pages/discover/discover'
 import Alert from './components/alert'
+import CallModal from './pages/chat/components/call-modal'
 import NotFound from "./components/NotFound";
 import io from 'socket.io-client'
 import { GLOBALTYPES } from './redux/actions/globalTypes'
@@ -79,11 +81,12 @@ function App() {
         <div className="main">
           {status && <StatusModal />}
           {auth.refreshToken && <SocketClient />}
-          {/*call && <CallModal />} */}
+          {call && <CallModal />}
           <Route exact path="/" component={Introduction} />
           <Route exact path="/sign-up" component={Register} />
           <Route exact path="/confirm" component={ConfirmEmail} />
           <Route exact path="/sign-in" component={Login} />
+          <Route exact path="/remove" component={RemovePost} />
           <Route exact path="/remove" component={RemovePost} />
 
           <Route exact path="/activate/:activation_token" component={ActivationEmail} />
@@ -92,11 +95,14 @@ function App() {
                 Home : Login}
            />
           </Switch>
+          
+          <Route exact path="/discover" component={Discover} />
+          <Route exact path="/message" component={Message} />
 
           <Route exact path="/reset" component={ChangePassword} />
           <Route exact path="/home/post/:id" component={Post} />
-          <Route exact path="/home/profile/:id" component={auth.accessToken ? Profile : Login} />
-          <Route exact path="/home/profile/:id/edit-profile" component={auth.accessToken ? EditProfile : Login} />
+          <Route exact path="/profile/:id" component={auth.accessToken ? Profile : Login} />
+          <Route exact path="/profile/:id/edit-profile" component={auth.accessToken ? EditProfile : Login} />
         </div>
       </div>
     </Router>
