@@ -27,7 +27,6 @@ const Post = () => {
 
     return (
         <Fragment>
-            <Header/>
         <div className="post-detail">
         <div className="posts ">
             {

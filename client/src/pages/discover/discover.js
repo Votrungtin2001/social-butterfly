@@ -28,7 +28,6 @@ const Discover = () => {
 
     return (
         <div>
-            <Header/>
         <div>
             {
                 discover.loading 

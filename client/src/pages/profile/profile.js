@@ -31,7 +31,7 @@ const Profile = () => {
     return (
         <div className="profile">
 
-           <Header/>
+           
            <Info auth={auth} profile={profile} dispatch={dispatch} userID={id} />
 
            { 

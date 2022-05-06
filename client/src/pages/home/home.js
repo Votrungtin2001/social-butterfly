@@ -28,7 +28,7 @@ const Home = () => {
 
     return(
         <div>
-            <Header/>
+            {/* <Header/> */}
             
             <div className="home row mx-0">
             <div className="col-md-8">

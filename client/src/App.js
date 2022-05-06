@@ -20,6 +20,7 @@ import Alert from './components/alert'
 import CallModal from './pages/chat/components/call-modal'
 import Conversation from './pages/chat/message'
 import NotFound from "./components/NotFound";
+import Header from './pages/home/components/header'
 import io from 'socket.io-client'
 import { GLOBALTYPES } from './redux/actions/globalTypes'
 import { getPosts } from './redux/actions/postActions'
@@ -80,6 +81,8 @@ function App() {
      <input type="checkbox" id="theme" /> 
       <div class={`App ${(status || modal) && 'mode'}`}>
         <div className="main">
+        {auth.refreshToken && <Header />}
+
           {status && <StatusModal />}
           {auth.refreshToken && <SocketClient />}
           {call && <CallModal />}
