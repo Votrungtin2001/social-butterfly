@@ -22,12 +22,12 @@ class APIfeatures {
 
 const createMessage = catchAsync(async (req, res) => {
     try {
-        const { sender, recipient, text, media, call } = req.body
+        const { sender, recipient, text, media, call } = req.body.msg
 
         if(!recipient || (!text.trim() && media.length === 0 && !call)) return;
 
         const newConversation = await conversationService.updateConversation(sender, recipient, text, media, call)
-
+        
         const newMessage = await messageService.createMessage(newConversation._id, sender, call, recipient, text, media)
        
         console.log("Add message finished")

@@ -38,6 +38,7 @@ export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
 
 export const getConversations = ({auth, page = 1}) => async (dispatch) => {
     try {
+        console.log(auth.refreshToken)
         const res = await getConversationsApi(page, auth.refreshToken)
         
         let newArr = [];
