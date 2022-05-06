@@ -18,6 +18,7 @@ import { checkLogin } from './redux/actions/authActions'
 import Discover from './pages/discover/discover'
 import Alert from './components/alert'
 import CallModal from './pages/chat/components/call-modal'
+import Conversation from './pages/chat/message'
 import NotFound from "./components/NotFound";
 import io from 'socket.io-client'
 import { GLOBALTYPES } from './redux/actions/globalTypes'
@@ -98,6 +99,8 @@ function App() {
           
           <Route exact path="/discover" component={Discover} />
           <Route exact path="/message" component={Message} />
+          <Route exact path="/message/:id" component={Conversation} />
+
 
           <Route exact path="/reset" component={ChangePassword} />
           <Route exact path="/home/post/:id" component={Post} />

@@ -15,7 +15,7 @@ const Header = () => {
         <div className="header bg-light">
             <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-between align-middle">
 
-                <Link  className="logo" onClick={ () => dispatch(getPosts(auth.refreshToken)) }>
+                <Link  className="logo" to='/' onClick={ () => dispatch(getPosts(auth.refreshToken)) }>
                 {/* {!post.loading &&
                     <i className="fas fa-redo" style={{cursor: 'pointer'}}
                      />

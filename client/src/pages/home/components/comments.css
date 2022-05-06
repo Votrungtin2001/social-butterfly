@@ -10,12 +10,14 @@
     flex: 1;
     overflow: auto;
     margin-left: 8px;
+    font-size: 13px;
 }
 .comment_input .postBtn{
     border: none;
     outline: none;
     background-color: transparent;
     text-align: right;
+    width: 290px;
 }
 .post-icon{
     width: 8%;
@@ -41,7 +43,7 @@
    
 }
 .comment_card .text-comment{
-    background:#eff5f5;
+    background:#d6d6d6;
     padding: 7px;
     border-radius: 10px;
     /* display: flex;
