@@ -5,9 +5,10 @@ import { getUsersBySearch } from '../../../utils/fetchData'
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
 import { useHistory, useParams } from 'react-router-dom'
 import { MESS_TYPES, getConversations } from '../../../redux/actions/messageActions'
+import moment from 'moment'
 
 
-const LeftSide = () => {
+const LeftSide = ({msg}) => {
     const { auth, message, online } = useSelector(state => state)
     const dispatch = useDispatch()
 
@@ -112,11 +113,14 @@ const LeftSide = () => {
                                     <UserCard user={user} msg={true}>
                                         {
                                             user.online
-                                            ? <i className="fas fa-circle text-success" />
+                                            ? <div>
+                                              
+            <i className="fas fa-circle text-success" />
+                                            </div>
                                             : auth.user.following.find(item => 
                                                 item._id === user._id
                                             ) && <i className="fas fa-circle" />
-                                                
+                                               
                                         }
                                         
                                     </UserCard>

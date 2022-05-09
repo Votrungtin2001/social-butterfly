@@ -124,7 +124,7 @@ const CommentCard = ({children, comment, post, commentId}) => {
                     }
                     
                         <small className="text-muted mr-3 font-12">
-                            {moment(comment.createdAt).fromNow()}
+                           {moment(comment.createdAt).fromNow()}
                         </small>
 
                         {

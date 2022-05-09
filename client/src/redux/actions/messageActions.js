@@ -128,6 +128,17 @@ export const deleteConversation = ({auth, id}) => async (dispatch) => {
     dispatch({type: MESS_TYPES.DELETE_CONVERSATION, payload: id})
     try {
         await deleteDataAPI(`conversations/${id}`, auth.refreshToken)
+
+        toast.success("The conversation has been successfully deleted!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
     } catch (err) {
         toast.error(err, {
             position: "top-right",

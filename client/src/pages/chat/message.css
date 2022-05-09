@@ -165,9 +165,9 @@
     color: #777;
 }
 .you_message .chat_text{
-    background: #0048AA;
+    background: #FFB6B9;
     color: white;
-    border: 1px solid #0048AA;
+    border: 1px solid #FFB6B9;
     border-radius: 14px 14px 0 14px;
 }
 .other_message .chat_text{

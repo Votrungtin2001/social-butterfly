@@ -19,7 +19,7 @@ import Discover from './pages/discover/discover'
 import Alert from './components/alert'
 import CallModal from './pages/chat/components/call-modal'
 import Conversation from './pages/chat/message'
-import NotFound from "./components/NotFound";
+import NotFound from "./components/not-found";
 import Header from './pages/home/components/header'
 import io from 'socket.io-client'
 import { GLOBALTYPES } from './redux/actions/globalTypes'
@@ -86,19 +86,18 @@ function App() {
           {status && <StatusModal />}
           {auth.refreshToken && <SocketClient />}
           {call && <CallModal />}
+          <Switch>
+
           <Route exact path="/" component={Introduction} />
           <Route exact path="/sign-up" component={Register} />
           <Route exact path="/confirm" component={ConfirmEmail} />
           <Route exact path="/sign-in" component={Login} />
           <Route exact path="/remove" component={RemovePost} />
-          <Route exact path="/remove" component={RemovePost} />
-
           <Route exact path="/activate/:activation_token" component={ActivationEmail} />
-          <Switch>
           <Route exact path="/home" component = {auth.accessToken ? 
                 Home : Login}
            />
-          </Switch>
+           
           
           <Route exact path="/discover" component={Discover} />
           <Route exact path="/message" component={Message} />
@@ -109,6 +108,10 @@ function App() {
           <Route exact path="/home/post/:id" component={Post} />
           <Route exact path="/profile/:id" component={auth.accessToken ? Profile : Login} />
           <Route exact path="/profile/:id/edit-profile" component={auth.accessToken ? EditProfile : Login} />
+          <Route exact path="*" component={NotFound} />
+          </Switch>
+
+          
         </div>
       </div>
     </Router>

@@ -4,7 +4,6 @@ import Avatar from '../../../components/avatar'
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
 import { addMessage } from '../../../redux/actions/messageActions'
 import RingRing from '../../../audio/audio_ringring.mp3'
-import './call-modal.css'
 
 const CallModal = () => {
     const { call, auth, peer, socket, theme } = useSelector(state => state)
@@ -190,8 +189,8 @@ const CallModal = () => {
 
                 <div className="text-center" style={{padding: '40px 0'}} >
                     <Avatar src={call.avatar} size="supper-avatar" />
-                    {/* <h4>{call.username}</h4> */}
-                    <h6>{call.fullName}</h6>
+                    <h4>{call.username}</h4>
+                    <h6>{call.fullname}</h6>
 
                     {
                         answer 

@@ -9,6 +9,8 @@ import { imageShow, videoShow } from '../../../utils/media_show'
 import { imageUpload } from '../../../utils/image_upload'
 import { addMessage, getMessages, loadMoreMessages, deleteConversation } from '../../../redux/actions/messageActions'
 import LoadIcon from '../../../assets/img/loading.gif'
+import DeleteConversation from './delete-conversation'
+import Popup from 'reactjs-popup'
 
 
 const RightSide = () => {
@@ -28,6 +30,8 @@ const RightSide = () => {
     const [result, setResult] = useState(9)
     const [page, setPage] = useState(0)
     const [isLoadMore, setIsLoadMore] = useState(0)
+
+    const [openDeleteConversation, setOpenDeleteConversation] = useState(false)
 
     const history = useHistory()
 
@@ -137,11 +141,15 @@ const RightSide = () => {
         // eslint-disable-next-line
     },[isLoadMore])
 
+    const handleCloseConversation = () => {
+        setOpenDeleteConversation(false)
+    }
     const handleDeleteConversation = () => {
-        if(window.confirm('Do you want to delete?')){
-            dispatch(deleteConversation({auth, id}))
-            return history.push('/message')
-        }
+        setOpenDeleteConversation(true)
+        // if(window.confirm('Do you want to delete?')){
+        //     dispatch(deleteConversation({auth, id}))
+        //     return history.push('/message')
+        // }
     }
 
     // Call
@@ -179,6 +187,7 @@ const RightSide = () => {
         caller({video: true})
         callUser({video: true})
     }
+    
 
     return (
         <>
@@ -195,8 +204,15 @@ const RightSide = () => {
 
                             <i className="fas fa-trash text-danger"
                             onClick={handleDeleteConversation} />
+                            <Popup open={openDeleteConversation} onClose={() => setOpenDeleteConversation(false)} nested modal closeOnDocumentClick={false}>
+                
+                {<DeleteConversation
+                 handleCloseDelete={handleCloseConversation}
+                  />}
+              </Popup>
                         </div>
                     </UserCard>
+                    
                 }
             </div>
 
@@ -265,7 +281,7 @@ const RightSide = () => {
                 <Icons setContent={setText} content={text} theme={theme} />
 
                 <div className="file_upload">
-                    <i className="fas fa-image text-danger" />
+                    <i className="fas fa-image " />
                     <input type="file" name="file" id="file"
                     multiple accept="image/*,video/*" onChange={handleChangeMedia} />
                 </div>
