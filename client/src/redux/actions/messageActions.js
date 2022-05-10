@@ -16,13 +16,14 @@ export const MESS_TYPES = {
 
 
 export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
-    dispatch({type: MESS_TYPES.ADD_MESSAGE, payload: msg})
-
     const { _id, avatar, fullName, email } = auth.user
     socket.emit('addMessage', {...msg, user: { _id, avatar, fullName, email } })
     
     try {
         const res = await addMessageApi(msg, auth.refreshToken)
+        dispatch({type: MESS_TYPES.ADD_MESSAGE, payload: res.data.newMessage})
+        
+
     } catch (err) {
         toast.error(err, {
             position: "top-right",
@@ -127,7 +128,8 @@ export const deleteMessages = ({msg, data, auth}) => async (dispatch) => {
 export const deleteConversation = ({auth, id}) => async (dispatch) => {
     dispatch({type: MESS_TYPES.DELETE_CONVERSATION, payload: id})
     try {
-        await deleteDataAPI(`conversations/${id}`, auth.refreshToken)
+        console.log('here')
+        await deleteDataAPI(`message/conversations/${id}`, auth.refreshToken)
 
         toast.success("The conversation has been successfully deleted!", {
             position: "top-right",

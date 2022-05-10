@@ -154,23 +154,23 @@ const RightSide = () => {
 
     // Call
     const caller = ({video}) => {
-        const { _id, avatar, username, fullname } = user
+        const { _id, avatar, username, fullName } = user
 
         const msg = {
             sender: auth.user._id,
             recipient: _id, 
-            avatar, username, fullname, video
+            avatar, username, fullName, video
         }
         dispatch({ type: GLOBALTYPES.CALL, payload: msg })
     }
 
     const callUser = ({video}) => {
-        const { _id, avatar, username, fullname } = auth.user
+        const { _id, avatar, username, fullName } = auth.user
 
         const msg = {
             sender: _id,
             recipient: user._id, 
-            avatar, username, fullname, video
+            avatar, username, fullName, video
         }
 
         if(peer.open) msg.peerId = peer._id

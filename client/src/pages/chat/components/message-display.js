@@ -8,8 +8,6 @@ import moment from 'moment'
 import Popup from 'reactjs-popup'
 import Times from './times'
 
-import { formatRelative } from 'date-fns/esm';
-
 
 const MsgDisplay = ({user, msg, theme, data,comment}) => {
     const { auth } = useSelector(state => state)

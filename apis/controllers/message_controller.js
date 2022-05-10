@@ -32,7 +32,8 @@ const createMessage = catchAsync(async (req, res) => {
        
         console.log("Add message finished")
         console.log(newMessage)
-        return res.status(httpStatus.OK).send({msg: 'Create Success!'})
+        return res.status(httpStatus.OK).send({
+            newMessage: newMessage})
 
     } catch (err) {
         return res.status(500).json({msg: err.message})
@@ -47,7 +48,7 @@ const getConversations = catchAsync(async (req, res) => {
         }), req.query).paginating()
 
         const conversations = await features.query.sort('-updatedAt')
-        .populate('recipients', 'avatar username fullname')
+        .populate('recipients', 'avatar username fullName')
 
         console.log("Get conversations finished")
         return res.status(httpStatus.OK).send({conversations,
@@ -93,9 +94,10 @@ const deleteMessage = catchAsync(async (req, res) => {
 const deleteConversation = catchAsync(async (req, res) => {
     try {
         const conversation = await conversationService.deleteConversation(req.user._id, req.params.id)
-        console.log("Delete message finished")
+        console.log("Delete conversation finished")
         return res.status(httpStatus.OK).send({msg: 'Delete Success!'})
     } catch (err) {
+        console.log(err)
         return res.status(500).json({msg: err.message})
     }
 })

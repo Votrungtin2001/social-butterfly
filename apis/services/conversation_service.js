@@ -1,7 +1,6 @@
 const httpStatus = require('http-status')
 const { Conversation } = require('../models/conversation_model')
 const {Message} = require('../models/message_model')
-const { postService } = require('../services')
 
 
 const updateConversation = async (sender, recipient, text, media, call) => {
@@ -19,15 +18,15 @@ const updateConversation = async (sender, recipient, text, media, call) => {
 }
 
 const deleteConversation = async (userID, paramID) => {
-    const conversation = await Conversation.findOneAndDelete({
+    const newConversation = await Conversation.findOneAndDelete({
         $or: [
             {recipients: [userID, paramID]},
             {recipients: [paramID, userID]}
         ]
     })
-    await Message.deleteMany({conversation: newConver._id})
+    await Message.deleteMany({conversation: newConversation._id})
 
-    return conversation
+    return newConversation
 }
 
 module.exports = {
