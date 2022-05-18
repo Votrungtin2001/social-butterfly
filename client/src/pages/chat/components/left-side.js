@@ -73,7 +73,6 @@ const LeftSide = ({msg}) => {
         }
     },[message.resultUsers, page, auth, dispatch])
     
-
     // Check User Online - Offline
     useEffect(() => {
         if(message.firstLoad) {
@@ -85,7 +84,7 @@ const LeftSide = ({msg}) => {
         <>
             <form className="message_header" onSubmit={handleSearch} >
                 <input type="text" value={search}
-                placeholder="Enter to Search..."
+                placeholder="Enter to search..."
                 onChange={e => setSearch(e.target.value)} />
 
                 <button type="submit" style={{display: 'none'}}>Search</button>
@@ -111,15 +110,16 @@ const LeftSide = ({msg}) => {
                                 <div key={user._id} className={`message_user ${isActive(user)}`}
                                 onClick={() => handleAddUser(user)}>
                                     <UserCard user={user} msg={true}>
+                                     
                                         {
                                             user.online
-                                            ? <div>
-                                              
-            <i className="fas fa-circle text-success" />
-                                            </div>
+                                            ? 
+                                               <i className="fas fa-circle text-success" />
                                             : auth.user.following.find(item => 
                                                 item._id === user._id
-                                            ) && <i className="fas fa-circle" />
+                                            ) && <>
+                                            
+                                          <i className="fas fa-circle" /></>
                                                
                                         }
                                         

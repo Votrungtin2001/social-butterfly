@@ -28,6 +28,8 @@ import { getSuggestions } from './redux/actions/suggestionsActions'
 import { getNotifies } from './redux/actions/notifyActions'
 import StatusModal from './pages/home/components/status_modal'
 import SocketClient from './SocketClient'
+import { Peer } from 'peerjs'
+
 
 function App() {
     const { auth, status, modal, call, notify } = useSelector(state => state)
@@ -65,13 +67,13 @@ function App() {
     [])
   
    
-    // useEffect(() => {
-    //   const newPeer = new Peer(undefined, {
-    //     path: '/', secure: true
-    //   })
+    useEffect(() => {
+      const newPeer = new Peer(undefined, {
+        path: '/', secure: true
+      })
       
-    //   dispatch({ type: GLOBALTYPES.PEER, payload: newPeer })
-    // },[dispatch])
+      dispatch({ type: GLOBALTYPES.PEER, payload: newPeer })
+    },[dispatch])
   
 
 
@@ -81,7 +83,7 @@ function App() {
      <input type="checkbox" id="theme" /> 
       <div class={`App ${(status || modal) && 'mode'}`}>
         <div className="main">
-        {auth.refreshToken && <Header />}
+          {auth.refreshToken && <Header />}
 
           {status && <StatusModal />}
           {auth.refreshToken && <SocketClient />}

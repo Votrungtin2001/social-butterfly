@@ -13,7 +13,7 @@
 .call_box{
     width: 100%;
     max-width: 400px;
-    background: darkblue;
+    background: #BBDED6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +21,7 @@
     color: white;
     padding: 50px 0;
     border-radius: 5px;
-    box-shadow: 0 0 5px darkblue;
+    box-shadow: 0 0 5px #BBDED6;
 }
 .call_box h4, .call_box h6{
     margin-top: 5px;

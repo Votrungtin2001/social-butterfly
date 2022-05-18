@@ -4,6 +4,7 @@ import Avatar from '../../../components/avatar'
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
 import { addMessage } from '../../../redux/actions/messageActions'
 import RingRing from '../../../audio/audio_ringring.mp3'
+import './call-modal.css'
 
 const CallModal = () => {
     const { call, auth, peer, socket, theme } = useSelector(state => state)
@@ -204,8 +205,8 @@ const CallModal = () => {
                         : <div>
                             {
                                 call.video
-                                ? <span>calling video...</span>
-                                : <span>calling audio...</span>
+                                ? <span>Calling Video</span>
+                                : <span>Calling Audio</span>
                             }
                         </div>
                     }

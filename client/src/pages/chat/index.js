@@ -16,8 +16,7 @@ const Message = () => {
 
                     <div className='chat-image'> <img></img>
                 </div>
-
-                    <h4>Chat here... </h4>
+                    <h6>Send photos and private messages to friends or groups.</h6>
 
                 </div>
             </div>

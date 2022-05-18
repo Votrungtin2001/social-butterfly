@@ -7,13 +7,15 @@ import Icons from '../../../pages/home/components/icons'
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
 import { imageShow, videoShow } from '../../../utils/media_show'
 import { imageUpload } from '../../../utils/image_upload'
-import { addMessage, getMessages, loadMoreMessages, deleteConversation } from '../../../redux/actions/messageActions'
+import { addMessage, getMessages, loadMoreMessages } from '../../../redux/actions/messageActions'
 import LoadIcon from '../../../assets/img/loading.gif'
 import DeleteConversation from './delete-conversation'
 import Popup from 'reactjs-popup'
+import image from "../../../assets/icons/image.png";
+import moment from 'moment'
+import Avatar from '../../../components/avatar'
 
-
-const RightSide = () => {
+const RightSide = ({msg}) => {
     const { auth, message, theme, socket, peer } = useSelector(state => state)
     const dispatch = useDispatch()
 
@@ -32,8 +34,6 @@ const RightSide = () => {
     const [isLoadMore, setIsLoadMore] = useState(0)
 
     const [openDeleteConversation, setOpenDeleteConversation] = useState(false)
-
-    const history = useHistory()
 
     useEffect(() => {
         const newData = message.data.find(item => item._id === id)
@@ -146,10 +146,6 @@ const RightSide = () => {
     }
     const handleDeleteConversation = () => {
         setOpenDeleteConversation(true)
-        // if(window.confirm('Do you want to delete?')){
-        //     dispatch(deleteConversation({auth, id}))
-        //     return history.push('/message')
-        // }
     }
 
     // Call
@@ -188,7 +184,45 @@ const RightSide = () => {
         callUser({video: true})
     }
     
+    function Calculate ( a , b )  {
+          
+        var now1 = moment(new Date()); //todays date
+        var duration1 = moment.duration(now1.diff(a));
+        var asMinutes1 = duration1.asMinutes()
 
+        var now2 = moment(new Date()); //todays date
+        var duration2 = moment.duration(now2.diff(b));
+        var asMinutes2 = duration2.asMinutes()
+        
+        return asMinutes1 - asMinutes2;
+
+      }
+      
+      function calculateTimeAgoSinceDate(end) {
+        var now = moment(new Date()); //todays date
+       // var end = moment(msg.createdAt); // another date
+        var duration = moment.duration(now.diff((end)));
+        var days = duration.asDays();
+
+        if(days > 7) return moment((end)).format('DD-MM-YYYY'); 
+        else if(days >= 2 && days <= 7) return moment((end)).format('kk:mm, MMM DD');
+        else if(days > 1 && days < 2)  return moment(end).format('kk:mm A') + ' Yesterday';
+   
+        else return moment((end)).format('kk:mm A');
+  
+      }
+      function calculateTimeAgoSinceDate1(end) {
+        var now = moment(new Date()); //todays date
+        var duration = moment.duration(now.diff(end));
+        var days = duration.asDays();
+
+        if(days > 7) return moment(end).format('DD-MM-YYYY'); 
+        else if(days >= 2 && days <= 7) return moment(end).format('MMM DD');
+        else if(days > 1 && days < 2) return 'Yesterday';
+   
+        else return moment(end).format('kk:mm A');
+  
+      }
     return (
         <>
             <div className="message_header" style={{cursor: 'pointer'}} >
@@ -215,10 +249,12 @@ const RightSide = () => {
                     
                 }
             </div>
-
+           
             <div className="chat_container" 
-            style={{height: media.length > 0 ? 'calc(100% - 180px)' : ''}} >
+                style={{height: media.length > 0 ? 'calc(100% - 180px)' : ''}} >
+                
                 <div className="chat_display" ref={refDisplay}>
+                    
                     <button style={{marginTop: '-25px', opacity: 0}} ref={pageEnd}>
                         Load more
                     </button>
@@ -226,19 +262,42 @@ const RightSide = () => {
                     {
                         data.map((msg, index) => (
                                 <div key={index}>
+                                     {Calculate(msg.createdAt[index-1], msg.createdAt[index]) > 60 ? 
+                                        <div className='text-center'> 
+                                             {calculateTimeAgoSinceDate(moment(msg.createdAt))}
+                                        </div> : ''
+                                        }
                                     {
-                                        msg.sender !== auth.user._id &&
+                                    msg.sender !== auth.user._id &&
+                                    <div>
+                                       
+                                        {  msg.sender[index] === msg.sender[index+1] &&
+                                            <div className="chat_title">
+                                                <Avatar src={user.avatar} size="small-avatar" />
+                                                <span className='m-left-8'>{user.fullName}</span>
+                                            </div>
+                                        }      
                                         <div className="chat_row other_message">
                                             <MsgDisplay user={user} msg={msg} theme={theme} />
+                                            <div className="chat_time m-left-12">
+                                                 {calculateTimeAgoSinceDate1(moment(msg.createdAt))}
+                                            </div>
                                         </div>
+                                     </div>
                                     }
 
                                     {
-                                        msg.sender === auth.user._id &&
+
+                                    msg.sender === auth.user._id &&
                                         <div className="chat_row you_message">
+                                             <div className="chat_time m-right-12">
+                                                 {calculateTimeAgoSinceDate1(moment(msg.createdAt))}
+                                              </div>
                                             <MsgDisplay user={auth.user} msg={msg} theme={theme} data={data} />
                                         </div>
                                     }
+                                    
+                                    
                                 </div>
                         ))
                     }
@@ -270,7 +329,7 @@ const RightSide = () => {
             </div>
 
             <form className="chat_input" onSubmit={handleSubmit} >
-                <input type="text" placeholder="Enter you message..."
+                <input type="text" placeholder="Got something to say?"
                 value={text} onChange={e => setText(e.target.value)}
                 style={{
                     filter: theme ? 'invert(1)' : 'invert(0)',
@@ -281,8 +340,8 @@ const RightSide = () => {
                 <Icons setContent={setText} content={text} theme={theme} />
 
                 <div className="file_upload">
-                    <i className="fas fa-image " />
-                    <input type="file" name="file" id="file"
+                <img src={image} />
+                                    <input type="file" name="file" id="file"
                     multiple accept="image/*,video/*" onChange={handleChangeMedia} />
                 </div>
 
