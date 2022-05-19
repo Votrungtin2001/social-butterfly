@@ -30,6 +30,15 @@ import StatusModal from './pages/home/components/status_modal'
 import SocketClient from './SocketClient'
 import { Peer } from 'peerjs'
 
+import '../src/App.css';
+import 'antd/dist/antd.css';
+import { Layout } from 'antd';
+import AppWorld from './pages/covid_news/covid_news';
+import VietNam from './pages/covid_news/vietnam';
+import Vaccine from './pages/covid_news/vaccine';
+import AppNews from './pages/covid_news/news';
+import AppHeader from './pages/covid_news/components/layout/header';
+import AppFooter from './pages/covid_news/components/layout/footer';
 
 function App() {
     const { auth, status, modal, call, notify } = useSelector(state => state)
@@ -101,15 +110,32 @@ function App() {
            />
            
           
-          <Route exact path="/discover" component={Discover} />
-          <Route exact path="/message" component={Message} />
-          <Route exact path="/message/:id" component={Conversation} />
+          <Route exact path="/discover" component={auth.accessToken ? 
+                Discover : Login} />
+          <Route exact path="/message" component={auth.accessToken ? 
+                Message : Login} />
+          <Route exact path="/message/:id" component={auth.accessToken ? 
+                Conversation : Login} />
 
 
           <Route exact path="/reset" component={ChangePassword} />
-          <Route exact path="/home/post/:id" component={Post} />
+          <Route exact path="/home/post/:id" component={auth.accessToken ? 
+                Post : Login} />
           <Route exact path="/profile/:id" component={auth.accessToken ? Profile : Login} />
           <Route exact path="/profile/:id/edit-profile" component={auth.accessToken ? EditProfile : Login} />
+          
+          <Route exact path="/covid-news/world" component={auth.accessToken ? 
+                AppWorld : Login} />
+
+          <Route exact path="/covid-news/vietnam" component={auth.accessToken ? 
+                VietNam : Login} />
+          
+          <Route exact path="/covid-news/vaccine" component={auth.accessToken ? 
+                Vaccine : Login} />
+
+          <Route exact path="/covid-news/news" component={auth.accessToken ? 
+                AppNews : Login} />
+          
           <Route exact path="*" component={NotFound} />
           </Switch>
 
