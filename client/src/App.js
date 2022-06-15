@@ -118,7 +118,7 @@ function App() {
                 Conversation : Login} />
 
 
-          <Route exact path="/reset" component={ChangePassword} />
+          <Route exact path="/reset/:reset_token" component={ChangePassword} />
           <Route exact path="/home/post/:id" component={auth.accessToken ? 
                 Post : Login} />
           <Route exact path="/profile/:id" component={auth.accessToken ? Profile : Login} />

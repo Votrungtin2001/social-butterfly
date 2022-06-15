@@ -6,7 +6,7 @@
     left: 0;
     z-index: 2;
     box-shadow: 0 0 10px #ddd;
-    background: #c4c4c4 ;
+    background: #c4c4c4;
     border: 1px solid rgb(0, 0, 0, .125);
     padding: 0px 100px 0px 100px;
     
@@ -240,4 +240,14 @@
 
 .m-left-24{
     margin-left: 24px;
+}
+
+.menu-covid{
+    height: 40px;
+    margin-left: 30px;    
+    align-items: center;
+}
+.m-right-16{
+    margin-right: 24px;
+
 }

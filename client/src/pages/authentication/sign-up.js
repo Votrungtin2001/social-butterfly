@@ -514,7 +514,7 @@ const handleCloseConfirm = () => {
          
        </div>
 
-           <div className="weight-400 block m-top-10">
+           <div className="weight-400 block-sign-in m-top-10">
                  <div className="flex1">
                   <input
                   type="checkbox"

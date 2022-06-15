@@ -336,7 +336,7 @@ const Img = styled.img`
 									<small className="text-danger">Password can not be blank</small>
 								</span>}
 
-           <span className="weight-400 block m-top-10">
+           <span className="weight-400 block-sign-up m-top-10">
              <div className="remember-container">
                   <input
                   type="checkbox"

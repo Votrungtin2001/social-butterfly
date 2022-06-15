@@ -95,11 +95,12 @@ animation: easyoutelastic 8s infinite;
     transform: rotateX(0);
    }
   }
-  
+/*   
   h1{
     text-align: center;
     margin: 30px 15px;
-   }
+   } */
+   
    .zoom-area{
     max-width: 490px;
     margin: 60px auto 30px;
